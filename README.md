@@ -1,2 +1,3 @@
 # dotfiles
-My personal dotfiles and configs
+
+This repository contains my dotfiles, which configure my development environment.
