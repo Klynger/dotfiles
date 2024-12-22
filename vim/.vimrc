@@ -24,8 +24,6 @@ set sidescrolloff=8 " Amount of columns to the left/right of cursor
 set relativenumber " Use relative line numbers
 set numberwidth=4 " Number of column width
 set shiftwidth=4 " Spaces per indentation
-set tabstop=4 " Spaces per tab
-set softtabstop=4 " Spaces per tab during editing ops
 set expandtab " Convert tabs to spaces
 set nocursorline " Don't highlight the current line
 set splitbelow " Horizontal splits below current window
@@ -42,6 +40,13 @@ set autoindent " Auto-indent new lines
 " set shortmess+=c " Don't show completion menu message
 " set iskeyword+=- " Treat hephenated words as whole words
 set showmatch " Show the matching part of pairs [] {}  and ()
+
+" ===============================
+" Tabs
+" ===============================
+set tabstop=4 " Spaces per tab
+set softtabstop=4 " Spaces per tab during editing ops
+inoremap <S-Tab> <C-d>
 
 "================================
 " Search
@@ -93,13 +98,15 @@ nnoremap <C-q> :q<CR>
 " have to press x three times
 nnoremap <expr> x v:count == 0 ? '"_x' : '"_d'.v:count.'1'
 
+" Prevents from yanking empty lines when deleting them
+nnoremap dd :if getline('.') =~ '^\s*$' \| execute 'normal! "_dd' \| else \| execute 'normal! dd' \| endif<CR>
+
 " Resize with arrows
 
 nnoremap <Up> :resize -1<CR>
 nnoremap <Down> :resize +1<CR>
 nnoremap <Left> :vertial resize -1<CR>
 nnoremap <Right> :vertial resize +1<CR>
-
  
 " Navigate between splits
 nnoremap <C-k> :wincmd k<CR>
@@ -120,9 +127,6 @@ nnoremap <leader>lw :set wrap!<CR>
 noremap <leader>y "+y
 noremap <leader>Y "+Y
 
-" Open file explorer
-noremap <silent> <leader>e :Lex<CR>
-
 noremap <S-CR> o 
 
 " =================================
@@ -131,9 +135,6 @@ noremap <S-CR> o
 
 " Syntax highlighting
 syntax on
-
-
-
 
 " Colorscheme
 " Coloschema industry
@@ -169,15 +170,38 @@ if exists('$TERM')
     let &t_SR = "\e[1 q"
 endif
 
+" ================================
 " Netrw
+" ================================
+
+" Open file explorer
+ function! ToggleNetrw()
+    if exists("t:netrw_buf") && bufexists(t:netrw_buf)
+        " Close Netrw if it's already opened
+        exec 'bdelete ' . t:netrw_buf
+    else
+        " Open Netrw in the directory of the current file
+        Lexplore %:p:h
+        let t:netrw_buf = bufnr('%')
+    endif
+endfunction
+
+noremap <silent> <leader>e :call ToggleNetrw()<CR>
+
+" Disables the banner at the top of the Netrw window
 let g:netrw_banner = 0
+" Set the listing style (3 = Tree view)
 let g:netrw_liststyle = 3
+ " Open files in a new tab
 let g:netrw_browse_split = 4
+" Adjust vertical split behavior (1 = Open on the right-hand size)
 let g:netrw_altv = 1
+" Set window size
 let g:netrw_winsize = 25
 
 " Use 'l' instead of <CR> to open files
 augroup newtrw_setup | au!
     au FileType netrw nmap <buffer> l <CR>
+    au FileType netrw nmap <buffer> h - " Go up one directory with 'h'
 augroup END
 
