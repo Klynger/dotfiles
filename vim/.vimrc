@@ -95,10 +95,10 @@ nnoremap <expr> x v:count == 0 ? '"_x' : '"_d'.v:count.'1'
 
 " Resize with arrows
 
-" nnoremap <Up> :resize -2<CR>
-" nnoremap <S-Tab> :bprevious<CR>
-" nnoremap <Left> :vertial resize -2<CR>
-" nnoremap <Right> :vertial resize +2<CR>
+nnoremap <Up> :resize -1<CR>
+nnoremap <Down> :resize +1<CR>
+nnoremap <Left> :vertial resize -1<CR>
+nnoremap <Right> :vertial resize +1<CR>
 
  
 " Navigate between splits
@@ -168,4 +168,16 @@ if exists('$TERM')
     " Replace mode: Slim vertical line cursor
     let &t_SR = "\e[1 q"
 endif
+
+" Netrw
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" Use 'l' instead of <CR> to open files
+augroup newtrw_setup | au!
+    au FileType netrw nmap <buffer> l <CR>
+augroup END
 
