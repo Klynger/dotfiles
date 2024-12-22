@@ -1,0 +1,147 @@
+
+{
+  "workbench.iconTheme": "vscode-icons",
+  "editor.tabCompletion": "on",
+  "editor.acceptSuggestionOnEnter": "on",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "vsicons.dontShowNewVersionMessage": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[rust]": {
+    "editor.inlayHints.enabled": "off"
+  },
+  "editor.tabSize": 2,
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "git.autofetch": true,
+  "editor.inlineSuggest.enabled": true,
+  "sync.gist": "1fadcc9439a3d0280e7319764d9cf492",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vscode-edge-devtools.mirrorEdits": true,
+  "cSpell.userWords": [
+    "adsbygoogle",
+    "Autoplay",
+    "borderless",
+    "capterra",
+    "clsx",
+    "Combobox",
+    "consts",
+    "DASHERIZE",
+    "DECAMELIZE",
+    "demibold",
+    "eqeqeq",
+    "firestore",
+    "Flatfile",
+    "fulltext",
+    "gapi",
+    "geocode",
+    "getcircuit",
+    "grecaptcha",
+    "groq",
+    "gstatic",
+    "gtag",
+    "headlessui",
+    "heroicons",
+    "Hrefs",
+    "navs",
+    "nofollow",
+    "noindex",
+    "noopener",
+    "noreferrer",
+    "nums",
+    "oembed",
+    "preconnect",
+    "prefetch",
+    "Prismic",
+    "prismicio",
+    "reactjs",
+    "rects",
+    "schemaorg",
+    "scripty",
+    "Slicezone",
+    "Subnav",
+    "Uids",
+    "uuidv",
+    "Zipcode"
+  ],
+  "svelte.enable-ts-plugin": true,
+  "svelte.plugin.svelte.defaultScriptLanguage": "ts",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "githubPullRequests.commentExpandState": "collapseAll",
+  "githubPullRequests.pullBranch": "never",
+  "merge-conflict.autoNavigateNextConflict.enabled": true,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "redhat.telemetry.enabled": true,
+  "errorLens.excludeBySource": ["eslint(@typescript-eslint/no-extra-semi)"],
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "rust": false
+  },
+  "editor.stickyScroll.enabled": false,
+  "editor.suggest.showReferences": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "workbench.colorTheme": "GitHub Dark",
+  "workbench.editor.enablePreview": false,
+  "diffEditor.codeLens": true,
+  "editor.codeLens": true,
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "editor.lineNumbers": "relative",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "vim.cursorStylePerMode.insert": "underline"
+}

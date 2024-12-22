@@ -1,0 +1,30 @@
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "shift+alt+cmd+left",
+    "command": "-cursorColumnSelectLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+alt+cmd+left",
+    "command": "workbench.action.moveEditorLeftInGroup"
+  },
+  {
+    "key": "cmd+k shift+cmd+left",
+    "command": "-workbench.action.moveEditorLeftInGroup"
+  },
+  {
+    "key": "shift+alt+cmd+right",
+    "command": "-cursorColumnSelectRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "shift+alt+cmd+right",
+    "command": "workbench.action.moveEditorRightInGroup"
+  },
+  {
+    "key": "cmd+k shift+cmd+right",
+    "command": "-workbench.action.moveEditorRightInGroup"
+  }
+  
+]
