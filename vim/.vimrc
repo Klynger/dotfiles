@@ -41,6 +41,10 @@ set autoindent " Auto-indent new lines
 " set iskeyword+=- " Treat hephenated words as whole words
 set showmatch " Show the matching part of pairs [] {}  and ()
 
+" Attempt to fix the problem where vim just hangs when we open a TS file
+" Check https://vi.stackexchange.com/a/28721
+set re=2
+
 " ===============================
 " Tabs
 " ===============================
