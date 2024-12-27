@@ -105,6 +105,11 @@ nnoremap <expr> x v:count == 0 ? '"_x' : '"_d'.v:count.'1'
 " Prevents from yanking empty lines when deleting them
 nnoremap dd :if getline('.') =~ '^\s*$' \| execute 'normal! "_dd' \| else \| execute 'normal! dd' \| endif<CR>
 
+" Stay in visual mode with selection while indenting text
+" TODO: Debug this
+vnoremap < <gv
+vnoremap > >gv
+
 " Resize with arrows
 
 nnoremap <Up> :resize -1<CR>
