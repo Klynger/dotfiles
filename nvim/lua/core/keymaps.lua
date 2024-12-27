@@ -45,10 +45,10 @@ vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
 -- Resize with arrows
-vim.keymap.set('n', '<Up>', ':resize -1<CR>', opts)
-vim.keymap.set('n', '<Down>', ':resize +2<CR>', opts)
-vim.keymap.set('n', '<Left>', ':vertical resize -1<CR>', opts)
-vim.keymap.set('n', '<Right>', ':vertical resize +1<CR>', opts)
+vim.keymap.set('n', '<Up>', ':resize +1<CR>', opts)
+vim.keymap.set('n', '<Down>', ':resize -1<CR>', opts)
+vim.keymap.set('n', '<Left>', ':vertical resize +1<CR>', opts)
+vim.keymap.set('n', '<Right>', ':vertical resize -1<CR>', opts)
 
 -- Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
@@ -71,3 +71,62 @@ vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', opts)
 vim.keymap.set('n', '<C-j>', ':wincmd j<CR>', opts)
 vim.keymap.set('n', '<C-h>', ':wincmd h<CR>', opts)
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', opts)
+
+-- Tabs
+vim.keymap.set('n', '<leader>to', ':tabnew<CR>', opts) -- open new tab
+vim.keymap.set('n', '<leader>tx', ':tabclose<CR>', opts) -- close current tab
+vim.keymap.set('n', '<leader>tn', ':tabn<CR>', opts) -- go to next tab
+vim.keymap.set('n', '<leader>tp', ':tabp<CR>', opts) -- go to previous tab
+
+-- Toggle line wrapping
+vim.keymap.set('n', '<leader>lw', '<cmd> set wrap!<CR>', opts)
+
+
+-- Stay in indent mode
+vim.keymap.set('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
+vim.keymap.set('n', '<', '<<', opts)
+vim.keymap.set('n', '>', '>>', opts)
+
+-- Move text up and down
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", opts)
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", opts)
+
+-- Same things, but in normal mode for moving just one line
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', opts)
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', opts)
+
+-- Keep last yanked when pasting
+vim.keymap.set('v', 'p', '"_dP', opts)
+
+-- Replace word under cursor
+vim.keymap.set('n', '<leader>j', '*``cgn', opts)
+
+-- Explicitly yank to system clipboard (highlighted and entire row)
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
+
+local diagnostics_active = true
+
+vim.keymap.set('n', '<leader>do', function()
+    diagnostics_active = not diagnostics_active
+
+    if diagnostics_active then
+        vim.diagnostic.enable(0)
+        vim.notify("Diagnostics enabled", vim.log.levels.INFO)
+    else
+        vim.diagnostic.disable(0)
+        vim.notify("Diagnostics disabled", vim.log.levels.WARN)
+    end
+end, opts)
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- Save and load session
+vim.keymap.set('n', '<leader>ss', ':mksession! .session.vim<CR>', opts)
+vim.keymap.set('n', '<leader>sl', ':source .session.vim<CR>', opts)
+

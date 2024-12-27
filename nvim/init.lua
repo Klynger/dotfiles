@@ -12,29 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim"
-        }
-    },
-    {
-        'shaunsingh/nord.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.g.nord_contrast = true
-            vim.g.nord_borders = false
-            vim.g.nord_disable_background = false
-            vim.g.nord_italic = false
-            vim.g.nord_uniform_diff_background = true
-            vim.g.nord_bold = false
-
-            -- Explicitly set the colorscheme
-            vim.cmd('colorscheme nord')
-        end
-    },
+    require 'plugins.neo-tree',
+    require 'plugins.colortheme',
 })
