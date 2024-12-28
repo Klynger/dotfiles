@@ -20,9 +20,6 @@ vim.o.scrolloff = 3 -- Minimal number of screen lines to keep above and below th
 vim.o.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false`
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.numberwidth = 4 -- Set number column width to 4
-vim.o.shiftwidth = 4 -- The number of spaces inserted for each indentation (default: 8)
-vim.o.tabstop = 4 -- Insert n spaces for a tab (default: 8)
-vim.o.softtabstop = 4 -- Number of spaces that a tab counts for while performing editing operations
 vim.o.expandtab = true -- Convert tabs into spaces
 vim.o.cursorline = false -- Heighlight the current line
 vim.o.splitbelow = true -- Force all horizontal splits to go below current window
@@ -37,6 +34,13 @@ vim.o.conceallevel = 0 -- So that `` is visible in markdown files
 vim.o.fileencoding = 'utf-8' -- The encoding written to a file
 vim.o.cmdheight = 1 -- More space in the neovim command line for displaying messages
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
+
+
+-- Tabs
+local tab_size = 4
+vim.o.shiftwidth = tab_size -- The number of spaces inserted for each indentation (default: 8)
+vim.o.tabstop = tab_size -- Insert n spaces for a tab (default: 8)
+vim.o.softtabstop = tab_size -- Number of spaces that a tab counts for while performing editing operations
 -- vim.opt.shortmess:append 'c' -- Don-t give |ins-completion-menu| messages (show menu while typing)
 -- vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches
 vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- separate vim plugins from neovim in case vim still in use
