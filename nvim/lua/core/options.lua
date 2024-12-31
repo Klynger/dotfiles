@@ -4,8 +4,8 @@ vim.o.mouse = 'a' -- Enable mouse mode (default: '')
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim. (default: '')
 vim.o.breakindent = true -- Enable break indent
 vim.o.undofile = true -- Save undo history
-vim.ignorecase = true -- Case-isensitive searching UNLESS \C or capital in search (default: false)
 vim.o.smartcase = true -- Smart case (default: false)
+vim.ignorecase = true -- Case-isensitive searching UNLESS \C or capital in search (default: false)
 vim.wo.signcolumn = 'yes' -- Visual markers on the left side (icons, symbols, indicators...)
 vim.o.updatetime = 250 -- Time to wait before triggering certain updates after stop typing (LSP diagnostics, linters, etc)
 vim.o.timeoutlen = 300 -- Time to wait for a mapped sequence to complete (in ms)
@@ -35,17 +35,18 @@ vim.o.fileencoding = 'utf-8' -- The encoding written to a file
 vim.o.cmdheight = 1 -- More space in the neovim command line for displaying messages
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
 
-
 -- Tabs
-local tab_size = 4
+local tab_size = 2
 vim.o.shiftwidth = tab_size -- The number of spaces inserted for each indentation (default: 8)
 vim.o.tabstop = tab_size -- Insert n spaces for a tab (default: 8)
 vim.o.softtabstop = tab_size -- Number of spaces that a tab counts for while performing editing operations
 -- vim.opt.shortmess:append 'c' -- Don-t give |ins-completion-menu| messages (show menu while typing)
 -- vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches
-vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- separate vim plugins from neovim in case vim still in use
+vim.opt.runtimepath:remove('/usr/share/vim/vimfiles') -- separate vim plugins from neovim in case vim still in use
 
-vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
-vim.api.nvim_create_autocmd("FileType", {
-    callback = function() vim.opt_local.formatoptions:remove { 'c', 'r', 'o' } end,
+vim.opt.formatoptions:remove({ 'c', 'r', 'o' }) -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function()
+    vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
+  end,
 })

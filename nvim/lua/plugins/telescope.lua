@@ -11,7 +11,7 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make',
       cond = function()
-        return vim.fn.executable 'make' == 1
+        return vim.fn.executable('make') == 1
       end,
     },
     'nvim-telescope/telescope-ui-select.nvim',
@@ -20,17 +20,17 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   config = function()
-    local telescope = require 'telescope'
-    local actions = require 'telescope.actions'
-    local builtin = require 'telescope.builtin'
+    local telescope = require('telescope')
+    local actions = require('telescope.actions')
+    local builtin = require('telescope.builtin')
 
-    require('telescope').setup {
+    require('telescope').setup({
       defaults = {
         mappings = {
           i = {
             ['<C-k>'] = actions.move_selection_previous, -- move to prev result
-            ['<C-j>'] = actions.move_selection_next,     -- move to next result
-            ['<C-l>'] = actions.select_default,          -- open file
+            ['<C-j>'] = actions.move_selection_next, -- move to next result
+            ['<C-l>'] = actions.select_default, -- open file
           },
           n = {
             ['q'] = actions.close,
@@ -73,7 +73,7 @@ return {
       git_files = {
         previewer = false,
       },
-    }
+    })
 
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
@@ -95,22 +95,22 @@ return {
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]resume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader>sds', function()
-      builtin.lsp_document_symbols {
+      builtin.lsp_document_symbols({
         symbols = { 'Class', 'Function', 'Method', 'Constructor', 'Interface', 'Module', 'Property' },
-      }
+      })
     end, { desc = '[S]each LSP document [S]ymbols' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>s/', function()
-      builtin.live_grep {
+      builtin.live_grep({
         grep_open_files = true,
         prompt_title = 'Live Grep in Open Files',
-      }
+      })
     end, { desc = '[S]earch [/] in Open Files' })
     vim.keymap.set('n', '<leader>/', function()
       -- You can pass additional configuration to telescope to change theme, layout, etc.
-      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
         previewer = false,
-      })
+      }))
     end, { desc = '[/] Fuzzily search in current buffer' })
   end,
 }

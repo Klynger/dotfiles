@@ -3,7 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Disable the spacebar key's default behavior in Normal and Visual modes
-vim.keymap.set({ 'n', 'v'}, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- For conciseness
 local opts = { noremap = true, silent = true }
@@ -29,11 +29,11 @@ vim.keymap.set('n', 'x', '"_x', opts)
 
 -- Delete empty line without copying into register
 vim.keymap.set('n', 'dd', function()
-    if vim.fn.getline('.'):match('^%s*$') then
-        vim.cmd('normal! "_dd')
-    else
-        vim.cmd('normal! dd')
-    end
+  if vim.fn.getline('.'):match('^%s*$') then
+    vim.cmd('normal! "_dd')
+  else
+    vim.cmd('normal! dd')
+  end
 end, opts)
 
 -- Vertical scroll and center
@@ -53,18 +53,17 @@ vim.keymap.set('n', '<Right>', ':vertical resize -1<CR>', opts)
 -- Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
-vim.keymap.set('n', '<leader>x', ':bdelete!<CR>', opts)   -- close buffer
+vim.keymap.set('n', '<leader>x', ':bdelete!<CR>', opts) -- close buffer
 vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
 
 -- Increment/decrement numbers
 vim.keymap.set('n', '<leader>+', '<C-a>', opts) -- increment
 vim.keymap.set('n', '<leader>-', '<C-x>', opts) -- decrement
 
-vim.keymap.set('n', '<leader>v', '<C-w>v', opts)      -- split window vertically
-vim.keymap.set('n', '<leader>h', '<C-w>s', opts)      -- split window horizontally
-vim.keymap.set('n', '<leader>se', '<C-w>=', opts)     -- make split windows euqal width & height
+vim.keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
+vim.keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
+vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows euqal width & height
 vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
-
 
 -- Navigate between splits
 vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', opts)
@@ -80,7 +79,6 @@ vim.keymap.set('n', '<leader>tp', ':tabp<CR>', opts) -- go to previous tab
 
 -- Toggle line wrapping
 vim.keymap.set('n', '<leader>lw', '<cmd> set wrap!<CR>', opts)
-
 
 -- Stay in indent mode
 vim.keymap.set('v', '<', '<gv', opts)
@@ -109,15 +107,15 @@ vim.keymap.set('n', '<leader>Y', [["+Y]])
 local diagnostics_active = true
 
 vim.keymap.set('n', '<leader>do', function()
-    diagnostics_active = not diagnostics_active
+  diagnostics_active = not diagnostics_active
 
-    if diagnostics_active then
-        vim.diagnostic.enable(0)
-        vim.notify("Diagnostics enabled", vim.log.levels.INFO)
-    else
-        vim.diagnostic.disable(0)
-        vim.notify("Diagnostics disabled", vim.log.levels.WARN)
-    end
+  if diagnostics_active then
+    vim.diagnostic.enable(0)
+    vim.notify('Diagnostics enabled', vim.log.levels.INFO)
+  else
+    vim.diagnostic.disable(0)
+    vim.notify('Diagnostics disabled', vim.log.levels.WARN)
+  end
 end, opts)
 
 -- Diagnostic keymaps
@@ -128,26 +126,25 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Define session directory
 local session_dir = vim.fn.stdpath('config') .. '/sessions'
- 
+
 if vim.fn.isdirectory(session_dir) == 0 then
-    vim.fn.mkdir(session_dir, 'p')
+  vim.fn.mkdir(session_dir, 'p')
 end
 
 -- Save session
 vim.keymap.set('n', '<leader>ss', function()
-    local session_file = session_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. '.vim'
-    vim.cmd('mksession! ' .. session_file)
+  local session_file = session_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. '.vim'
+  vim.cmd('mksession! ' .. session_file)
 
-    print('Session saved to: ' .. session_file)
+  print('Session saved to: ' .. session_file)
 end, opts)
 
 -- Load session
-vim.keymap.set('n', '<leader>sl', function() 
-    local session_file = session_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. '.vim'
-    if vim.fn.filereadable(session_file) == 1 then
-       vim.cmd('source ' .. session_file)
-    else
-        print('No session file found for this directory. Trying to find a session in ' .. session_file)
-    end
+vim.keymap.set('n', '<leader>sl', function()
+  local session_file = session_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. '.vim'
+  if vim.fn.filereadable(session_file) == 1 then
+    vim.cmd('source ' .. session_file)
+  else
+    print('No session file found for this directory. Trying to find a session in ' .. session_file)
+  end
 end, opts)
-
