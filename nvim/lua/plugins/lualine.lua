@@ -37,7 +37,7 @@ return {
     }
 
     -- Import color theme based on environment variable NVIM_THEME
-    local env_var_nvim_theme = os.getenv('NVIM_THEME') or 'nord'
+    local env_var_nvim_theme = os.getenv 'NVIM_THEME' or 'nord'
 
     -- Define a table of themes
     local themes = {
@@ -81,7 +81,7 @@ return {
       cond = hide_in_width,
     }
 
-    require('lualine').setup({
+    require('lualine').setup {
       options = {
         icons_enabled = true,
         theme = themes[env_var_nvim_theme], -- Set theme based on environment variable
@@ -116,6 +116,6 @@ return {
       },
       tabline = {},
       extensions = { 'fugitive' },
-    })
+    }
   end,
 }

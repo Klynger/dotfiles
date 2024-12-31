@@ -6,15 +6,12 @@ return {
     {
       '<leader>f',
       function()
-        require('conform').format({ async = true, lsp_format = 'fallback' })
+        require('conform').format { async = true, lsp_format = 'fallback' }
       end,
       mode = '',
       desc = '[F]ormat buffer',
     },
   },
-  config = function()
-
-  end,
   opts = {
     notify_on_error = true,
     notify_on_formatters = true,
@@ -33,18 +30,6 @@ return {
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
-    },
-    formatters = {
-      stylua = {
-        prepend_args = {
-          '--indent-type',
-          'Spaces',
-          '--indent-width',
-          '2',
-          '--quote-style',
-          'AutoPreferSingle',
-        },
-      },
     },
   },
 }
