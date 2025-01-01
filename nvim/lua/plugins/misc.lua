@@ -1,6 +1,19 @@
 return {
   {
-    -- Hints keybinds
+    -- Tmux Navigator
+    'christoomey/vim-tmux-navigator',
+  },
+  {
+    -- Detect tabstop and shiftwidth  automatically
+    'tpope/vim-sleuth',
+  },
+  {
+    -- Powerful Git integration for Vim
+    -- TODO: Check if this is working
+    'tpope/vim-rhubarb',
+  },
+  {
+    -- Keybinding hints
     'folke/which-key.nvim',
   },
   {
@@ -23,5 +36,21 @@ return {
     config = function()
       require('colorizer').setup()
     end,
+  },
+  {
+    -- Emmet-like abbreviation expansion
+    'mattn/emmet-vim',
+    config = function()
+      vim.g.user_emmet_install_global = 0
+      vim.cmd [[
+        autocmd FileType html,css,javascript,javascriptreact,typescriptreact EmmetInstall
+      ]]
+    end,
+  },
+  -- Auto-close and rename html/jsx/tsx tags
+  {
+    'windwp/nvim-ts-autotag',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {},
   }
 }

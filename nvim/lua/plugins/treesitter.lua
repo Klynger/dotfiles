@@ -56,6 +56,16 @@ return {
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', vim.api.nvim_get_hl(0, { name = 'CursorLineNr' }))
     end,
   },
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    lazy = false,
+    config = function()
+      vim.g.skip_ts_context_commentstring_module = true
+      require('ts_context_commentstring').setup({
+        enable_autocmd = false,
+      })
+    end
+  },
   -- Not treesitter, but highlighting
   'RRethy/vim-illuminate',
 }

@@ -37,6 +37,11 @@ return {
       },
     },
   },
+  filesystem = {
+    follow_current_file = true, -- automatially focus the current file in the tree
+    hijack_netrw_behavior = 'open_current', -- open in the current file's directory
+    use_libuv_file_watcher = true, -- enable faster file watching
+  },
   config = function()
     -- If you want icons for diagnostic errors, you'll need to define them somewhere:
     vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
