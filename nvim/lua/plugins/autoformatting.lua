@@ -19,9 +19,10 @@ return {
     formatters_by_ft = {
       lua = { 'stylua' },
       sh = { 'shfmt' },
-      typescript = { 'prettier' },
-      javascript = { 'pretiter' },
-      typescriptreact = { 'prettier' },
+      typescript = { 'eslint_d', 'prettier' },
+      javascript = { 'eslint_d', 'pretiter' },
+      javascriptreact = { 'eslint_d', 'prettier' },
+      typescriptreact = { 'eslint_d', 'prettier' },
       html = { 'prettier' },
       css = { 'prettier' },
       json = { 'prettier' },
@@ -30,6 +31,13 @@ return {
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+    },
+    formatters = {
+      eslint_d = {
+        command = 'eslint_d',
+        args = { '--fix', '--stdin', '--stdin-filename', '$FILENAME' },
+        stdin = true,
+      },
     },
   },
 }

@@ -25,6 +25,11 @@ return {
       },
     },
     { 'hrsh7th/cmp-nvim-lsp' },
+    {
+      'pmizio/typescript-tools.nvim',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      opts = {},
+    },
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
@@ -118,6 +123,7 @@ return {
 
     --Enable the following language servers
     local servers = {
+      eslint = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -143,10 +149,25 @@ return {
       },
     }
 
+    require('typescript-tools').setup {
+      on_attach = function(client, bufnr)
+        local map = function(keys, func, desc)
+          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
+        end
+
+        local typescript_tools_api = require 'typescript-tools.api'
+
+        map('<leader>oi', typescript_tools_api.organize_imports, '[O]rganize [I]mports')
+        map('<leader>rf', typescript_tools_api.rename_file, '[R]ename [F]ile')
+        map('<leader>ai', typescript_tools_api.add_missing_imports, '[A]dd [I]mports')
+        map('<leader>ru', typescript_tools_api.remove_unused, '[R]emove [U]nused')
+      end,
+    }
+
     -- Ensure the server and tools are installed
     require('mason').setup()
 
-    -- You can add otehr tools here that you want Mason to install
+    -- You can add other tools here that you want Mason to install
     -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
