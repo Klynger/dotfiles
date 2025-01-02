@@ -28,7 +28,13 @@ return {
     {
       'pmizio/typescript-tools.nvim',
       dependencies = { 'nvim-lua/plenary.nvim' },
-      opts = {},
+      opts = {
+        settings = {
+          separate_diagnostic_server = true,
+          publish_diagnostic_on = 'insert_leave',
+          expose_as_code_action = 'all',
+        },
+      },
     },
   },
   config = function()
@@ -71,6 +77,8 @@ return {
         -- Rename the variable under your cursors.
         -- Most Language Servers support renaming across files, etc.
         map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+
+        map('K', vim.lsp.buf.hover, '[LSP] Show Hover Declaration')
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         -- For example, in C this would take you to the header.
