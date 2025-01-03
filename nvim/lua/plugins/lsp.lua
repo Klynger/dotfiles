@@ -78,6 +78,7 @@ return {
         -- Most Language Servers support renaming across files, etc.
         map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
+        -- TODO: Close it when we press Esc
         map('K', vim.lsp.buf.hover, '[LSP] Show Hover Declaration')
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.

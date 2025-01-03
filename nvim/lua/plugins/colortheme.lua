@@ -1,27 +1,32 @@
 return {
-  'shaunsingh/nord.nvim',
+  'svrana/neosolarized.nvim',
   lazy = false,
   priority = 1000,
   config = function()
-    vim.g.nord_contrast = true
-    vim.g.nord_borders = false
-    vim.g.nord_disable_background = true
-    vim.g.nord_italic = false
-    vim.g.nord_uniform_diff_background = true
-    vim.g.nord_bold = false
+    require('neosolarized').setup {
+      comment_italics = true,
+      background_set = false,
+    }
 
-    -- Load the colorscheme
-    require('nord').set()
-
-    -- Toggle background transparency
-    local bg_transparent = true
-
-    local toggle_transparency = function()
-      bg_transparent = not bg_transparent
-      vim.g.nord_disable_background = bg_transparent
-      vim.cmd [[colorscheme nord]]
+    local function reload_colorscheme()
+      require('neosolarized').setup {
+        comment_italics = true,
+        background_set = false,
+      }
+      vim.cmd.colorscheme 'neosolarized'
     end
 
-    vim.keymap.set('n', '<leader>bg', toggle_transparency, { noremap = true, silent = true })
+    reload_colorscheme()
+
+    vim.api.nvim_create_autocmd('SessionLoadPost', {
+      callback = function()
+        reload_colorscheme()
+        print 'Colorscheme reapplied after session load!'
+      end,
+      desc = 'Reapply Neosolarized colorscheme after session load',
+    })
   end,
+  dependencies = {
+    'tjdevries/colorbuddy.nvim',
+  },
 }

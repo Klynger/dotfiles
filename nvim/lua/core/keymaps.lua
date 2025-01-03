@@ -131,20 +131,3 @@ if vim.fn.isdirectory(session_dir) == 0 then
   vim.fn.mkdir(session_dir, 'p')
 end
 
--- Save session
-vim.keymap.set('n', '<leader>ss', function()
-  local session_file = session_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. '.vim'
-  vim.cmd('mksession! ' .. session_file)
-
-  print('Session saved to: ' .. session_file)
-end, opts)
-
--- Load session
-vim.keymap.set('n', '<leader>sl', function()
-  local session_file = session_dir .. '/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. '.vim'
-  if vim.fn.filereadable(session_file) == 1 then
-    vim.cmd('source ' .. session_file)
-  else
-    print('No session file found for this directory. Trying to find a session in ' .. session_file)
-  end
-end, opts)
