@@ -4,6 +4,7 @@ return {
     'moll/vim-bbye',
     'nvim-tree/nvim-web-devicons',
   },
+  after = 'catppuccin',
   config = function()
     -- vim.opt.linespace = 8
 
@@ -27,20 +28,20 @@ return {
         max_name_length = 30,
         max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
         tab_size = 21,
-        diagnostics = false,
+        diagnostics = 'lsp',
         diagnostics_update_in_insert = false,
         color_icons = true,
         show_buffer_icons = true,
         show_buffer_close_icons = true,
         show_close_icon = true,
         persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-        separator_style = { '│', '│' }, -- | "thick" | "thin" | { 'any', 'any' },
         enforce_regular_tabs = true,
         always_show_bufferline = true,
-        show_tab_indicators = false,
+        show_tab_indicators = true,
+        style_preset = require('bufferline').style_preset.default,
         indicator = {
           -- icon = '▎', -- this should be omitted if indicator style is not 'icon'
-          style = 'none', -- Options: 'icon', 'underline', 'none'
+          style = 'underline', -- Options: 'icon', 'underline', 'none'
         },
         icon_pinned = '󰐃',
         minimum_padding = 1,
@@ -48,26 +49,13 @@ return {
         maximum_length = 15,
         sort_by = 'insert_at_end',
       },
-      highlights = {
-        separator = {
-          fg = '#434C5E',
-        },
-        buffer_selected = {
-          bold = true,
-          italic = false,
-        },
-        -- separator_selected = {},
-        -- tab_selected = {},
-        -- background = {},
-        -- indicator_selected = {},
-        -- fill = {},
-      },
+      highlights = require('catppuccin.groups.integrations.bufferline').get(),
     }
 
     -- Keymaps
     local opts = { noremap = true, silent = true, desc = 'Go to Buffer' }
-    vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", {})
-    vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", {})
+    vim.keymap.set('n', '<Tab>', '<Cmd>BufferLineCycleNext<CR>', {})
+    vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>', {})
     vim.keymap.set('n', '<leader>1', "<cmd>lua require('bufferline').go_to_buffer(1)<CR>", opts)
     vim.keymap.set('n', '<leader>2', "<cmd>lua require('bufferline').go_to_buffer(2)<CR>", opts)
     vim.keymap.set('n', '<leader>3', "<cmd>lua require('bufferline').go_to_buffer(3)<CR>", opts)
