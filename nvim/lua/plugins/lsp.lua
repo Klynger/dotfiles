@@ -59,7 +59,7 @@ return {
 
         -- Jump to the implementation of the word under your cursors.
         -- Useful when your language has ways of declaring types without an actual implementation.
-        map('gI', telescope.lsp_implementations, 'Type [I]mplementation')
+        map('gI', vim.lsp.buf.implementation, 'Type [I]mplementation')
 
         -- Jump to the type of the word under your cursor.
         -- Useful when you're not sure what type a variable is and you want to see
