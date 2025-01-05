@@ -133,6 +133,28 @@ return {
     --Enable the following language servers
     local servers = {
       eslint = {},
+      tailwindcss = {
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = {
+                'tw`([^`]*)',
+                'tw="([^"]*)',
+                'tw={"([^"}]*)',
+                'tw\\.\\w+`([^`]*)',
+                'tw\\(.*?\\)`([^`]*)',
+              },
+            },
+          },
+        },
+        filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css' },
+        root_dir = require('lspconfig').util.root_pattern(
+          'tailwind.config.js',
+          'tailwind.config.ts',
+          'postcss.config.js',
+          'node_modules'
+        ),
+      },
       lua_ls = {
         settings = {
           Lua = {
@@ -181,6 +203,7 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
+      'tailwindcss',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
