@@ -27,7 +27,7 @@ return {
       end,
       keys = {
         { '<leader>w', ':Neotree toggle float<CR>', silent = true, desc = 'Float File Explorer' },
-        { '<leader>e', ':Neotree toggle position=left<CR>', silent = true, desc = 'Left File Explorer' },
+        { '<leader>e', ':Neotree toggle reveal position=left<CR>', silent = true, desc = 'Left File Explorer' },
         {
           '<leader>ngs',
           ':Neotree float git_status<CR>',
@@ -38,7 +38,11 @@ return {
     },
   },
   filesystem = {
-    follow_current_file = true, -- automatially focus the current file in the tree
+    follow_current_file = {
+      -- This will find and focus the file in the active buffer every time
+      -- the current file is changed while the tree is open.
+      enabled = true,
+    },
     hijack_netrw_behavior = 'open_current', -- open in the current file's directory
     use_libuv_file_watcher = true, -- enable faster file watching
   },
