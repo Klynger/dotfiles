@@ -9,7 +9,6 @@ return {
   },
   {
     -- Powerful Git integration for Vim
-    -- TODO: Check if this is working
     'tpope/vim-rhubarb',
   },
   {

@@ -107,6 +107,14 @@ return {
             fallback()
           end
         end, { 'i', 's' }),
+        -- Close menu with <Esc> without leaving Insert Mode
+        --[[ ['<Esc>'] = cmp.mapping(function(fallback) ]]
+        --[[   if cmp.visible() then ]]
+        --[[     cmp.abort() -- close the menu without leaving Insert Mode ]]
+        --[[   else ]]
+        --[[     fallback() -- Fallback to default <Esc> behavior ]]
+        --[[   end ]]
+        --[[ end, { 'i' }), ]]
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
