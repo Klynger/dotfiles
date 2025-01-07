@@ -44,9 +44,3 @@ vim.o.softtabstop = tab_size -- Number of spaces that a tab counts for while per
 -- vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches
 vim.opt.runtimepath:remove('/usr/share/vim/vimfiles') -- separate vim plugins from neovim in case vim still in use
 
-vim.opt.formatoptions:remove({ 'c', 'r', 'o' }) -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
-  end,
-})
