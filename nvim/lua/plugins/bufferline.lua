@@ -65,5 +65,10 @@ return {
     vim.keymap.set('n', '<leader>7', "<cmd>lua require('bufferline').go_to_buffer(7)<CR>", opts)
     vim.keymap.set('n', '<leader>8', "<cmd>lua require('bufferline').go_to_buffer(8)<CR>", opts)
     vim.keymap.set('n', '<leader>9', "<cmd>lua require('bufferline').go_to_buffer(9)<CR>", opts)
+
+    vim.keymap.set('n', '<leader>q', function()
+      local buf = vim.api.nvim_get_current_buf()
+      vim.cmd('Bdelete! ' .. buf)
+    end, { noremap = true, silent = true, desc = 'Close Current Buffer' })
   end,
 }
