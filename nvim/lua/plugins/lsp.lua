@@ -148,13 +148,16 @@ return {
           },
         },
         filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css' },
-        root_dir = require('lspconfig').util.root_pattern(
-          'tailwind.config.js',
-          'tailwind.config.cjs',
-          'tailwind.config.ts',
-          'postcss.config.js',
-          'node_modules'
-        ),
+        --[[ root_dir = require('lspconfig').util.root_pattern( ]]
+        --[[   'tailwind.config.js', ]]
+        --[[   'tailwind.config.cjs', ]]
+        --[[   'tailwind.config.ts', ]]
+        --[[   'postcss.config.js', ]]
+        --[[   'node_modules' ]]
+        --[[ ), ]]
+        root_dir = function()
+          return vim.fn.getcwd() -- Use the current working directory as root
+        end,
       },
       lua_ls = {
         settings = {

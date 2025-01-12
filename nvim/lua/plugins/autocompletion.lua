@@ -124,7 +124,7 @@ return {
         --[[     fallback() -- Fallback to default <Esc> behavior ]]
         --[[   end ]]
         --[[ end, { 'i' }), ]]
-        ['<CR>'] = cmp.mapping.confirm { select = true },
+        -- ['<CR>'] = cmp.mapping.confirm { select = true },
       },
       sources = {
         {
