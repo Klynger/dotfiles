@@ -78,6 +78,9 @@ return {
         -- Most Language Servers support renaming across files, etc.
         map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
+        -- Show suggestions on normal mode when there is a problem
+        map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+
         -- TODO: Close it when we press Esc
         map('K', vim.lsp.buf.hover, '[LSP] Show Hover Declaration')
 
