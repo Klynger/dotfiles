@@ -29,10 +29,10 @@ vim.keymap.set('n', 'x', '"_x', opts)
 
 -- Delete empty line without copying into register
 vim.keymap.set('n', 'dd', function()
-  if vim.fn.getline('.'):match('^%s*$') then
-    vim.cmd('normal! "_dd')
+  if vim.fn.getline('.'):match '^%s*$' then
+    vim.cmd 'normal! "_dd'
   else
-    vim.cmd('normal! dd')
+    vim.cmd 'normal! dd'
   end
 end, opts)
 
@@ -104,6 +104,9 @@ vim.keymap.set('n', '<leader>j', '*``cgn', opts)
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
 
+-- Yank the whole file
+vim.keymap.set('n', 'yg', ':%y<CR>', opts)
+
 local diagnostics_active = true
 
 vim.keymap.set('n', '<leader>do', function()
@@ -124,9 +127,8 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- Define session directory
-local session_dir = vim.fn.stdpath('config') .. '/sessions'
+local session_dir = vim.fn.stdpath 'config' .. '/sessions'
 
 if vim.fn.isdirectory(session_dir) == 0 then
   vim.fn.mkdir(session_dir, 'p')
 end
-
