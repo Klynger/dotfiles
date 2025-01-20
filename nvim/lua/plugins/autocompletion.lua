@@ -27,6 +27,9 @@ return {
     -- Adds other completion capabilities.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
+    'roobert/tailwindcss-colorizer-cmp.nvim',
+    --[[ 'zbirenbaum/copilot.lua', ]]
+    --[[ 'zbirenbaum/copilot-cmp', ]]
   },
   config = function()
     -- See `:help cmp`
@@ -60,6 +63,11 @@ return {
       Event = '',
       Operator = '󰆕',
       TypeParameter = '󰊄',
+    }
+
+    -- Add tailwindcss-colorizer-cmp as a formatting source
+    require('tailwindcss-colorizer-cmp').setup {
+      color_square_width = 2,
     }
 
     cmp.setup {
@@ -146,6 +154,8 @@ return {
             buffer = '[Buffer]',
             path = '[Path]',
           })[entry.source.name]
+
+          vim_item = require('tailwindcss-colorizer-cmp').formatter(entry, vim_item)
 
           return vim_item
         end,

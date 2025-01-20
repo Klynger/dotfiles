@@ -132,3 +132,6 @@ local session_dir = vim.fn.stdpath 'config' .. '/sessions'
 if vim.fn.isdirectory(session_dir) == 0 then
   vim.fn.mkdir(session_dir, 'p')
 end
+
+-- Execute lua file
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', opts)
