@@ -12,6 +12,9 @@ return {
     'tpope/vim-rhubarb',
   },
   {
+    'tpope/vim-fugitive',
+  },
+  {
     -- Keybinding hints
     'folke/which-key.nvim',
   },

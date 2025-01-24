@@ -27,6 +27,7 @@ return {
     -- Adds other completion capabilities.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
     'roobert/tailwindcss-colorizer-cmp.nvim',
     --[[ 'zbirenbaum/copilot.lua', ]]
     --[[ 'zbirenbaum/copilot-cmp', ]]
@@ -106,33 +107,6 @@ return {
             luasnip.jump(-1)
           end
         end, { 'i', 's' }),
-        --[[ ['<Tab>'] = cmp.mapping(function(fallback) ]]
-        --[[   if cmp.visible() then ]]
-        --[[     cmp.select_next_item() ]]
-        --[[   elseif luasnip.expand_or_locally_jumpable() then ]]
-        --[[     luasnip.expand_or_jump() ]]
-        --[[   else ]]
-        --[[     fallback() ]]
-        --[[   end ]]
-        --[[ end, { 'i', 's' }), ]]
-        --[[ ['<S-Tab>'] = cmp.mapping(function(fallback) ]]
-        --[[   if cmp.visible() then ]]
-        --[[     cmp.select_prev_item() ]]
-        --[[   elseif luasnip.locally_jumpable(-1) then ]]
-        --[[     luasnip.jump(-1) ]]
-        --[[   else ]]
-        --[[     fallback() ]]
-        --[[   end ]]
-        --[[ end, { 'i', 's' }), ]]
-        -- Close menu with <Esc> without leaving Insert Mode
-        --[[ ['<Esc>'] = cmp.mapping(function(fallback) ]]
-        --[[   if cmp.visible() then ]]
-        --[[     cmp.abort() -- close the menu without leaving Insert Mode ]]
-        --[[   else ]]
-        --[[     fallback() -- Fallback to default <Esc> behavior ]]
-        --[[   end ]]
-        --[[ end, { 'i' }), ]]
-        -- ['<CR>'] = cmp.mapping.confirm { select = true },
       },
       sources = {
         {
@@ -161,5 +135,29 @@ return {
         end,
       },
     }
+
+    -- Commandline autocomplete
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }, -- Enables path autocompletion in command mode
+      }, {
+        { name = 'cmdline' }, -- Enables command-line autocompletion
+      }),
+    })
+
+    cmp.setup.cmdline('/', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }, -- Enables searching in the current buffer
+      },
+    })
+
+    cmp.setup.cmdline('?', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }, -- Enables searching in the current buffer
+      },
+    })
   end,
 }
