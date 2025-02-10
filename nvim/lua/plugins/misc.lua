@@ -39,16 +39,6 @@ return {
       require('colorizer').setup()
     end,
   },
-  {
-    -- Emmet-like abbreviation expansion
-    'mattn/emmet-vim',
-    config = function()
-      vim.g.user_emmet_install_global = 0
-      vim.cmd [[
-        autocmd FileType html,css,javascript,javascriptreact,typescriptreact EmmetInstall
-      ]]
-    end,
-  },
   -- Auto-close and rename html/jsx/tsx tags
   {
     'windwp/nvim-ts-autotag',

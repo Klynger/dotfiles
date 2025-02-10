@@ -77,7 +77,7 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      completion = { completeopt = 'menu,menuone, noinsert' },
+      completion = { completeopt = 'menu,menuone,noinsert' },
 
       -- See :help `ins-completion`
       mapping = cmp.mapping.preset.insert {
@@ -91,7 +91,7 @@ return {
         ['C-f>'] = cmp.mapping.scroll_docs(4),
         -- Accept ([y]es) the completion.
         -- This will auto-import if your LSP supports it.
-        -- This will expadn snippets if the LSP sent a snippet.
+        -- This will expand snippets if the LSP sent a snippet.
         ['<C-y>'] = cmp.mapping.confirm { select = true },
         -- Manually trigger a completion from nvim-cmp.
         ['<C-Space>'] = cmp.mapping.complete {},
