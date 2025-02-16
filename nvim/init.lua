@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-  require 'plugins.avante',
   require 'plugins.neo-tree',
   require 'plugins.colortheme',
   require 'plugins.bufferline',
@@ -24,6 +23,7 @@ require('lazy').setup {
   require 'plugins.autoformatting',
   require 'plugins.gitsigns',
   require 'plugins.copilot',
+  require 'plugins.avante',
   -- require 'plugins.alpha',
   require 'plugins.indent-blankline',
   require 'plugins.comment',
