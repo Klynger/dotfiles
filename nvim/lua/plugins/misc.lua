@@ -59,4 +59,15 @@ return {
       suppressed_dirs = { '~/', '~/Downloads', '/' },
     },
   },
+  -- Syntax highlighting for Firebase files
+  {
+    'delphinus/vim-firestore',
+    ft = 'firestore',
+    config = function()
+      vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+        pattern = '*.rules',
+        command = 'set filetype=firestore',
+      })
+    end,
+  },
 }
