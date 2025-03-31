@@ -158,9 +158,6 @@ return {
           'postcss.config.js',
           'node_modules'
         ),
-        root_dir = function()
-          return vim.fn.getcwd() -- Use the current working directory as root
-        end,
       },
       lua_ls = {
         settings = {
