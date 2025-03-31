@@ -37,15 +37,6 @@ return {
       },
     },
   },
-  filesystem = {
-    follow_current_file = {
-      -- This will find and focus the file in the active buffer every time
-      -- the current file is changed while the tree is open.
-      enabled = true,
-    },
-    hijack_netrw_behavior = 'open_current', -- open in the current file's directory
-    use_libuv_file_watcher = true, -- enable faster file watching
-  },
   config = function()
     -- If you want icons for diagnostic errors, you'll need to define them somewhere:
     vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
@@ -208,7 +199,7 @@ return {
       nesting_rules = {},
       filesystem = {
         filtered_items = {
-          visible = false, -- when true, they will just be displayed differently than normal items
+          visible = true, -- when true, they will just be displayed differently than normal items
           hide_dotfiles = false,
           hide_gitignored = false,
           hide_hidden = false, -- only works on Windows for hidden files/directories
