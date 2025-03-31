@@ -133,5 +133,6 @@ if vim.fn.isdirectory(session_dir) == 0 then
   vim.fn.mkdir(session_dir, 'p')
 end
 
--- Execute lua file
-vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', opts)
+-- Lua stuff
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', opts) -- execute Lua file
+vim.keymap.set('n', '<leader><leader>t', '<cmd>PlenaryBustedFile %<CR>') -- run test in Lua file

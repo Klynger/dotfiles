@@ -23,7 +23,7 @@ vim.o.numberwidth = 4 -- Set number column width to 4
 vim.o.expandtab = true -- Convert tabs into spaces
 vim.o.cursorline = false -- Heighlight the current line
 vim.o.splitbelow = true -- Force all horizontal splits to go below current window
-vim.o.splitright = true -- Force all vertial splits to go to the right of current window
+vim.o.splitright = true -- Force all vertical splits to go to the right of current window
 vim.o.swapfile = false -- Create a swapfile
 vim.o.smartindent = true -- Make indenting smarter again
 vim.o.showmode = false -- Turn off showing the current mode below (-- INSERT --)
@@ -34,6 +34,7 @@ vim.o.conceallevel = 0 -- So that `` is visible in markdown files
 vim.o.fileencoding = 'utf-8' -- The encoding written to a file
 vim.o.cmdheight = 1 -- More space in the neovim command line for displaying messages
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
+vim.o.diffopt = 'vertical'
 
 -- Tabs
 local tab_size = 2
