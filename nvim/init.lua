@@ -23,8 +23,6 @@ require('lazy').setup {
   require 'plugins.autoformatting',
   require 'plugins.gitsigns',
   require 'plugins.copilot',
-  -- require 'plugins.avante',
-  -- require 'plugins.alpha',
   require 'plugins.indent-blankline',
   require 'plugins.comment',
   require 'plugins.misc',
