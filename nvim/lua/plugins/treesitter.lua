@@ -16,6 +16,7 @@ return {
         'http',
         'javascript',
         'jsdoc',
+        'go',
         'lua',
         'luadoc',
         'markdown',

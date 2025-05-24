@@ -1,3 +1,26 @@
+local function get_workspace_folders(root_dirs)
+  local folders = {}
+  local home = os.getenv 'HOME'
+  root_dirs = root_dirs or {}
+
+  for _, base_dir in ipairs(root_dirs) do
+    -- Expand ~ to home directory if present
+    local dir_path = base_dir:gsub('^~', home)
+    -- Fix the find command: add space after dir_path and fix -type flag
+    local handle = io.popen('find ' .. dir_path .. ' -maxdepth 1 -type d | grep -v "^' .. dir_path .. '$"')
+    if handle then
+      for dir in handle:lines() do
+        table.insert(folders, dir)
+      end
+      handle:close()
+    end
+  end
+
+  return folders
+end
+
+vim.g.augment_workspace_folders = get_workspace_folders { '~/dev', '~/circuit' }
+
 return {
   {
     -- Tmux Navigator
@@ -69,5 +92,8 @@ return {
         command = 'set filetype=firestore',
       })
     end,
+  },
+  {
+    'augmentcode/augment.vim',
   },
 }
