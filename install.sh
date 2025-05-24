@@ -3,12 +3,15 @@
 . scripts/utils.sh
 . scripts/prerequisites.sh
 . scripts/symlinks.sh
+. scripts/install_fonts.sh
 
 info "Dotfiles installation initialized…"
 read -p "Install apps? [Y/n] " install_apps
 read -p "Overwrite existing dotfiles? [y/n] " overwrite_dotfiles
+read -p "Install fonts? [Y/n] " install_fonts_opt
 
 install_apps=${install_apps:-y}
+install_fonts_opt=${install_fonts_opt:-y}
 
 if [[ "$install_apps" == "y" ]]; then
     printf "\n"
@@ -21,6 +24,23 @@ if [[ "$install_apps" == "y" ]]; then
     install_xcode
 else
     warning "Apps won't be installed"
+fi
+
+if [[ $install_fonts_opt == "y" ]]; then
+    printf "\n"
+    info "====================="
+    info "Fonts"
+    info "====================="
+    printf "\n"
+
+    install_fonts
+fi
+
+if ! which nvim &> /dev/null; then
+    echo "💿 Installing NeoVim…"
+    brew install neovim && echo "✅ NeoVim installed!" || exit 1
+
+    nvim --headless "+Lazy! sync" +qa
 fi
 
 printf "\n"

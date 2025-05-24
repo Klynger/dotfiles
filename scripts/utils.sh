@@ -1,6 +1,6 @@
 #!/bin/bash
 
-defualt_color=$(tput sgr 0)
+default_color=$(tput sgr 0)
 red="$(tput setaf 1)"
 yellow="$(tput setaf 3)"
 green="$(tput setaf 2)"
