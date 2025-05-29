@@ -2,9 +2,8 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = {
     -- Automatically install LSPs and relatd tools to stdpath for neovim
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    'mason-org/mason.nvim',
+    'mason-org/mason-lspconfig.nvim',
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -47,15 +46,15 @@ return {
           vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
         end
 
-        local telescope = require 'telescope.builtin'
+        local telescope = require('telescope.builtin')
 
         -- Jump to the definition of the word under your cursor.
         -- This  is where a variable was first declared, or where a function is defined, etc.
         -- To jump back, press <C-t>.
-        map('gd', telescope.lsp_definitions, '[G]oto [D]efinition')
+        map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
         -- Find references for the word under your cursor.
-        map('gr', telescope.lsp_references, '[G]oto [R]eferences')
+        map('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
 
         -- Jump to the implementation of the word under your cursors.
         -- Useful when your language has ways of declaring types without an actual implementation.
@@ -64,11 +63,11 @@ return {
         -- Jump to the type of the word under your cursor.
         -- Useful when you're not sure what type a variable is and you want to see
         -- the definition of its *type*, not where it was *defined*
-        map('<leader>D', telescope.lsp_type_definitions, 'Type [D]efinition')
+        map('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
         -- Fuzzy find all the symbols in your current document.
         -- Symbols are things like variables, functions, types, etc.
-        map('<leader>ds', telescope.lsp_dynamic_workspace_symbols, '[D]ocument [S]ymbols')
+        map('<leader>ds', vim.lsp.buf.document_symbol, '[D]ocument [S]ymbols')
 
         -- Fuzzy find all the symbols in your current workspace.
         -- Similar to document symbols, except searches over your entire project.
@@ -113,7 +112,7 @@ return {
             group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
             callback = function(event2)
               vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
+              vim.api.nvim_clear_autocmds({ group = 'lsp-highlight', buffer = event2.buf })
             end,
           })
         end
@@ -124,7 +123,7 @@ return {
         -- This may be unwanted, since they displace some of your code
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
           map('<leader>th', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
           end, '[T]oggle Inlay [H]ints')
         end
       end,
@@ -133,95 +132,30 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    --Enable the following language servers
-    local servers = {
-      eslint = {},
-      tailwindcss = {
-        settings = {
-          tailwindCSS = {
-            experimental = {
-              classRegex = {
-                'tw`([^`]*)',
-                'tw="([^"]*)',
-                'tw={"([^"}]*)',
-                'tw\\.\\w+`([^`]*)',
-                'tw\\(.*?\\)`([^`]*)',
-              },
-            },
-          },
-        },
-        filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css' },
-        root_dir = require('lspconfig').util.root_pattern(
-          'tailwind.config.js',
-          'tailwind.config.cjs',
-          'tailwind.config.ts',
-          'postcss.config.js',
-          'node_modules'
-        ),
-      },
-      lua_ls = {
-        settings = {
-          Lua = {
-            runtime = { version = 'LuaJIT' },
-            workspace = {
-              checkThirdParty = false,
-              -- Tells lua_ls where to find all the Lua files that you have loaded
-              -- for your neovim configuration.
-              library = {
-                '${3rd}/luv/library',
-                unpack(vim.api.nvim_get_runtime_file('', true)),
-              },
-              -- If lua_ls is really slow on your computer, you can try this instead:
-              -- library = { vim.env.VIMRUNTIME },
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-            telemetry = { enable = false },
-            diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
-      },
-    }
-
-    require('typescript-tools').setup {
-      on_attach = function(client, bufnr)
-        local map = function(keys, func, desc)
-          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
-        end
-
-        local typescript_tools_api = require 'typescript-tools.api'
-
-        map('<leader>oi', typescript_tools_api.organize_imports, '[O]rganize [I]mports')
-        map('<leader>rf', typescript_tools_api.rename_file, '[R]ename [F]ile')
-        map('<leader>ai', typescript_tools_api.add_missing_imports, '[A]dd [I]mports')
-        map('<leader>ru', typescript_tools_api.remove_unused, '[R]emove [U]nused')
-      end,
-    }
-
     -- Ensure the server and tools are installed
     require('mason').setup()
 
-    -- You can add other tools here that you want Mason to install
-    -- for you, so that they are available from within Neovim.
-    local ensure_installed = vim.tbl_keys(servers or {})
+    local typescript_config = require('plugins.lsp.typescript_tools')
+    local tailwindcss_config = require('plugins.lsp.tailwindcss')
+    local lua_ls_config = require('plugins.lsp.lua_ls')
+
+    typescript_config.setup()
+    tailwindcss_config.setup()
+    lua_ls_config.setup()
+
+    local ensure_installed = {
+      'eslint',
+      'bashls',
+      'lua_ls',
+      'tailwindcss',
+      'stylua',
+    }
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format lua code
       'tailwindcss',
     })
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
-    require('mason-lspconfig').setup {
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          -- this handles overriding only values explicitly passed
-          -- by the server configuration above. Userful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
-        end,
-      },
-    }
+    require('mason-lspconfig').setup({
+      ensure_installed = ensure_installed,
+    })
   end,
 }
