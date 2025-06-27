@@ -1,6 +1,6 @@
 local function get_workspace_folders(root_dirs)
   local folders = {}
-  local home = os.getenv 'HOME'
+  local home = os.getenv('HOME')
   root_dirs = root_dirs or {}
 
   for _, base_dir in ipairs(root_dirs) do
@@ -19,7 +19,7 @@ local function get_workspace_folders(root_dirs)
   return folders
 end
 
-vim.g.augment_workspace_folders = get_workspace_folders { '~/dev', '~/circuit' }
+vim.g.augment_workspace_folders = get_workspace_folders({ '~/dev', '~/circuit' })
 
 return {
   {
@@ -36,6 +36,9 @@ return {
   },
   {
     'tpope/vim-fugitive',
+  },
+  {
+    'sindrets/diffview.nvim',
   },
   {
     -- Keybinding hints
