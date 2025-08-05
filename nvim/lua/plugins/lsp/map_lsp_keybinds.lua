@@ -1,9 +1,11 @@
 local M = {}
 
+-- TODO: Remove this map function
+
 -- Create a function that lets us more easily define mappings specific LSP related items.
 -- It sets the mode, buffer and description for us each time.
 ---@param keys string
----@param func function
+---@param func string|function
 ---@param desc string
 ---@param event vim.api.keyset.create_autocmd.callback_args
 local function map(keys, func, desc, event)
