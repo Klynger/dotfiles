@@ -34,7 +34,7 @@ vim.o.conceallevel = 0 -- So that `` is visible in markdown files
 vim.o.fileencoding = 'utf-8' -- The encoding written to a file
 vim.o.cmdheight = 1 -- More space in the neovim command line for displaying messages
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
-vim.o.diffopt = 'vertical'
+vim.o.diffopt = "internal,filler,vertical,context:3"
 
 -- Tabs
 local tab_size = 2
