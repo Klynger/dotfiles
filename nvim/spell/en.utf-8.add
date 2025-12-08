@@ -1,3 +1,11 @@
 Printf
 fmt
 len
+neovim
+swapfile
+termguicolors
+LSP
+Case-insensitive
+Heightlight
+linters
+config
