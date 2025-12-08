@@ -16,7 +16,7 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
  }
 
  install_homebrew() {
-     info "Installing Homebrew…"
+     info "💿 Installing Homebrew…"
      export HOMEBREW_CASK_OPTS="--appdir=/Applications"
      if hash brew &>/dev/null; then
          warning "Homebrew already installed"

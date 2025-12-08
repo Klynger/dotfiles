@@ -6,6 +6,8 @@
 . scripts/install_fzf.sh
 . scripts/symlinks.sh
 . scripts/install_fonts.sh
+. scripts/install_wezterm.sh
+. scripts/install_yazi.sh
 
 info "Dotfiles installation initialized…"
 read -p "Install apps? [Y/n] " install_apps
@@ -24,8 +26,11 @@ if [[ "$install_apps" == "y" ]]; then
 
     install_homebrew
     install_xcode
-    install_kitty
     install_fzf
+    install_wezterm 
+    install_yazi
+    install_zsh_and_plugins
+
 else
     warning "Apps won't be installed"
 fi
@@ -41,7 +46,7 @@ if [[ $install_fonts_opt == "y" ]]; then
 fi
 
 if ! which nvim &> /dev/null; then
-    echo "💿 Installing NeoVim…"
+    info "💿 Installing NeoVim…"
     brew install neovim && echo "✅ NeoVim installed!" || exit 1
 
     nvim --headless "+Lazy! sync" +qa

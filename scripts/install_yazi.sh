@@ -17,7 +17,7 @@ install_mpv() {
 }
 
 install_yazi() {
-    info "Installing yazi…"
+    info "💿 Installing yazi…"
 
     if hash yazi &>/dev/null; then
         warning "yazi already installed"
