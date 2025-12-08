@@ -11,7 +11,7 @@ return {
       's1n7ax/nvim-window-picker',
       version = '2.*',
       config = function()
-        require('window-picker').setup {
+        require('window-picker').setup({
           filter_rules = {
             include_current_win = false,
             autoselect_one = true,
@@ -23,7 +23,7 @@ return {
               buftype = { 'terminal', 'quickfix' },
             },
           },
-        }
+        })
       end,
       keys = {
         { '<leader>w', ':Neotree toggle float<CR>', silent = true, desc = 'Float File Explorer' },
@@ -44,7 +44,7 @@ return {
     vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
     vim.fn.sign_define('DiagnosticSignHint', { text = '󰌵', texthl = 'DiagnosticSignHint' })
 
-    require('neo-tree').setup {
+    require('neo-tree').setup({
       close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = 'rounded',
       enable_git_status = true,
@@ -99,19 +99,19 @@ return {
         git_status = {
           symbols = {
             -- Change type
-            added = '', -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified = '', -- or "", but this is redundant info if you use git_status_colors on the name
-            deleted = '✖', -- this can only be used in the git_status source
-            renamed = '󰁕', -- this can only be used in the git_status source
+            added = '',
+            modified = '',
+            deleted = '',
+            renamed = '󰁕',
+
             -- Status type
             untracked = '',
             ignored = '',
-            unstaged = '󰄱',
+            unstaged = '',
             staged = '',
             conflict = '',
           },
-        },
-        -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
+        }, -- If you don't want to use these columns, you can set `enabled = false` for each of them individually
         file_size = {
           enabled = true,
           required_width = 64, -- min width of window required to show this column
@@ -317,8 +317,8 @@ return {
           },
         },
       },
-    }
+    })
 
-    vim.cmd [[nnoremap \ :Neotree reveal<cr>]]
+    vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
   end,
 }

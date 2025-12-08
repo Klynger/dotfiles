@@ -2,6 +2,8 @@
 
 . scripts/utils.sh
 . scripts/prerequisites/install.sh
+. scripts/install_kitty.sh
+. scripts/install_fzf.sh
 . scripts/symlinks.sh
 . scripts/install_fonts.sh
 
@@ -22,6 +24,8 @@ if [[ "$install_apps" == "y" ]]; then
 
     install_homebrew
     install_xcode
+    install_kitty
+    install_fzf
 else
     warning "Apps won't be installed"
 fi
