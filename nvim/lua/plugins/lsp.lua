@@ -76,16 +76,25 @@ return {
           })
         end
 
-        -- The following code creates a keymap to toggle inlay hights in your
+        -- The following code creates a keymap to toggle inlay hints in your
         -- code, if the language server you are using supports them
         --
         -- This may be unwanted, since they displace some of your code
         if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
           map_lsp_keybinds.map('<leader>th', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
           end, '[T]oggle Inlay [H]ints', event)
         end
       end,
+    })
+
+    -- Configure diagnostics
+    vim.diagnostic.config({
+      virtual_text = true,
+      signs = true,
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -105,6 +114,7 @@ return {
     go_ls_config.setup()
 
     local ensure_installed = {
+      'svelte',
       'eslint',
       'bashls',
       'lua_ls',

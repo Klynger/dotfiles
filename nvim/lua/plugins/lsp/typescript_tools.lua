@@ -13,6 +13,8 @@ M.setup = function()
 
       local typescript_tools_api = require('typescript-tools.api')
 
+      require('lspconfig').svelte.setup({})
+
       map('<leader>oi', typescript_tools_api.organize_imports, '[O]rganize [I]mports')
       map('<leader>rf', typescript_tools_api.rename_file, '[R]ename [F]ile')
       map('<leader>ai', typescript_tools_api.add_missing_imports, '[A]dd [I]mports')

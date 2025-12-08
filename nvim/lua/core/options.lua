@@ -34,7 +34,7 @@ vim.o.conceallevel = 0 -- So that `` is visible in markdown files
 vim.o.fileencoding = 'utf-8' -- The encoding written to a file
 vim.o.cmdheight = 1 -- More space in the neovim command line for displaying messages
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
-vim.o.diffopt = "internal,filler,vertical,context:3"
+vim.o.diffopt = 'internal,filler,vertical,context:3'
 
 -- Tabs
 local tab_size = 2
@@ -43,7 +43,7 @@ vim.o.tabstop = tab_size -- Insert n spaces for a tab (default: 8)
 vim.o.softtabstop = tab_size -- Number of spaces that a tab counts for while performing editing operations
 -- vim.opt.shortmess:append 'c' -- Don-t give |ins-completion-menu| messages (show menu while typing)
 -- vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches
-vim.opt.runtimepath:remove '/usr/share/vim/vimfiles' -- separate vim plugins from neovim in case vim still in use
+vim.opt.runtimepath:remove('/usr/share/vim/vimfiles') -- separate vim plugins from neovim in case vim still in use
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',

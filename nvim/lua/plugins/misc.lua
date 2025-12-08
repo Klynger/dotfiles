@@ -19,7 +19,7 @@ local function get_workspace_folders(root_dirs)
   return folders
 end
 
-vim.g.augment_workspace_folders = get_workspace_folders({ '~/dev', '~/circuit' })
+vim.g.augment_workspace_folders = get_workspace_folders({ '~/dev', '~/spoke' })
 
 return {
   {

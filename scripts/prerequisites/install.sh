@@ -26,6 +26,7 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
     fi
  }
 
+# Only run if script is executed, not sourced
 if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
      install_xcode
      install_homebrew

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 . scripts/utils.sh
-. scripts/prerequisites.sh
+. scripts/prerequisites/install.sh
 . scripts/symlinks.sh
 . scripts/install_fonts.sh
 
@@ -52,7 +52,7 @@ printf "\n"
 
 chmod +x ./scripts/symlinks.sh
 if [[ "$overwrite_dotfiles" == "y" ]]; then
-    warning "Deleting existing dotfiles..."
+    warning "Deleting existing dotfiles…"
     ./scripts/symlinks.sh --delete --include-files
 fi
 ./scripts/symlinks.sh --create
