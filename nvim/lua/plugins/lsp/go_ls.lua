@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-  require('lspconfig').gopls.setup({
+  vim.lsp.config('gopls', {
     settings = {
       gopls = {
         gofumpt = true,

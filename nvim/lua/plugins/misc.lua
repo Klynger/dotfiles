@@ -45,6 +45,10 @@ return {
     'folke/which-key.nvim',
   },
   {
+    -- Integrate NeoVim with tmux
+    'christoomey/vim-tmux-navigator',
+  },
+  {
     -- Autoclose parentheses, brackets, quotes, etc.
     'windwp/nvim-autopairs',
     event = 'InsertEnter',

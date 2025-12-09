@@ -8,7 +8,7 @@ return {
   config = function()
     -- vim.opt.linespace = 8
 
-    require('bufferline').setup {
+    require('bufferline').setup({
       options = {
         mode = 'buffers', -- set to "tabs" to only show tabpages instead
         themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
@@ -50,7 +50,7 @@ return {
         sort_by = 'insert_at_end',
       },
       highlights = require('catppuccin.groups.integrations.bufferline').get(),
-    }
+    })
 
     -- Keymaps
     local opts = { noremap = true, silent = true, desc = 'Go to Buffer' }
