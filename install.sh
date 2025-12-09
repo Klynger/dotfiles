@@ -8,6 +8,7 @@
 . scripts/install_fonts.sh
 . scripts/install_wezterm.sh
 . scripts/install_yazi.sh
+. scripts/install_tmux.sh
 
 info "Dotfiles installation initialized…"
 read -p "Install apps? [Y/n] " install_apps
@@ -30,6 +31,7 @@ if [[ "$install_apps" == "y" ]]; then
     install_wezterm 
     install_yazi
     install_zsh_and_plugins
+    install_tmux
 
 else
     warning "Apps won't be installed"

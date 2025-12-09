@@ -1,5 +1,3 @@
-
-
 #!/bin/bash
 
 # Get the absolute path of the directory where the script is loaded
