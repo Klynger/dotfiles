@@ -12,6 +12,9 @@ install_tmux() {
         warning "Tmux already installed"
     else
         brew install tmux
+        # TODO: Check if this is working.
+        # It seems that it is cloning the repo, but the symlink doesn't
+        # exist yet.
         git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
     fi
 
