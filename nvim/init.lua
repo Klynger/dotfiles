@@ -21,6 +21,7 @@ require('lazy').setup({
   require('plugins.treesitter'),
   require('plugins.telescope'),
   require('plugins.lsp'),
+  require('plugins.linting'),
   require('plugins.vim-test'),
   require('plugins.autocompletion'),
   require('plugins.autoformatting'),
