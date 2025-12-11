@@ -11,6 +11,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.expand('$HOME/go/bin')
+
 require('lazy').setup({
   require('plugins.neo-tree'),
   require('plugins.colortheme'),

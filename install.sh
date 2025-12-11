@@ -9,6 +9,7 @@
 . scripts/install_wezterm.sh
 . scripts/install_yazi.sh
 . scripts/install_tmux.sh
+. scripts/install_nvim.sh
 
 info "Dotfiles installation initialized…"
 read -p "Install apps? [Y/n] " install_apps
@@ -47,12 +48,7 @@ if [[ $install_fonts_opt == "y" ]]; then
     install_fonts
 fi
 
-if ! which nvim &> /dev/null; then
-    info "💿 Installing NeoVim…"
-    brew install neovim && echo "✅ NeoVim installed!" || exit 1
-
-    nvim --headless "+Lazy! sync" +qa
-fi
+install_nvim
 
 printf "\n"
 printf "\n"

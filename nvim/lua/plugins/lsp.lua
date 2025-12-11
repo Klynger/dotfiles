@@ -107,11 +107,13 @@ return {
     local tailwindcss_config = require('plugins.lsp.tailwindcss')
     local lua_ls_config = require('plugins.lsp.lua_ls')
     local go_ls_config = require('plugins.lsp.go_ls')
+    local sql_ls_config = require('plugins.lsp.sql_ls')
 
     typescript_config.setup()
     tailwindcss_config.setup()
     lua_ls_config.setup()
     go_ls_config.setup()
+    sql_ls_config.setup()
 
     local ensure_installed = {
       'svelte',
@@ -120,6 +122,8 @@ return {
       'lua_ls',
       'tailwindcss',
       'stylua',
+      'sqlls',
+      'sqlfluff',
     }
 
     require('mason-tool-installer').setup({
