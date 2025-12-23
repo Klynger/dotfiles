@@ -2,7 +2,12 @@ local M = {}
 
 M.setup = function()
   require('typescript-tools').setup({
-    on_attach = function(client, bufnr)
+    settings = {
+      separate_diagnostic_server = true,
+      publish_diagnostic_on = 'insert_leave',
+      expose_as_code_action = 'all',
+    },
+    on_attach = function(_, bufnr)
       local map = function(keys, func, desc)
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
       end
@@ -13,7 +18,7 @@ M.setup = function()
 
       local typescript_tools_api = require('typescript-tools.api')
 
-      require('lspconfig').svelte.setup({})
+      vim.lsp.config('svelte', {})
 
       map('<leader>oi', typescript_tools_api.organize_imports, '[O]rganize [I]mports')
       map('<leader>rf', typescript_tools_api.rename_file, '[R]ename [F]ile')

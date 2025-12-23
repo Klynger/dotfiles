@@ -12,7 +12,7 @@ config.window_decorations = "RESIZE"
 
 config.color_scheme = "Catppuccin Frappé (Gogh)"
 
-config.window_background_opacity = 0.8
-config.macos_window_background_blur = 40
+config.window_background_opacity = 1
+config.macos_window_background_blur = 0
 
 return config

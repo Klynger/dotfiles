@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.expand('$HOME/go/bin')
 
 require('lazy').setup({
+  -- require('plugins.avante'),
   require('plugins.neo-tree'),
   require('plugins.colortheme'),
   require('plugins.bufferline'),
