@@ -16,7 +16,7 @@ M.setup = function()
       },
     },
     filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css' },
-    root_dir = require('lspconfig').util.root_pattern(
+    root_dir = vim.fs.root(
       'tailwind.config.js',
       'tailwind.config.cjs',
       'tailwind.config.ts',

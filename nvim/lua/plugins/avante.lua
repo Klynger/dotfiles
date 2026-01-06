@@ -13,7 +13,12 @@ return {
     instructions_file = 'avante.md',
     -- for example
     provider = 'openai',
-    -- providers = {},
+    providers = {
+      openai = {
+        model = 'gpt-4o-mini',
+        max_tokens = 1024,
+      },
+    },
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
