@@ -26,10 +26,9 @@ if [[ "$install_apps" == "y" ]]; then
     info "====================="
     printf "\n"
 
-    install_homebrew
-    install_xcode
+    install_prerequisites
     install_fzf
-    install_wezterm 
+    install_wezterm
     install_yazi
     install_zsh_and_plugins
     install_tmux

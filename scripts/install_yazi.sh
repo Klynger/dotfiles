@@ -9,22 +9,55 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 install_mpv() {
     info "Installing mpv…"
 
-    if hash mpv &>/dev/null; then
-        warning "mpv already installed"
-    else
-        brew install mpv
-    fi
+    OS=$(detect_os)
+    case $OS in
+    "macos")
+        if hash mpv &>/dev/null; then
+            warning "mpv already installed"
+        else
+            brew install mpv
+        fi
+        ;;
+    "ubuntu")
+        if hash mpv &>/dev/null; then
+            warning "mpv already installed"
+        else
+            sudo apt-get install mpv
+        fi
+        ;;
+    *)
+        error "Unsupported OS for mpv installation: $OS"
+        exit 1
+        ;;
+    esac
 }
 
 install_yazi() {
     info "💿 Installing yazi…"
 
-    if hash yazi &>/dev/null; then
-        warning "yazi already installed"
-    else
-       install_fzf 
-       brew install yazi ffmpeg sevenzip jq poppler fd ripgrep zoxide resvg imagemagick font-symbols-only-nerd-font
-    fi
+    OS=$(detect_os)
+    case $OS in
+    "macos")
+        if hash yazi &>/dev/null; then
+            warning "yazi already installed"
+        else
+            install_fzf
+            brew install yazi ffmpeg sevenzip jq poppler fd ripgrep zoxide resvg imagemagick font-symbols-only-nerd-font
+        fi
+        ;;
+    "ubuntu")
+        if hash yazi &>/dev/null; then
+            warning "yazi already installed"
+        else
+            sudo apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
+            sudo apt-get install yazi
+        fi
+        ;;
+    *)
+        error "Unsupported OS for yazi installation: $OS"
+        exit 1
+        ;;
+    esac
 }
 
 # Only run if script is executed, not sourced
@@ -33,4 +66,3 @@ if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
     install_mpv
     install_yazi
 fi
-

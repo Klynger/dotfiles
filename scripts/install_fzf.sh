@@ -8,11 +8,28 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 install_fzf() {
     info "Installing fzf…"
 
-    if hash fzf &>/dev/null; then
-        warning "fzf already installed"
-    else
-        brew install fzf
-    fi
+    OS=$(detect_os)
+
+    case $OS in
+    "macos")
+        if hash fzf &>/dev/null; then
+            warning "fzf already installed"
+        else
+            brew install fzf
+        fi
+        ;;
+    "ubuntu")
+        if hash fzf &>/dev/null; then
+            warning "fzf already installed"
+        else
+            sudo apt-get install fzf
+        fi
+        ;;
+    *)
+        error "Unsupported OS for fzf installation: $OS"
+        exit 1
+        ;;
+    esac
 
     warning "Remember to check if you need to add something to .zshrc"
 }
@@ -20,11 +37,28 @@ install_fzf() {
 install_bat() {
     info "Installing bat…"
 
-    if hash bat &>/dev/null; then
-        warning "bat already installed"
-    else
-        brew install bat
-    fi
+    OS=$(detect_os)
+
+    case $OS in
+    "macos")
+        if hash bat &>/dev/null; then
+            warning "bat already installed"
+        else
+            brew install bat
+        fi
+        ;;
+    "ubuntu")
+        if hash bat &>/dev/null; then
+            warning "bat already installed"
+        else
+            sudo apt-get install bat
+        fi
+        ;;
+    *)
+        error "Unsupported OS for bat installation: $OS"
+        exit 1
+        ;;
+    esac
 }
 
 # Only run if script is executed, not sourced
@@ -32,4 +66,3 @@ if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
     install_fzf
     install_bat
 fi
-

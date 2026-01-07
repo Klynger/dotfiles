@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_fonts() {
+install_fonts_macos() {
     info "Installing fonts…"
 
    if [[ -z `find ~/Library/Fonts -type f -name "HackNerd*"` ]]; then 
@@ -32,6 +32,40 @@ install_fonts() {
     else 
         echo "⏭️ [Fonts] FiraCode already installed!"
     fi
+}
+
+install_fonts_ubuntu() {
+    info "Installing fonts on Ubuntu…"
+
+    FONT_DIR="$HOME/.local/share/fonts"
+    mkdir -p "$FONT_DIR"
+
+        # Install Hack Nerd Font
+    if [[ ! -f "$FONT_DIR/Hack Regular Nerd Font Complete.ttf" ]]; then
+        echo "💿 [Fonts] Installing HackNerd…"
+        wget -O /tmp/Hack.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+        unzip /tmp/Hack.zip -d "$FONT_DIR"
+        fc-cache -fv
+        echo "✅ [Fonts] HackNerd installed!"
+    else
+        echo "⏭️ [Fonts] HackNerd already installed!"
+    fi
+}
+
+install_fonts() {
+    OS=$(detect_os)
+    case $OS in
+        "macos")
+            install_fonts_macos
+            ;;
+        "ubuntu")
+            install_fonts_ubuntu
+            ;;
+        *)
+            error "Unsupported OS for font installation: $OS"
+            exit 1
+            ;;
+    esac
 }
 
 # Only run if script is executed, not sourced

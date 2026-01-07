@@ -21,4 +21,17 @@ error() {
 warning() {
     printf "%s==> %s%s\n" "$yellow" "$1" "$default_color"
 }
- 
+
+detect_os() {
+    if [["$OSTYPE" == "darwin"* ]]; then
+        echo macos
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if command -v apt-get &>/dev/null; then
+            echo "ubuntu"
+        else
+            echo "linux"
+        fi
+    else
+        echo "unknown"
+    fi
+}
