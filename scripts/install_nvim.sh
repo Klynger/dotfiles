@@ -20,7 +20,7 @@ install_nvim() {
         ;;
     "ubuntu")
         if ! which nvim &>/dev/null; then
-            sudo apt install -y neovim && echo "✅ NeoVim installed!" || exit 1
+            sudo snap install nvim --classic && echo "✅ NeoVim installed!" || exit 1
         else
             warning "NeoVim already installed"
         fi
@@ -48,6 +48,11 @@ install_nvim() {
             warning "shfmt already installed"
         fi
         ;;
+    *)
+        error "Unsupported OS for shfmt installation: $OS"
+        exit 1
+        ;;
+    esac
 }
 
 # Only run if script is executed, not sourced

@@ -23,7 +23,7 @@ warning() {
 }
 
 detect_os() {
-    if [["$OSTYPE" == "darwin"* ]]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
         echo macos
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         if command -v apt-get &>/dev/null; then
