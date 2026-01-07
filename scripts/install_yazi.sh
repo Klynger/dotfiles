@@ -50,7 +50,13 @@ install_yazi() {
             warning "yazi already installed"
         else
             sudo apt install ffmpeg 7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
-            sudo apt-get install yazi
+            curl --proto '=https' -tlsv1.2 -sSf https://sh.rustup.rs | sh
+            rustup update
+            git clone https://github.com/sxyazi/yazi.git
+            cd yazi
+            cargo build --locked
+            cd ..
+            rm -rf yazi
         fi
         ;;
     *)
