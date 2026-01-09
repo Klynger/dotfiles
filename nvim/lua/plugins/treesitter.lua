@@ -2,6 +2,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    branch = 'master',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -56,9 +57,9 @@ return {
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { underline = true, sp = 'grey' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', vim.api.nvim_get_hl(0, { name = 'CursorLineNr' }))
 
-      require('treesitter-context').setup {
+      require('treesitter-context').setup({
         max_lines = 1,
-      }
+      })
     end,
   },
   {
@@ -66,9 +67,9 @@ return {
     lazy = false,
     config = function()
       vim.g.skip_ts_context_commentstring_module = true
-      require('ts_context_commentstring').setup {
+      require('ts_context_commentstring').setup({
         enable_autocmd = false,
-      }
+      })
     end,
   },
   -- Not treesitter, but highlighting
