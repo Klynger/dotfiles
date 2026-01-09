@@ -15,7 +15,7 @@ set undofile " Save undo history
 set undodir=~/.vim/undodir
 set nobackup " Don't create a backup file 
 set nowritebackup " Don't write backup before overwriting
-set completeopt=menuone,preview,fuzzy " Better completion experience
+set completeopt=menu,menuone,preview,noselect " Better completion experience
 set whichwrap+=<,>,[,],h,l " Allow certain keys to move to the next line
 set nowrap " Display long lines as one line
 set linebreak "Don't break words when wrapping
