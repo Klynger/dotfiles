@@ -8,51 +8,19 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 install_nvim() {
     info "💿 Installing NeoVim…"
 
-    OS=$(detect_os)
-
-    case $OS in
-    "macos")
-        if ! which nvim &>/dev/null; then
-            brew install neovim && echo "✅ NeoVim installed!" || exit 1
-        else
-            warning "NeoVim already installed"
-        fi
-        ;;
-    "ubuntu")
-        if ! which nvim &>/dev/null; then
-            sudo snap install nvim --classic && echo "✅ NeoVim installed!" || exit 1
-        else
-            warning "NeoVim already installed"
-        fi
-        ;;
-    *)
-        error "Unsupported OS for NeoVim installation: $OS"
-        exit 1
-        ;;
-    esac
+    if ! which nvim &>/dev/null; then
+        brew install neovim && echo "✅ NeoVim installed!" || exit 1
+    else
+        warning "NeoVim already installed"
+    fi
 
     info "💿 Installing shfmt…"
     info "shfmt is used in the NeoVim config"
-    case $OS in
-    "macos")
-        if ! which shfmt &>/dev/null; then
-            brew install shfmt && echo "✅ shfmt installed!" || exit 1
-        else
-            warning "shfmt already installed"
-        fi
-        ;;
-    "ubuntu")
-        if ! which shfmt &>/dev/null; then
-            sudo snap install shfmt && echo "✅ shfmt installed!" || exit 1
-        else
-            warning "shfmt already installed"
-        fi
-        ;;
-    *)
-        error "Unsupported OS for shfmt installation: $OS"
-        exit 1
-        ;;
-    esac
+    if ! which shfmt &>/dev/null; then
+        brew install shfmt && echo "✅ shfmt installed!" || exit 1
+    else
+        warning "shfmt already installed"
+    fi
 }
 
 # Only run if script is executed, not sourced

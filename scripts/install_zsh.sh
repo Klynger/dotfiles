@@ -69,8 +69,6 @@ install_zsh_syntax_highlighting() {
     else
         brew install zsh-syntax-highlighting
     fi
-
-    OS=$(detect_os)
 }
 
 install_zsh_and_plugins() {

@@ -8,28 +8,11 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 install_fzf() {
     info "Installing fzf…"
 
-    OS=$(detect_os)
-
-    case $OS in
-    "macos")
-        if hash fzf &>/dev/null; then
-            warning "fzf already installed"
-        else
-            brew install fzf
-        fi
-        ;;
-    "ubuntu")
-        if hash fzf &>/dev/null; then
-            warning "fzf already installed"
-        else
-            sudo apt-get install fzf
-        fi
-        ;;
-    *)
-        error "Unsupported OS for fzf installation: $OS"
-        exit 1
-        ;;
-    esac
+    if hash fzf &>/dev/null; then
+        warning "fzf already installed"
+    else
+        brew install fzf
+    fi
 
     warning "Remember to check if you need to add something to .zshrc"
 }
