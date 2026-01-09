@@ -7,29 +7,11 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 
 install_wezterm() {
     info "💿 Installing Wezterm terminal emulator…"
-
-    OS=$(detect_os)
-    case $OS in
-    "macos")
-        if hash wezterm &>/dev/null; then
-            warning "Wezterm already installed"
-        else
-            brew install --cask wezterm
-        fi
-        ;;
-    "ubuntu")
-        if hash wezterm &>/dev/null; then
-            warning "Wezterm already installed"
-        else
-            sudo apt-get install wezterm
-        fi
-        ;;
-    *)
-        error "Unsupported OS for Wezterm installation: $OS"
-        exit 1
-        ;;
-    esac
-
+    if hash wezterm &>/dev/null; then
+        warning "Wezterm already installed"
+    else
+        brew install --cask wezterm
+    fi
 }
 
 # Only run if script is executed, not sourced
