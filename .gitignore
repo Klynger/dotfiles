@@ -1,3 +1,4 @@
 .session.vim
 nvim/spell
 tmux/plugins
+tmux-client-*.log
