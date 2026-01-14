@@ -35,7 +35,7 @@ vim.o.fileencoding = 'utf-8' -- The encoding written to a file
 vim.o.cmdheight = 1 -- More space in the NeoVim command line for displaying messages
 vim.o.autoindent = true -- Copy indent from current line when starting new one (default: true)
 vim.o.diffopt = 'internal,filler,vertical,context:3'
-vim.o.spell = true -- Enables spell checking
+vim.o.spell = false -- Spell checking
 vim.o.spelllang = 'en,en_us,pt_br'
 vim.o.winborder = 'rounded' -- Configure floating window borders
 
