@@ -15,7 +15,7 @@ install_tmux() {
         # TODO: Check if this is working.
         # It seems that it is cloning the repo, but the symlink doesn't
         # exist yet.
-        git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+        git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
     fi
 }
 
