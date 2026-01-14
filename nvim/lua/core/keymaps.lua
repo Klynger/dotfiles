@@ -110,10 +110,10 @@ vim.keymap.set('n', '<leader>do', function()
   diagnostics_active = not diagnostics_active
 
   if diagnostics_active then
-    vim.diagnostic.enable(0)
+    vim.diagnostic.enable(false)
     vim.notify('Diagnostics enabled', vim.log.levels.INFO)
   else
-    vim.diagnostic.disable(0)
+    vim.diagnostic.enable(true)
     vim.notify('Diagnostics disabled', vim.log.levels.WARN)
   end
 end, opts)

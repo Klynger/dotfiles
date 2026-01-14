@@ -2,7 +2,8 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    branch = 'master',
+    branch = 'main',
+    lazy = false,
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -59,16 +60,6 @@ return {
 
       require('treesitter-context').setup({
         max_lines = 1,
-      })
-    end,
-  },
-  {
-    'JoosepAlviste/nvim-ts-context-commentstring',
-    lazy = false,
-    config = function()
-      vim.g.skip_ts_context_commentstring_module = true
-      require('ts_context_commentstring').setup({
-        enable_autocmd = false,
       })
     end,
   },
