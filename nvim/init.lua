@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.expand('$HOME/go/bin')
+vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.stdpath('data') .. '/mason/bin'
 
 require('lazy').setup({
   -- require('plugins.avante'),

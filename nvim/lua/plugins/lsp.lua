@@ -112,6 +112,8 @@ return {
       'svelte',
       'eslint',
       'bashls',
+      'gopls',
+      'golangci-lint',
       'lua_ls',
       'tailwindcss',
       'stylua',
