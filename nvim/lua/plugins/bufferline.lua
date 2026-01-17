@@ -8,6 +8,15 @@ return {
   config = function()
     -- vim.opt.linespace = 8
 
+    local colorscheme = vim.g.colors_name or 'default'
+
+    local highlights
+    if colorscheme == 'catppuccin' or colorscheme:match('catppuccin') then
+      highlights = require('catppuccin.special.bufferline').get_theme()
+    else
+      highlights = {}
+    end
+
     require('bufferline').setup({
       options = {
         mode = 'buffers', -- set to "tabs" to only show tabpages instead
@@ -49,7 +58,7 @@ return {
         maximum_length = 15,
         sort_by = 'insert_at_end',
       },
-      highlights = require('catppuccin.special.bufferline').get_theme(),
+      highlights = highlights,
     })
 
     -- Keymaps

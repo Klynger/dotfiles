@@ -2,7 +2,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    branch = 'main',
+    branch = 'master',
     lazy = false,
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
@@ -26,6 +26,7 @@ return {
         'rust',
         'tsx',
         'typescript',
+        'tsx',
         'vim',
         'vimdoc',
         'yaml',
