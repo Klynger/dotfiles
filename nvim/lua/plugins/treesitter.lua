@@ -10,6 +10,7 @@ return {
         'bash',
         'c',
         'cpp',
+        'bash',
         'css',
         'diff',
         'gitignore',
@@ -61,6 +62,8 @@ return {
       require('treesitter-context').setup({
         max_lines = 1,
       })
+
+      require('nvim-treesitter.install').prefer_git = true
     end,
   },
   -- Not treesitter, but highlighting
