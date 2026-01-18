@@ -53,34 +53,13 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'BufReadPre',
-    config = function(_, opts)
+    config = function()
       vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { underline = true, sp = 'grey' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { underline = true, sp = 'grey' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', vim.api.nvim_get_hl(0, { name = 'CursorLineNr' }))
 
       require('treesitter-context').setup({
         max_lines = 1,
-      })
-
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile', 'BufReadPost' }, {
-        callback = function()
-          local buf = vim.api.nvim_get_current_buf()
-          local filetype = vim.bo[buf].filetype
-
-
-          local excluded_filetypes = {
-            'neo-tree',
-            'neo-tree-popup',
-            'notify',
-            'terminal',
-            'quickfix',
-            'help'
-          }
-
-          if vim.bo[buf].filetype ~= '' and not vim.tbl_contains(excluded_filetypes, filetype) then
-            vim.treesitter.start(buf)
-          end
-        end
       })
     end,
   },

@@ -34,3 +34,35 @@ require('lazy').setup({
   require('plugins.misc'),
   require('plugins.dev'),
 })
+
+-- Related to treesitter
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*' },
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    local filetype = vim.bo[buf].filetype
+
+    local excluded_filetypes = {
+      'neo-tree',
+      'neo-tree-popup',
+      'notify',
+      'terminal',
+      'quickfix',
+      'help',
+      'fidget',
+      'TelescopePrompt',
+      'TelescopeResults',
+    }
+
+    if vim.bo[buf].filetype ~= '' and not vim.tbl_contains(excluded_filetypes, filetype) then
+      -- Check if parser exists before starting treesitter
+      local has_parser = pcall(vim.treesitter.language.get_lang, filetype)
+      if has_parser then
+        vim.treesitter.start(buf)
+      else
+        vim.treesitter.stop(buf)
+        vim.notify('No treesitter parser available for filetype: ' .. filetype, vim.log.levels.WARN)
+      end
+    end
+  end,
+})
