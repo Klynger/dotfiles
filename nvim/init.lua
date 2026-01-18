@@ -16,6 +16,7 @@ vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.stdpath('data') .. '/mason/bin'
 
 require('lazy').setup({
   -- require('plugins.avante'),
+  require('plugins.auto-session'),
   require('plugins.neo-tree'),
   require('plugins.colortheme'),
   require('plugins.bufferline'),
@@ -52,6 +53,7 @@ vim.api.nvim_create_autocmd('FileType', {
       'fidget',
       'TelescopePrompt',
       'TelescopeResults',
+      'conf',
     }
 
     if vim.bo[buf].filetype ~= '' and not vim.tbl_contains(excluded_filetypes, filetype) then

@@ -123,13 +123,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
--- Define session directory
-local session_dir = vim.fn.stdpath('config') .. '/sessions'
-
-if vim.fn.isdirectory(session_dir) == 0 then
-  vim.fn.mkdir(session_dir, 'p')
-end
-
 -- Lua stuff
 vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', opts) -- execute Lua file
 vim.keymap.set('n', '<leader><leader>t', '<cmd>PlenaryBustedFile %<CR>') -- run test in Lua file

@@ -38,6 +38,8 @@ vim.o.diffopt = 'internal,filler,vertical,context:3'
 vim.o.spell = false -- Spell checking
 vim.o.spelllang = 'en,en_us,pt_br'
 vim.o.winborder = 'rounded' -- Configure floating window borders
+-- Sessions stuff
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 vim.opt.laststatus = 3
 
