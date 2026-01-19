@@ -55,6 +55,7 @@ vim.api.nvim_create_autocmd('FileType', {
       'TelescopeResults',
       'conf',
       'conform-info',
+      'cmp_docs',
     }
 
     if vim.bo[buf].filetype ~= '' and not vim.tbl_contains(excluded_filetypes, filetype) then
