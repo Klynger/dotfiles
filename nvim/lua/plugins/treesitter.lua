@@ -20,6 +20,8 @@ return {
         'jsdoc',
         'go',
         'lua',
+        'git_rebase',
+        'gitignore',
         'luadoc',
         'markdown',
         'markdown_inline',
@@ -58,6 +60,8 @@ return {
       vim.api.nvim_set_hl(0, 'TreesitterContextBottom', { underline = true, sp = 'grey' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumberBottom', { underline = true, sp = 'grey' })
       vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', vim.api.nvim_get_hl(0, { name = 'CursorLineNr' }))
+
+      vim.treesitter.language.register('bash', 'zsh')
 
       require('treesitter-context').setup({
         max_lines = 1,
