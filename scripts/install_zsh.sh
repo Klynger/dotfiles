@@ -53,8 +53,9 @@ improve_autosuggestions_history() {
         echo 'setopt hist_ignore_dups' >>"$HOME/.zshrc"
         echo 'setopt hist_verify' >>"$HOME/.zshrc"
 
-        echo "bindkey '^[[A' history-search-backward" >>"$HOME/.zshrc"
-        echo "bindkey '^[[B' history-search-forward" >>"$HOME/.zshrc"
+        echo "bindkey '^P' history-search-backward" >>"$HOME/.zshrc"
+        echo "bindkey '^N' history-search-forward" >>"$HOME/.zshrc"
+        echo "bindkey '^Y' end-of-line"
         echo '# END_HISTORY_SETUP' >>"$HOME/.zshrc"
         info "Added history config to .zshrc"
     else
