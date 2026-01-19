@@ -8,7 +8,7 @@ return {
         -- Build step is needed for regex support in snippets.
         -- This step is not supported in many windows environments.
         -- Remove the below condition to re-enable on windows.
-        if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+        if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
           return
         end
         return 'make install_jsregexp'
@@ -27,16 +27,18 @@ return {
     -- Adds other completion capabilities.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
+    {
+      'hrsh7th/cmp-cmdline',
+    },
     'roobert/tailwindcss-colorizer-cmp.nvim',
     --[[ 'zbirenbaum/copilot.lua', ]]
     --[[ 'zbirenbaum/copilot-cmp', ]]
   },
   config = function()
     -- See `:help cmp`
-    local cmp = require 'cmp'
-    local luasnip = require 'luasnip'
-    luasnip.config.setup {}
+    local cmp = require('cmp')
+    local luasnip = require('luasnip')
+    luasnip.config.setup({})
 
     local kind_icons = {
       Text = '󰉿',
@@ -67,11 +69,11 @@ return {
     }
 
     -- Add tailwindcss-colorizer-cmp as a formatting source
-    require('tailwindcss-colorizer-cmp').setup {
+    require('tailwindcss-colorizer-cmp').setup({
       color_square_width = 2,
-    }
+    })
 
-    cmp.setup {
+    cmp.setup({
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -80,7 +82,7 @@ return {
       completion = { completeopt = 'menu,menuone,noinsert' },
 
       -- See :help `ins-completion`
-      mapping = cmp.mapping.preset.insert {
+      mapping = cmp.mapping.preset.insert({
         -- Select the [n]ext item
         ['<C-n>'] = cmp.mapping.select_next_item(),
         -- Select the [p]revious item
@@ -92,9 +94,9 @@ return {
         -- Accept ([y]es) the completion.
         -- This will auto-import if your LSP supports it.
         -- This will expand snippets if the LSP sent a snippet.
-        ['<C-y>'] = cmp.mapping.confirm { select = true },
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         -- Manually trigger a completion from nvim-cmp.
-        ['<C-Space>'] = cmp.mapping.complete {},
+        ['<C-Space>'] = cmp.mapping.complete({}),
         -- <C-l> will move you to the right of each of the expansion locations.
         -- <C-h> is similar, except moving you backwards.
         ['<C-l'] = cmp.mapping(function()
@@ -107,7 +109,7 @@ return {
             luasnip.jump(-1)
           end
         end, { 'i', 's' }),
-      },
+      }),
       sources = {
         {
           name = 'lazydev',
@@ -134,7 +136,7 @@ return {
           return vim_item
         end,
       },
-    }
+    })
 
     -- Commandline autocomplete
     cmp.setup.cmdline(':', {
