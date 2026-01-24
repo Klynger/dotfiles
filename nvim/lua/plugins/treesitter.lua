@@ -20,6 +20,7 @@ return {
         'jsdoc',
         'go',
         'lua',
+        'editorconfig',
         'git_rebase',
         'gitignore',
         'luadoc',
