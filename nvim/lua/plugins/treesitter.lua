@@ -28,7 +28,6 @@ return {
         'markdown_inline',
         'regex',
         'rust',
-        'tsx',
         'typescript',
         'tsx',
         'vim',

@@ -54,6 +54,7 @@ vim.api.nvim_create_autocmd('FileType', {
       'TelescopePrompt',
       'TelescopeResults',
       'qf',
+      'text',
       'conf',
       'conform-info',
       'cmp_docs',
