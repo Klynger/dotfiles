@@ -53,6 +53,7 @@ vim.api.nvim_create_autocmd('FileType', {
       'fidget',
       'TelescopePrompt',
       'TelescopeResults',
+      'systemd',
       'qf',
       'text',
       'conf',
