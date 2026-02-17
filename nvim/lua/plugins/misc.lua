@@ -89,9 +89,6 @@ return {
       })
     end,
   },
-  {
-    'augmentcode/augment.vim',
-  },
   -- TODO: Configure fzf
   --
   -- Finding everything
