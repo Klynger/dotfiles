@@ -21,6 +21,7 @@ require('lazy').setup({
   require('plugins.colortheme'),
   require('plugins.bufferline'),
   require('plugins.copilot'),
+  require('plugins.markdown-preview'),
   require('plugins.lualine'),
   require('plugins.treesitter'),
   require('plugins.telescope'),
