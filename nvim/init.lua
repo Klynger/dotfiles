@@ -66,12 +66,9 @@ vim.api.nvim_create_autocmd('FileType', {
     }
 
     if vim.bo[buf].filetype ~= '' and not vim.tbl_contains(excluded_filetypes, filetype) then
-      -- Check if parser exists before starting treesitter
-      local has_parser = pcall(vim.treesitter.language.get_lang, filetype)
-      if has_parser then
-        vim.treesitter.start(buf)
-      else
-        vim.notify('No treesitter parser available for filetype: ' .. filetype, vim.log.levels.WARN)
+      local ok = pcall(vim.treesitter.start, buf)
+      if not ok then
+        vim.notify('No treesitter parser for: ' .. filetype, vim.log.levels.WARN)
       end
     end
   end,
