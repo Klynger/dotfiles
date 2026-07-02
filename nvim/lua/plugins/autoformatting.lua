@@ -1,3 +1,17 @@
+local function js_formatter(bufnr)
+  local oxfmt_config = vim.fs.find({ '.oxfmtrc.json', '.oxfmtrc.jsonc' }, {
+    upward = true,
+    path = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)),
+    type = 'file',
+  })
+
+  if #oxfmt_config > 0 then
+    return { 'eslint_d', 'oxfmt' }
+  end
+
+  return { 'eslint_d', 'prettier' }
+end
+
 return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
@@ -20,10 +34,14 @@ return {
       go = { 'swag_fmt', 'gofmt' },
       lua = { 'stylua' },
       sh = { 'shfmt' },
-      typescript = { 'eslint_d', 'prettier' },
-      javascript = { 'eslint_d', 'prettier' },
-      javascriptreact = { 'eslint_d', 'prettier' },
-      typescriptreact = { 'eslint_d', 'prettier' },
+      -- typescript = { 'eslint_d', 'oxfmt', 'prettier' },
+      -- javascript = { 'eslint_d', 'oxfmt', 'prettier' },
+      -- javascriptreact = { 'eslint_d', 'oxfmt', 'prettier' },
+      -- typescriptreact = { 'eslint_d', 'oxfmt', 'prettier' },
+      typescript = js_formatter,
+      javascript = js_formatter,
+      javascriptreact = js_formatter,
+      typescriptreact = js_formatter,
       html = { 'prettier' },
       css = { 'prettier' },
       json = { 'prettier' },
