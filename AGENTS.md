@@ -26,6 +26,7 @@ that automate installation and symlink management. The primary platform is **mac
 │       ├── core/           # options.lua, keymaps.lua
 │       └── plugins/        # One file per plugin (lazy.nvim spec format)
 │           └── lsp/        # LSP sub-configs (go_ls, lua_ls, typescript, etc.)
+├── ai/                     # Personal AI agent rules (symlinked to agent config targets)
 ├── tmux/                   # tmux config (.tmux.conf)
 ├── kitty/                  # Kitty terminal config
 ├── wezterm/                # WezTerm config (Lua)
