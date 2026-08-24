@@ -16,13 +16,6 @@ M.setup = function()
       },
     },
     filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'css' },
-    root_dir = vim.fs.root(
-      'tailwind.config.js',
-      'tailwind.config.cjs',
-      'tailwind.config.ts',
-      'postcss.config.js',
-      'node_modules'
-    ),
   })
 end
 
