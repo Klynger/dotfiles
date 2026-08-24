@@ -46,6 +46,15 @@ return {
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+    config = function(_, opts)
+      require('nvim-treesitter.configs').setup(opts)
+
+      -- No dedicated mdx parser exists; reuse markdown's
+      vim.filetype.add({
+        extension = { mdx = 'markdown.mdx' },
+      })
+      vim.treesitter.language.register('markdown', 'markdown.mdx')
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
