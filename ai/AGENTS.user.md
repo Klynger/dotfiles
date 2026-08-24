@@ -9,6 +9,12 @@
 - Applies only when the language imposes no ordering structure of its own (TypeScript is the main case). When the language or an established codebase convention enforces an order, follow that instead.
 - Order module members by export status first: exported members before internal ones. Within each group, use usage order: callers above the helpers they call, things used first declared first.
 - Keep a type next to the function that uses it when the type is exported or appears in the function's signature. Types used only internally go after all the functions.
+- Test files follow the same ordering: test cases come first, in the order they run, and helper functions go after all the tests, at the end of the file. Fixture constants stay above the tests that use them when lint or evaluation order requires it.
+
+## Code comments
+
+- In JavaScript and TypeScript, never write a block comment or JSDoc on a single line (`/** like this */`). Open the comment on its own line, put the content on the lines between, and close it on its own line.
+- CSS keeps its usual one-line `/* */` comments, since CSS has no line-comment syntax.
 
 ## Pull request descriptions
 
