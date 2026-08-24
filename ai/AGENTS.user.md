@@ -16,6 +16,10 @@
 - In JavaScript and TypeScript, never write a block comment or JSDoc on a single line (`/** like this */`). Open the comment on its own line, put the content on the lines between, and close it on its own line.
 - CSS keeps its usual one-line `/* */` comments, since CSS has no line-comment syntax.
 
+## Commit messages
+
+@rules/commit-messages.md
+
 ## Pull request descriptions
 
 - Write PR descriptions as prose paragraphs centered on the why: motivation, context, constraints, tradeoffs, and anything a reviewer needs that the diff cannot show. Summarize the what in a sentence or two; the diff already shows the details.
