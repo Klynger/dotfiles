@@ -98,12 +98,14 @@ return {
 
     local typescript_config = require('plugins.lsp.typescript_tools')
     local tailwindcss_config = require('plugins.lsp.tailwindcss')
+    local css_ls_config = require('plugins.lsp.css_ls')
     local lua_ls_config = require('plugins.lsp.lua_ls')
     local go_ls_config = require('plugins.lsp.go_ls')
     local sql_ls_config = require('plugins.lsp.sql_ls')
 
     typescript_config.setup()
     tailwindcss_config.setup()
+    css_ls_config.setup()
     lua_ls_config.setup()
     go_ls_config.setup()
     sql_ls_config.setup()
