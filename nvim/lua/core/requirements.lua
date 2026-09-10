@@ -38,9 +38,16 @@ local function installed_version(tool)
     return string.format('%d.%d.%d', v.major, v.minor, v.patch)
   end
 
-  local result = vim.system({ tool, '--version' }, { text = true }):wait()
-  local output = (result.stdout or '') .. (result.stderr or '')
-  return output:match('%d+%.%d+%.%d+') or output:match('%d+%.%d+')
+  -- Not every tool speaks --version (tmux only takes -V), so try the common
+  -- spellings until one prints something that looks like a version
+  for _, flag in ipairs({ '--version', '-V', 'version' }) do
+    local result = vim.system({ tool, flag }, { text = true }):wait()
+    local output = (result.stdout or '') .. (result.stderr or '')
+    local version = output:match('%d+%.%d+%.%d+') or output:match('%d+%.%d+')
+    if version then
+      return version
+    end
+  end
 end
 
 --- @return { ok: boolean, message: string }[]

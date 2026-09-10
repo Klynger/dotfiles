@@ -17,8 +17,17 @@ trim() {
     printf "%s" "$value"
 }
 
+# Not every tool speaks --version (tmux only takes -V), so try the common
+# spellings until one prints something that looks like a version
 installed_version() {
-    "$1" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1
+    local flag version
+    for flag in --version -V version; do
+        version="$("$1" "$flag" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | head -1)"
+        if [ -n "$version" ]; then
+            printf "%s" "$version"
+            return
+        fi
+    done
 }
 
 # Returns 0 when $1 >= $2
