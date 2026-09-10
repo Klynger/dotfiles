@@ -3,7 +3,7 @@
 ## Overview
 
 This is a **macOS dotfiles** repository for configuring a development environment. It contains
-configuration for Neovim, tmux, kitty, wezterm, yazi, vim, and VS Code, plus shell scripts
+configuration for Neovim, tmux, wezterm, yazi, and vim, plus shell scripts
 that automate installation and symlink management. The primary platform is **macOS** with
 **Homebrew** as the package manager.
 
@@ -14,12 +14,12 @@ that automate installation and symlink management. The primary platform is **mac
 ├── install.sh              # Main entry point - orchestrates full setup
 ├── symlinks/               # Declarative symlink mappings (source:target)
 │   ├── general.conf        # Symlinks shared by every OS
-│   └── macos.conf          # macOS-only symlinks (kitty, ~/.wezterm.lua)
+│   └── macos.conf          # macOS-only symlinks (~/.wezterm.lua)
 ├── scripts/                # Bash install/setup scripts
 │   ├── utils.sh            # Shared logging helpers (info, success, error, warning)
 │   ├── symlinks.sh         # Creates/deletes symlinks from symlinks/general.conf, plus macos.conf on macOS
 │   ├── prerequisites/      # Xcode CLI tools + Homebrew
-│   └── install_*.sh        # Per-tool installers (nvim, tmux, fzf, kitty, etc.)
+│   └── install_*.sh        # Per-tool installers (nvim, tmux, fzf, etc.)
 ├── nvim/                   # Neovim configuration (Lua)
 │   ├── init.lua            # Entry point - loads core + lazy.nvim plugins
 │   ├── .stylua.toml        # Lua formatter config
@@ -33,11 +33,9 @@ that automate installation and symlink management. The primary platform is **mac
 │   ├── skills/             # Personal Claude Code skills (-> ~/.claude/skills)
 │   └── agents/             # Personal subagent definitions (-> ~/.claude/agents)
 ├── tmux/                   # tmux config (.tmux.conf)
-├── kitty/                  # Kitty terminal config
 ├── wezterm/                # WezTerm config (Lua)
 ├── yazi/                   # Yazi file manager config (TOML)
 ├── vim/                    # Legacy .vimrc
-├── vscode/                 # VS Code settings + keybindings
 └── rectangle/              # Rectangle window manager config
 ```
 
@@ -138,11 +136,6 @@ There is no test framework. Verify changes by sourcing configs or restarting the
 - Indentation: 2 spaces (tabs in alignment columns are acceptable in yazi config)
 - Use schema references where available (`$schema` key)
 
-### Kitty Config
-
-- Uses `vim:fileencoding=utf-8:foldmethod=marker` modeline
-- Sections delimited by `#: Section Name {{{` / `#: }}}` fold markers
-
 ### General
 
 - **Line endings**: Unix (LF) everywhere
@@ -157,8 +150,8 @@ There is no test framework. Verify changes by sourcing configs or restarting the
 - **Editor**: Neovim with lazy.nvim plugin manager
 - **LSP servers**: TypeScript (typescript-tools.nvim), Go (gopls), Lua (lua_ls), Tailwind CSS, Svelte, ESLint, SQL, Bash
 - **Formatters**: StyLua (Lua), shfmt (Bash), prettier + eslint_d (JS/TS), gofmt (Go), sqlfluff (SQL)
-- **Color theme**: Tokyo Night (Neovim), Catppuccin (tmux, kitty)
-- **Terminal**: WezTerm or Kitty
+- **Color theme**: Tokyo Night (Neovim), Catppuccin (tmux)
+- **Terminal**: WezTerm
 - **File manager**: Yazi
 - **Tmux prefix**: `C-s` (rebound from default `C-b`)
 - **Neovim leader**: Space

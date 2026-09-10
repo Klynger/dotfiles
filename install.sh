@@ -2,7 +2,6 @@
 
 . scripts/utils.sh
 . scripts/prerequisites/install.sh
-. scripts/install_kitty.sh
 . scripts/install_fzf.sh
 . scripts/symlinks.sh
 . scripts/install_fonts.sh
