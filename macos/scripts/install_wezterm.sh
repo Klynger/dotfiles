@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Get the absolute path of the directory where the script is loaded
-SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-. $SCRIPT_DIR/utils.sh
+. "$SCRIPT_DIR/../../scripts/utils.sh"
 
 install_wezterm() {
     info "💿 Installing Wezterm terminal emulator…"
