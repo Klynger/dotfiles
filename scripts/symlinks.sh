@@ -3,16 +3,33 @@
 # Get the absolute path of the directory where the script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-CONFIG_FILE="$SCRIPT_DIR/../symlinks.conf"
+CONFIG_DIR="$SCRIPT_DIR/../symlinks"
 
 . $SCRIPT_DIR/utils.sh
 
-if [ ! -f "$CONFIG_FILE" ]; then
-    echo "Configuration file not found: $CONFIG_FILE"
+# On Linux only the general symlinks apply; the desktop-specific ones are
+# managed by the hyprland-desktop-config repo.
+CONFIG_FILES=("$CONFIG_DIR/general.conf")
+if [ "$(uname -s)" = "Darwin" ]; then
+    CONFIG_FILES+=("$CONFIG_DIR/macos.conf")
 fi
+
+for config_file in "${CONFIG_FILES[@]}"; do
+    if [ ! -f "$config_file" ]; then
+        echo "Configuration file not found: $config_file"
+    fi
+done
 
 create_symlinks() {
     info "Creating symbolic link..."
+
+    for config_file in "${CONFIG_FILES[@]}"; do
+        [ -f "$config_file" ] && create_symlinks_from_file "$config_file"
+    done
+}
+
+create_symlinks_from_file() {
+    local config_file="$1"
 
     # Read dotfile links from the config file
     while IFS=: read -r source target || [ -n "$source" ]; do
@@ -51,17 +68,24 @@ create_symlinks() {
             ln -s "$source" "$target"
             success "Created symbolic link: $target"
         fi
-    done <"$CONFIG_FILE"
+    done <"$config_file"
 }
 
 delete_symlinks() {
     info "Deleting symbolic links..."
 
+    for config_file in "${CONFIG_FILES[@]}"; do
+        [ -f "$config_file" ] && delete_symlinks_from_file "$config_file"
+    done
+}
 
-    while IFS=: read -r _ target || [ -n "$target" ]; do
+delete_symlinks_from_file() {
+    local config_file="$1"
+
+    while IFS=: read -r source target || [ -n "$target" ]; do
 
         # Skip empty and invalid lines
-        if [[ -z "$target" ]]; then
+        if [[ -z "$target" || "$source" == \#* ]]; then
             continue
         fi
 
@@ -76,7 +100,7 @@ delete_symlinks() {
         else
             warning "Not found: $target"
         fi
-    done <"$CONFIG_FILE"
+    done <"$config_file"
 }
 
 
