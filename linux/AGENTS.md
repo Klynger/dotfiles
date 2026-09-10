@@ -28,11 +28,10 @@ Manages configuration for a complete Wayland desktop environment:
 There is no build step. Installation is done by running the scripts in `scripts/`:
 
 ```bash
-# Create all symlinks from symlinks.conf (idempotent, safe to re-run)
-./scripts/symlinks.sh --create
-
-# Remove all managed symlinks
-./scripts/symlinks.sh --delete
+# Symlinks are managed by the shared machinery at the repo root: it applies
+# symlinks/general.conf plus symlinks/linux.conf (idempotent, safe to re-run)
+(cd .. && ./scripts/symlinks.sh --create)
+(cd .. && ./scripts/symlinks.sh --delete)
 
 # Copy machine-specific files (monitors.lua, autostart.lua) — run once per machine
 ./scripts/copy-base-files.sh
@@ -41,7 +40,7 @@ There is no build step. Installation is done by running the scripts in `scripts/
 ./scripts/install-binaries.sh
 ```
 
-`symlinks.conf` declares all source→target symlink pairs using shell-expandable paths.
+`symlinks/linux.conf` at the repo root declares all source→target symlink pairs using shell-expandable paths.
 `basefiles.conf` declares files that must be **copied** (not symlinked) because they are machine-specific.
 `copies-root.conf` declares files **copied** (not symlinked) into system directories (e.g. `/usr/share/sddm/themes/`) that **require sudo** — managed by `scripts/copies-root.sh`. Copies are used instead of symlinks because system services like sddm cannot traverse the user's home directory.
 

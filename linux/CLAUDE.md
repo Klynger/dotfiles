@@ -15,8 +15,9 @@ A personal Hyprland Wayland desktop dotfiles repository. No compiled code, no pa
 ## Installation
 
 ```bash
-# Symlink all configs (idempotent, safe to re-run)
-./scripts/symlinks.sh --create
+# Symlink all configs (idempotent, safe to re-run) — shared machinery at the
+# repo root, reading symlinks/general.conf + symlinks/linux.conf
+(cd .. && ./scripts/symlinks.sh --create)
 
 # Copy machine-specific files once per machine (monitors.lua, autostart.lua)
 ./scripts/copy-base-files.sh
@@ -48,7 +49,7 @@ shfmt -i 4 -w bin/*
 
 ### How configs are deployed
 
-`symlinks.conf` declares source→target pairs (shell-expandable paths using `$HOME`/`$(pwd)`) that `symlinks.sh --create` turns into symlinks in `~/.config/`. `basefiles.conf` declares files that must be **copied** (not symlinked) because they are machine-specific.
+`symlinks/linux.conf` at the repo root declares source→target pairs (shell-expandable paths using `$HOME`/`$(pwd)`) that the root `scripts/symlinks.sh --create` turns into symlinks in `~/.config/`. `basefiles.conf` declares files that must be **copied** (not symlinked) because they are machine-specific.
 
 ### Machine-specific files (gitignored)
 
@@ -97,8 +98,8 @@ All scripts in `bin/` are auto-discovered by `install-binaries.sh` — no regist
 ## Key Caveats
 
 - Do not hardcode usernames or absolute home paths — use `$HOME` or `~`
-- `symlinks.conf` must use eval-expandable paths only (`$(pwd)`, `$HOME`)
+- `symlinks/linux.conf` must use eval-expandable paths only (`$(pwd)`, `$HOME`)
 - New `bin/` scripts must be `chmod +x`
-- When adding a new config directory, add its symlink entry to `symlinks.conf`
+- When adding a new config directory, add its symlink entry to `symlinks/linux.conf` at the repo root
 - When adding or removing a dependency, update `DEPENDENCIES.md` to keep it in sync
 - When adding font dependencies, update the Fonts section in `DEPENDENCIES.md`. Use `getnf -i <FontName>` for Nerd Fonts, or the system package manager for standard fonts (e.g., `noto-fonts`)

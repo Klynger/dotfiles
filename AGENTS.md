@@ -14,7 +14,8 @@ that automate installation and symlink management. The primary platform is **mac
 ├── install.sh              # Main entry point - orchestrates full setup
 ├── symlinks/               # Declarative symlink mappings (source:target)
 │   ├── general.conf        # Symlinks shared by every OS
-│   └── macos.conf          # macOS-only symlinks (~/.wezterm.lua)
+│   ├── macos.conf          # macOS-only symlinks (~/.wezterm.lua)
+│   └── linux.conf          # Linux-only symlinks (hypr, waybar, ... under linux/)
 ├── scripts/                # OS-agnostic bash machinery and shared installers
 │   ├── utils.sh            # Logging helpers + detect_os
 │   ├── symlinks.sh         # Creates/deletes symlinks from symlinks/general.conf, plus macos.conf on macOS
@@ -34,10 +35,12 @@ that automate installation and symlink management. The primary platform is **mac
 ├── tmux/                   # tmux config (.tmux.conf)
 ├── yazi/                   # Yazi file manager config (TOML)
 ├── vim/                    # Legacy .vimrc
-└── macos/                  # macOS-only configuration
-    ├── wezterm/            # WezTerm config (Lua)
-    ├── rectangle/          # Rectangle window manager config
-    └── scripts/            # Cask installers (wezterm, fonts) + Xcode/Homebrew prerequisites
+├── macos/                  # macOS-only configuration
+│   ├── wezterm/            # WezTerm config (Lua)
+│   ├── rectangle/          # Rectangle window manager config
+│   └── scripts/            # Cask installers (wezterm, fonts) + Xcode/Homebrew prerequisites
+└── linux/                  # CachyOS + Hyprland desktop (imported hyprland-desktop-config)
+    └── ...                 # See linux/AGENTS.md and linux/CLAUDE.md
 ```
 
 ## Build / Install / Test Commands
@@ -142,7 +145,7 @@ There is no test framework. Verify changes by sourcing configs or restarting the
 - **Line endings**: Unix (LF) everywhere
 - **Trailing newline**: Files end with a single trailing newline
 - **No secrets**: Do not commit credentials, tokens, or API keys
-- **Symlinks**: New config directories that should be linked must be added under `symlinks/`, in `general.conf` when they apply to every OS or in `macos.conf` when they are macOS-only; Linux desktop symlinks belong to the hyprland-desktop-config repo
+- **Symlinks**: New config directories that should be linked must be added under `symlinks/`, in `general.conf` when they apply to every OS or in `macos.conf`/`linux.conf` when they are OS-specific
 
 ## Key Technical Details
 

@@ -4,7 +4,7 @@ This repository contains my dotfiles, which configure my development environment
 
 ## Layout
 
-Configuration that applies to both machines lives at the repository root (`nvim/`, `tmux/`, `yazi/`, `vim/`, `ai/`). OS-specific configuration lives in a directory per OS: `macos/` today, `linux/` once the Hyprland desktop config moves in. Each OS directory is dead code on the other machine by design.
+Configuration that applies to both machines lives at the repository root (`nvim/`, `tmux/`, `yazi/`, `vim/`, `ai/`). OS-specific configuration lives in a directory per OS: `macos/` and `linux/` (the imported hyprland-desktop-config, with its own docs in `linux/AGENTS.md`). Each OS directory is dead code on the other machine by design.
 
 `./install.sh` detects the OS and runs only what belongs there: shared brew-formula installers everywhere (CLI tools come from Homebrew on macOS and linuxbrew on Linux), casks and prerequisites only on macOS, desktop packages left to pacman on Linux. Symlinks follow the same split: `scripts/symlinks.sh` always applies `symlinks/general.conf` and adds the OS-specific conf when one exists.
 
