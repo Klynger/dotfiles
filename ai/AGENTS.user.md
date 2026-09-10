@@ -28,3 +28,4 @@
 - Calibration examples in getcircuit/web-apps: PRs 5000 and 4997 are good (why-first prose); PRs 4861 and 4896 are bad (implementation-detail bullet lists).
 - Wrap every PR description you write in a collapsible block: `<details><summary>AI description</summary>` around the whole body, closed with `</details>`. Leave a blank line after the opening tags and before the closing tag so the Markdown inside still renders.
 - This applies when creating and when updating a PR description. If an existing description already has content written by the user outside such a block, keep their content untouched above the block and put only your text inside it.
+- Never reference yourself in a PR description: no "Generated with Claude Code" footer, no AI attribution line, no mention of the model or tool that wrote it. The collapsible block summary is the only marker.
