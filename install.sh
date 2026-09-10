@@ -84,4 +84,6 @@ if [[ "$overwrite_dotfiles" == "y" ]]; then
 fi
 ./scripts/symlinks.sh --create
 
+install_tmux_plugins
+
 success "Dotfiles set up successfully."
