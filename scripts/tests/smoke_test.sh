@@ -25,8 +25,9 @@ run_os() {
         fi
     done || failures=$((failures + 1))
 
+    # -xtype is GNU only; BSD find on macOS needs the test -e form
     local dangling
-    dangling="$(find "$fake_home" -xtype l)"
+    dangling="$(find "$fake_home" -type l ! -exec test -e {} \; -print)"
     if [ -n "$dangling" ]; then
         error "[$os] dangling symlinks:"
         printf "%s\n" "$dangling"
