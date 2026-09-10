@@ -12,10 +12,12 @@ that automate installation and symlink management. The primary platform is **mac
 ```
 .
 ├── install.sh              # Main entry point - orchestrates full setup
-├── symlinks.conf           # Declarative symlink mappings (source:target)
+├── symlinks/               # Declarative symlink mappings (source:target)
+│   ├── general.conf        # Symlinks shared by every OS
+│   └── macos.conf          # macOS-only symlinks (kitty, ~/.wezterm.lua)
 ├── scripts/                # Bash install/setup scripts
 │   ├── utils.sh            # Shared logging helpers (info, success, error, warning)
-│   ├── symlinks.sh         # Creates/deletes symlinks from symlinks.conf
+│   ├── symlinks.sh         # Creates/deletes symlinks from symlinks/general.conf, plus macos.conf on macOS
 │   ├── prerequisites/      # Xcode CLI tools + Homebrew
 │   └── install_*.sh        # Per-tool installers (nvim, tmux, fzf, kitty, etc.)
 ├── nvim/                   # Neovim configuration (Lua)
@@ -51,7 +53,7 @@ This interactively prompts to install apps, overwrite dotfiles, and install font
 
 ### Symlinks only
 ```bash
-# Create symlinks defined in symlinks.conf
+# Create symlinks defined in symlinks/general.conf (plus macos.conf on macOS)
 ./scripts/symlinks.sh --create
 
 # Delete symlinks (and backing files if --include-files)
@@ -146,7 +148,7 @@ There is no test framework. Verify changes by sourcing configs or restarting the
 - **Line endings**: Unix (LF) everywhere
 - **Trailing newline**: Files end with a single trailing newline
 - **No secrets**: Do not commit credentials, tokens, or API keys
-- **Symlinks**: New config directories that should be linked must be added to `symlinks.conf`
+- **Symlinks**: New config directories that should be linked must be added under `symlinks/`, in `general.conf` when they apply to every OS or in `macos.conf` when they are macOS-only; Linux desktop symlinks belong to the hyprland-desktop-config repo
 
 ## Key Technical Details
 
