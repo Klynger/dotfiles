@@ -57,7 +57,13 @@ info "====================="
 printf "\n"
 
 if ! check_requirements; then
-    read -p "Some requirements are not met. Create the symlinks anyway? [y/N] " continue_anyway
+    printf "\n"
+    warning "Requirements not met:"
+    for failure in "${REQUIREMENT_FAILURES[@]}"; do
+        error "  ✗ $failure"
+    done
+    printf "\n"
+    read -p "Create the symlinks anyway? [y/N] " continue_anyway
     if [[ "${continue_anyway:-n}" != "y" ]]; then
         error "Aborting before creating symlinks."
         exit 1

@@ -45,6 +45,7 @@ check_requirements_file() {
 
         if ! command -v "$tool" &>/dev/null; then
             error "  ✗ $tool is missing. Install with: $install_hint"
+            REQUIREMENT_FAILURES+=("$tool is missing. Install with: $install_hint")
             failures=$((failures + 1))
             continue
         fi
@@ -60,6 +61,7 @@ check_requirements_file() {
 
             if ! version_at_least "$version" "$min_version"; then
                 error "  ✗ $tool $version is too old, need >= $min_version. Update with: $install_hint"
+                REQUIREMENT_FAILURES+=("$tool $version is too old, need >= $min_version. Update with: $install_hint")
                 failures=$((failures + 1))
                 continue
             fi
@@ -73,8 +75,12 @@ check_requirements_file() {
     return "$failures"
 }
 
+# Filled with one line per unmet requirement so callers can show a summary
+REQUIREMENT_FAILURES=()
+
 check_requirements() {
     local total_failures=0
+    REQUIREMENT_FAILURES=()
 
     for config_file in "$REPO_DIR"/*/requirements.conf; do
         [ -f "$config_file" ] || continue
