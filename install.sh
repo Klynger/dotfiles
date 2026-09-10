@@ -10,6 +10,7 @@
 . scripts/install_yazi.sh
 . scripts/install_tmux.sh
 . scripts/install_nvim.sh
+. scripts/check_requirements.sh
 
 info "Dotfiles installation initialized…"
 read -p "Install apps? [Y/n] " install_apps
@@ -48,6 +49,26 @@ if [[ $install_fonts_opt == "y" ]]; then
 fi
 
 install_nvim
+
+printf "\n"
+info "====================="
+info "Requirements"
+info "====================="
+printf "\n"
+
+if ! check_requirements; then
+    printf "\n"
+    warning "Requirements not met:"
+    for failure in "${REQUIREMENT_FAILURES[@]}"; do
+        error "  ✗ $failure"
+    done
+    printf "\n"
+    read -p "Create the symlinks anyway? [y/N] " continue_anyway
+    if [[ "${continue_anyway:-n}" != "y" ]]; then
+        error "Aborting before creating symlinks."
+        exit 1
+    fi
+fi
 
 printf "\n"
 printf "\n"

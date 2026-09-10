@@ -1,5 +1,6 @@
 require('core.options')
 require('core.keymaps')
+require('core.requirements').notify_missing()
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -36,40 +37,4 @@ require('lazy').setup({
   require('plugins.comment'),
   require('plugins.misc'),
   require('plugins.dev'),
-})
-
--- Related to treesitter
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '*' },
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    local filetype = vim.bo[buf].filetype
-
-    local excluded_filetypes = {
-      'neo-tree',
-      'neo-tree-popup',
-      'notify',
-      'terminal',
-      'quickfix',
-      'help',
-      'fidget',
-      'TelescopePrompt',
-      'TelescopeResults',
-      'systemd',
-      'qf',
-      'text',
-      'conf',
-      'copilotpanel',
-      'conform-info',
-      'cmp_docs',
-      'cmp_menu',
-    }
-
-    if vim.bo[buf].filetype ~= '' and not vim.tbl_contains(excluded_filetypes, filetype) then
-      local ok = pcall(vim.treesitter.start, buf)
-      if not ok then
-        vim.notify('No treesitter parser for: ' .. filetype, vim.log.levels.WARN)
-      end
-    end
-  end,
 })
