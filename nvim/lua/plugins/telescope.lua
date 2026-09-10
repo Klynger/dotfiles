@@ -14,8 +14,6 @@ return {
         return vim.fn.executable('make') == 1
       end,
     },
-    'nvim-telescope/telescope-ui-select.nvim',
-
     -- Useful for getting pretty icons, but requires a Nerd Font.
     'nvim-tree/nvim-web-devicons',
   },
@@ -62,16 +60,10 @@ return {
           previewer = false,
         },
       },
-      extensions = {
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown(),
-        },
-      },
     })
 
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'ui-select')
 
     vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
     vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
