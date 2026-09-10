@@ -10,7 +10,7 @@ return {
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     {
       'j-hui/fidget.nvim',
-      tag = 'v1.5.0',
+      tag = 'v2.0.0',
       opts = {
         progress = {
           display = {
@@ -19,7 +19,7 @@ return {
         },
         notification = {
           window = {
-            windblend = 0, -- Background color opacity in the notification window
+            winblend = 0, -- Background color opacity in the notification window
           },
         },
       },
