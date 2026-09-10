@@ -33,10 +33,11 @@ that automate installation and symlink management. The primary platform is **mac
 │   ├── skills/             # Personal Claude Code skills (-> ~/.claude/skills)
 │   └── agents/             # Personal subagent definitions (-> ~/.claude/agents)
 ├── tmux/                   # tmux config (.tmux.conf)
-├── wezterm/                # WezTerm config (Lua)
 ├── yazi/                   # Yazi file manager config (TOML)
 ├── vim/                    # Legacy .vimrc
-└── rectangle/              # Rectangle window manager config
+└── macos/                  # macOS-only configuration
+    ├── wezterm/            # WezTerm config (Lua)
+    └── rectangle/          # Rectangle window manager config
 ```
 
 ## Build / Install / Test Commands
