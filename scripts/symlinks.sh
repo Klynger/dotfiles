@@ -10,7 +10,7 @@ CONFIG_DIR="$SCRIPT_DIR/../symlinks"
 # On Linux only the general symlinks apply; the desktop-specific ones are
 # managed by the hyprland-desktop-config repo.
 CONFIG_FILES=("$CONFIG_DIR/general.conf")
-if [ "$(uname -s)" = "Darwin" ]; then
+if [ "$(detect_os)" = "macos" ]; then
     CONFIG_FILES+=("$CONFIG_DIR/macos.conf")
 fi
 
