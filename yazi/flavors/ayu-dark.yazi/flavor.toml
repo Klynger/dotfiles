@@ -1,10 +1,8 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
 [mgr]
 # current working dir
 cwd = { fg = "#5c6773" }
-
-# Hovered
-hovered         = { reversed = true }
-preview_hovered = { underline = true }
 
 # find
 find_keyword = { fg = "#1f6f88", bold = true, italic = true, underline = true }
@@ -25,7 +23,8 @@ count_cut = { fg = "#5c6773", bg = "#a85361" }
 count_selected = { fg = "#0a0e14", bg = "#c2a05c" }
 
 # border
-border_symbol = " "
+border_symbol = "│"
+border_style  = { fg = "#c2a05c" }
 
 [tabs]
 active   = { fg = "#0a0e14", bg = "#c2a05c", bold = true }
@@ -99,10 +98,10 @@ title_error = { fg = "#a85361" }
 [filetype]
 rules = [
 	# directories
-	{ name = "*/", fg = "#1f6f88" },
+	{ url = "*/", fg = "#1f6f88" },
 
 	# executables
-	{ name = "*", is = "exec", fg = "#7e9350" },
+	{ url = "*", is = "exec", fg = "#7e9350" },
 
 	# images
 	{ mime = "image/*", fg = "#c2a05c" },
@@ -122,16 +121,16 @@ rules = [
 	{ mime = "text/x-{c,c++}", fg = "#1f6f88" },
 
 	# config files
-	{ name = "*.json", fg = "#c2a05c" },
-	{ name = "*.yml", fg = "#1f6f88" },
-	{ name = "*.toml", fg = "#9464b6" },
+	{ url = "*.json", fg = "#c2a05c" },
+	{ url = "*.yml", fg = "#1f6f88" },
+	{ url = "*.toml", fg = "#9464b6" },
 
 	# special files
-	{ name = "*", is = "orphan", bg = "#0a0e14" },
+	{ url = "*", is = "orphan", bg = "#0a0e14" },
 
 	# dummy files
-	{ name = "*", is = "dummy", bg = "#0a0e14" },
+	{ url = "*", is = "dummy", bg = "#0a0e14" },
 
 	# fallback
-	{ name = "*/", fg = "#1f6f88" },
+	{ url = "*/", fg = "#1f6f88" },
 ]
