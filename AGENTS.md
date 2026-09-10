@@ -15,11 +15,10 @@ that automate installation and symlink management. The primary platform is **mac
 ├── symlinks/               # Declarative symlink mappings (source:target)
 │   ├── general.conf        # Symlinks shared by every OS
 │   └── macos.conf          # macOS-only symlinks (~/.wezterm.lua)
-├── scripts/                # Bash install/setup scripts
-│   ├── utils.sh            # Shared logging helpers (info, success, error, warning)
+├── scripts/                # OS-agnostic bash machinery and shared installers
+│   ├── utils.sh            # Logging helpers + detect_os
 │   ├── symlinks.sh         # Creates/deletes symlinks from symlinks/general.conf, plus macos.conf on macOS
-│   ├── prerequisites/      # Xcode CLI tools + Homebrew
-│   └── install_*.sh        # Per-tool installers (nvim, tmux, fzf, etc.)
+│   └── install_*.sh        # Brew-formula installers shared by both OSes (nvim, tmux, fzf, etc.)
 ├── nvim/                   # Neovim configuration (Lua)
 │   ├── init.lua            # Entry point - loads core + lazy.nvim plugins
 │   ├── .stylua.toml        # Lua formatter config
@@ -37,7 +36,8 @@ that automate installation and symlink management. The primary platform is **mac
 ├── vim/                    # Legacy .vimrc
 └── macos/                  # macOS-only configuration
     ├── wezterm/            # WezTerm config (Lua)
-    └── rectangle/          # Rectangle window manager config
+    ├── rectangle/          # Rectangle window manager config
+    └── scripts/            # Cask installers (wezterm, fonts) + Xcode/Homebrew prerequisites
 ```
 
 ## Build / Install / Test Commands

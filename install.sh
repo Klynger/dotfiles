@@ -1,23 +1,35 @@
 #!/bin/bash
 
 . scripts/utils.sh
-. scripts/prerequisites/install.sh
 . scripts/install_fzf.sh
 . scripts/symlinks.sh
-. scripts/install_fonts.sh
-. scripts/install_wezterm.sh
 . scripts/install_yazi.sh
 . scripts/install_tmux.sh
 . scripts/install_nvim.sh
+. scripts/install_zsh.sh
 . scripts/check_requirements.sh
 
-info "Dotfiles installation initialized…"
+OS=$(detect_os)
+if [ "$OS" = "unsupported" ]; then
+    error "Unsupported OS: $(uname -s)"
+    exit 1
+fi
+
+if [ "$OS" = "macos" ]; then
+    . macos/scripts/prerequisites/install.sh
+    . macos/scripts/install_fonts.sh
+    . macos/scripts/install_wezterm.sh
+fi
+
+info "Dotfiles installation initialized ($OS)…"
 read -p "Install apps? [Y/n] " install_apps
 read -p "Overwrite existing dotfiles? [y/n] " overwrite_dotfiles
-read -p "Install fonts? [Y/n] " install_fonts_opt
+if [ "$OS" = "macos" ]; then
+    read -p "Install fonts? [Y/n] " install_fonts_opt
+    install_fonts_opt=${install_fonts_opt:-y}
+fi
 
 install_apps=${install_apps:-y}
-install_fonts_opt=${install_fonts_opt:-y}
 
 if [[ "$install_apps" == "y" ]]; then
     printf "\n"
@@ -26,9 +38,15 @@ if [[ "$install_apps" == "y" ]]; then
     info "====================="
     printf "\n"
 
-    install_prerequisites
+    # CLI tools install through brew on both OSes (Homebrew on macOS,
+    # linuxbrew on Linux). Casks and desktop packages are per-OS: macOS
+    # handles them here, Linux leaves them to pacman.
+    if [ "$OS" = "macos" ]; then
+        install_macos_prerequisites
+        install_wezterm
+    fi
+
     install_fzf
-    install_wezterm
     install_yazi
     install_zsh_and_plugins
     install_tmux
@@ -37,7 +55,7 @@ else
     warning "Apps won't be installed"
 fi
 
-if [[ $install_fonts_opt == "y" ]]; then
+if [[ "$OS" == "macos" && "$install_fonts_opt" == "y" ]]; then
     printf "\n"
     info "====================="
     info "Fonts"

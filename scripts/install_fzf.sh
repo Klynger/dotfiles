@@ -20,28 +20,12 @@ install_fzf() {
 install_bat() {
     info "Installing bat…"
 
-    OS=$(detect_os)
-
-    case $OS in
-    "macos")
-        if hash bat &>/dev/null; then
-            warning "bat already installed"
-        else
-            brew install bat
-        fi
-        ;;
-    "ubuntu")
-        if hash bat &>/dev/null; then
-            warning "bat already installed"
-        else
-            sudo apt-get install bat
-        fi
-        ;;
-    *)
-        error "Unsupported OS for bat installation: $OS"
-        exit 1
-        ;;
-    esac
+    # CLI tools come from brew on macOS and linuxbrew alike
+    if hash bat &>/dev/null; then
+        warning "bat already installed"
+    else
+        brew install bat
+    fi
 }
 
 # Only run if script is executed, not sourced

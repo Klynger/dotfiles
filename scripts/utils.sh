@@ -21,3 +21,18 @@ error() {
 warning() {
     printf "%s==> %s%s\n" "$yellow" "$1" "$default_color"
 }
+
+# Prints macos, linux or unsupported. DOTFILES_OS overrides the detection,
+# which lets the smoke test exercise the other OS's code path.
+detect_os() {
+    if [ -n "$DOTFILES_OS" ]; then
+        printf "%s" "$DOTFILES_OS"
+        return
+    fi
+
+    case "$(uname -s)" in
+        Darwin) printf "macos" ;;
+        Linux) printf "linux" ;;
+        *) printf "unsupported" ;;
+    esac
+}

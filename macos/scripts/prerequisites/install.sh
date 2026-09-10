@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Get the absolute path of the directory where the script is located
-SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-. $SCRIPT_DIR/utils.sh
+. "$SCRIPT_DIR/../../../scripts/utils.sh"
 
 install_xcode() {
     info "Installing Apples's CLI tools (prerequisites for Git and Homebrew)…"
