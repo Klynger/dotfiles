@@ -1,0 +1,24 @@
+hypr/monitors.lua
+hypr/colors.lua
+hypr/hyprlock-colors.conf
+waybar/matugen/colors.css
+btop/themes/matugen.theme
+gtk-3.0/colors.css
+gtk-4.0/colors.css
+swaync/matugen/matugen-swaync.css
+wezterm/colors/matugen-theme.toml
+rofi/colors.rasi
+wlogout/style.css
+sddm/material-you/Main.qml
+sddm/material-you/background.jpg
+systemd/user/default.target.wants/
+systemd/user/timers.target.wants/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Machine-specific
+hypr/autostart.lua
+pipewire/pipewire-pulse.conf.d/custom-modules.conf

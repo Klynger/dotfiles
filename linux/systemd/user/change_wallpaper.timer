@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer to change wallpapers every hour
+
+[Timer]
+# Relative to timer activation (graphical session start), so WAYLAND_DISPLAY
+# is already imported and the awww daemon is up
+OnActiveSec=10sec
+OnUnitActiveSec=4h
+
+[Install]
+WantedBy=graphical-session.target
