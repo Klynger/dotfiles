@@ -1,0 +1,229 @@
+# AGENTS.md — Hyprland Desktop Config
+
+This is a **personal Hyprland Wayland desktop dotfiles repository** for a single Linux machine.
+It is not a software project — there is no compiled code, no package manager, and no test runner.
+The primary languages are **Bash** (scripts), **Hyprland config DSL** (`.conf`), **Lua**, **CSS**, **JSONC**, and **TOML**.
+
+---
+
+## Repository Purpose
+
+Manages configuration for a complete Wayland desktop environment:
+- **Hyprland** — Wayland compositor / window manager
+- **Waybar** — Status bar
+- **Rofi** — App launcher
+- **WezTerm** — Terminal emulator
+- **Swaync** — Notification center
+- **Hypridle / Hyprlock** — Idle management and lock screen
+- **btop** — System monitor
+- **swww** — Animated wallpaper daemon
+- **Matugen** — Material You color generation
+- **PipeWire / WirePlumber** — Audio
+- **GTK 3 / GTK 4** — Theming
+
+---
+
+## Installation Commands
+
+There is no build step. Installation is done by running the scripts in `scripts/`:
+
+```bash
+# Symlinks are managed by the shared machinery at the repo root: it applies
+# symlinks/general.conf plus symlinks/linux.conf (idempotent, safe to re-run)
+(cd .. && ./scripts/symlinks.sh --create)
+(cd .. && ./scripts/symlinks.sh --delete)
+
+# Copy machine-specific files (monitors.lua, autostart.lua) — run once per machine
+./scripts/copy-base-files.sh
+
+# Symlink all bin/ helper scripts to $XDG_BIN_HOME (~/.local/bin)
+./scripts/install-binaries.sh
+```
+
+`symlinks/linux.conf` at the repo root declares all source→target symlink pairs using shell-expandable paths.
+`basefiles.conf` declares files that must be **copied** (not symlinked) because they are machine-specific.
+`copies-root.conf` declares files **copied** (not symlinked) into system directories (e.g. `/usr/share/sddm/themes/`) that **require sudo** — managed by `scripts/copies-root.sh`. Copies are used instead of symlinks because system services like sddm cannot traverse the user's home directory.
+
+---
+
+## Build / Lint / Test
+
+**There is no build system, no linter, and no test framework in this repo.**
+
+For shell scripts, use `shellcheck` manually if available:
+```bash
+shellcheck scripts/*.sh
+shellcheck bin/*
+```
+
+For Bash formatting, use `shfmt` if available:
+```bash
+shfmt -i 4 -w scripts/*.sh
+shfmt -i 4 -w bin/*
+```
+
+There are no automated tests. Validation is done by running the scripts against the real system.
+
+---
+
+## Directory Structure
+
+```
+hyprland-desktop-config/
+├── bin/              # Helper scripts symlinked to ~/.local/bin (kebab-case, no extension)
+├── scripts/          # Installation/deployment scripts (kebab-case.sh)
+├── hypr/             # Hyprland WM config → ~/.config/hypr
+├── hypr_copies/      # Machine-specific templates to COPY (not symlink)
+├── waybar/           # Waybar status bar → ~/.config/waybar
+├── rofi/             # App launcher config → ~/.config/rofi
+│   └── themes/       # Rofi theme overrides (.rasi files)
+├── wezterm/          # WezTerm terminal config
+├── btop/             # btop resource monitor → ~/.config/btop
+├── swaync/           # Notification center → ~/.config/swaync
+├── matugen/          # Color generation tool → ~/.config/matugen
+│   └── templates/    # Handlebars-style theme templates
+├── gtk-3.0/          # GTK 3 settings → ~/.config/gtk-3.0
+├── gtk-4.0/          # GTK 4 settings → ~/.config/gtk-4.0
+├── systemd/user/     # Systemd user services and timers → ~/.config/systemd/user
+├── uwsm/             # UWSM session manager env config
+└── wireplumber/      # WirePlumber audio config → ~/.config/wireplumber
+```
+
+---
+
+## Machine-Specific Files
+
+The following files are **gitignored** and must be created per machine:
+
+| File | Source template |
+|------|----------------|
+| `hypr/monitors.lua` | `hypr_copies/monitors.lua` |
+| `hypr/autostart.lua` | `hypr_copies/autostart.lua` |
+| `systemd/user/default.target.wants/` | Created by `copy-base-files.sh` |
+| `systemd/user/timers.target.wants/` | Created by `copy-base-files.sh` |
+
+Run `./scripts/copy-base-files.sh` once after cloning to set these up.
+
+---
+
+## Code Style Guidelines
+
+### Bash Scripts (`bin/`, `scripts/`)
+
+**Shebang:**
+- Use `#!/usr/bin/env bash` for portability (preferred in new scripts)
+- Existing scripts use `#!/bin/bash` or `#!/usr/bin/bash` — keep consistency within a file
+
+**Strict mode:**
+- Add `set -euo pipefail` to all new scripts (already used in `install-binaries.sh`)
+- Existing scripts that lack it should not have it added unless refactoring the full script
+
+**Naming conventions:**
+- Script files in `bin/`: `kebab-case`, no file extension (they are executables)
+- Script files in `scripts/`: `kebab-case.sh`
+- Functions: `snake_case`
+- Constants / environment variables: `SCREAMING_SNAKE_CASE`
+- Local variables: `lowercase_snake_case`
+
+**Functions:**
+```bash
+function_name() {
+    local var="$1"
+    # body
+}
+```
+
+**Sourcing utilities:**
+```bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+. "$SCRIPT_DIR/utils.sh"   # Use POSIX dot, not 'source'
+```
+
+**Output / user feedback:**
+- Always use the helpers from `scripts/utils.sh` for colored output:
+  - `info "message"` — blue, informational
+  - `success "message"` — green, completed action
+  - `warning "message"` — yellow, non-fatal issue
+  - `error "message"` — red, failure (should precede `exit 1`)
+- Never use raw `echo` for user-facing messages in scripts
+
+**Argument handling:**
+```bash
+case "$1" in
+    --create) create_symlinks ;;
+    --delete) delete_symlinks ;;
+    *) error "Unknown option: $1"; exit 1 ;;
+esac
+```
+
+**Guard against sourcing vs execution** (for utility scripts):
+```bash
+if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
+    main "$@"
+fi
+```
+
+**Arrays:**
+```bash
+mapfile -t ITEMS < <(some_command)
+```
+
+**Quoting:** Always double-quote variables: `"$VAR"`, `"${VAR}"`. Use `"$(command)"` for subshells.
+
+**Symlink handling pattern** (from `symlinks.sh`):
+- Evaluate paths with `eval` to expand `$HOME`, `$(pwd)` in config files
+- Check if target already exists / is already a symlink before acting
+- Print status for every symlink processed
+
+### Hyprland Config (Lua files in `hypr/`)
+
+- **File organization:** All sub-configs loaded from `hyprland.lua` via `require("file")`
+- **Section headers:** Use `###` box-style comment blocks to delineate sections
+- **Variables:** `local camelCase` (e.g., `mainMod`); shared values returned as tables (see `programs.lua`)
+- **Machine-specific settings** (monitors, autostart): kept in separate files that are gitignored
+- **Window rules:** group related rules together with comments
+
+### CSS (`waybar/style.css`)
+
+- Waybar style.css is generated by matugen — do not edit directly, edit the template instead
+
+### JSONC (`waybar/config.jsonc`)
+
+- Use `//` comments to explain non-obvious module configurations
+- Maintain the existing module order (left → center → right)
+
+### Lua (`wezterm/wezterm.lua`, `wireplumber/`)
+
+- Follow WezTerm/WirePlumber API conventions
+- Use `local` for all variables
+- Keep configuration declarative; avoid complex logic
+
+### TOML (`matugen/config.toml`)
+
+- Template paths use `$HOME`-based paths for portability
+- `post_script` commands should be idempotent (safe to re-run)
+
+### Matugen Templates (`matugen/templates/`)
+
+- Use `{{colors.color_name.variant.hex}}` syntax for color references
+- Variants: `default`, `on`, `container`, `on_container`
+- Palette entries follow Material You naming: `primary`, `secondary`, `tertiary`, `error`, `surface`, etc.
+
+---
+
+## Key External Tools (Required on System)
+
+See `DEPENDENCIES.md` for the full categorized list of all external dependencies. When adding or removing a dependency, always update `DEPENDENCIES.md` to keep it in sync.
+
+---
+
+## Important Notes for Agents
+
+- **Do not hardcode usernames or home paths.** Use `$HOME` or `~` in configs. In Lua config, use `os.getenv("HOME")`.
+- **`hypr/monitors.lua` and `hypr/autostart.lua` are gitignored** — never commit them. Edit `hypr_copies/` templates instead.
+- **`symlinks.conf` uses eval-expanded paths** — use `$(pwd)` and `$HOME` only, not absolute paths.
+- **All `bin/` scripts must be executable** (`chmod +x`). `install-binaries.sh` symlinks them to `$XDG_BIN_HOME`.
+- **When adding a new config directory**, add its symlink to `symlinks.conf` and document the target path.
+- **When adding a new `bin/` script**, it will be automatically picked up by `install-binaries.sh` — no registration needed.
+- **Rofi themes** in `rofi/themes/` are `.rasi` overrides loaded via `@theme` in individual scripts.
+- **When adding or changing font dependencies**, update the Fonts section in `DEPENDENCIES.md`. Nerd Fonts can be installed via `getnf -i <FontName>` (e.g., `getnf -i NotoSans`). System fonts (like `noto-fonts`) are installed via the system package manager.

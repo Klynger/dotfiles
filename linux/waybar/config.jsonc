@@ -1,0 +1,167 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "position": "top",
+    "height": 35,
+    "margin-top": 8,
+    "margin-right": 8,
+    "margin-left": 8,
+    "spacing": 0,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "group/media"
+    ],
+    "group/media": {
+        "orientation": "horizontal",
+        "modules": [
+            "image#media-art",
+            "custom/media-or-window"
+        ]
+    },
+    "modules-right": [
+        "pulseaudio",
+        "group/hardware",
+        "bluetooth",
+        "network",
+        "clock",
+        "custom/notification",
+        "custom/power"
+    ],
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": [
+            "temperature",
+            "cpu",
+            "memory"
+        ]
+    },
+    // Modules configuration
+    "image#media-art": {
+        "exec": "$HOME/.config/waybar/scripts/media-art.sh",
+        "size": 24,
+        "interval": 3600,
+        "signal": 8,
+        "on-click": "quick-panel"
+    },
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{name}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "urgent": "",
+            "focused": "",
+            "active": "",
+            "default": ""
+        },
+        "persistent-workspaces": {
+            "1": "1: Terminal",
+            "2": "2: Web",
+            "3": "3: Code",
+            "4": "4: Media",
+            "5": "5: Chat"
+        }
+    },
+    "clock": {
+        "interval": 60,
+        "format": "{:%a %d %b   %H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "gtk-launch org.gnome.Calendar"
+    },
+    "cpu": {
+        "format": "CPU {usage}%",
+        "tooltip": false,
+        "on-click": "gtk-launch btop"
+    },
+    "memory": {
+        "format": "RAM {}%",
+        "on-click": "gtk-launch btop"
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "TEMP {temperatureC}°C",
+        "format": "TEMP {temperatureC}°C",
+        "on-click": "gtk-launch btop"
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "launch-tui bluetui"
+    },
+    "network": {
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "format": "{icon}",
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰀂   - {ipaddr}/{cidr}",
+        "format-disconnected": "󰤮",
+        "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 3,
+        "on-click": "launch-wifi"
+    },
+    "pulseaudio": {
+        "format": "VOL {volume}%    {format_source}",
+        "format-bluetooth": "VOL {volume}% {format_source}",
+        "format-bluetooth-muted": "VOL muted {format_source}",
+        "format-muted": "VOL muted {format_source}",
+        "format-source": "MIC {volume}%",
+        "format-source-muted": "MIC off",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "scroll-step": 1,
+        "on-click": "pavucontrol"
+    },
+    "custom/media-or-window": {
+        "exec": "$HOME/.config/waybar/scripts/media-or-window.py",
+        "return-type": "json",
+        "on-click": "quick-panel",
+        "on-click-middle": "playerctl play-pause",
+        "on-click-right": "playerctl next"
+    },
+    "custom/notification": {
+        "tooltip": true,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂜",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰪓",
+            "inhibited-notification": "󰂛",
+            "inhibited-none": "󰪑",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰪑"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    "custom/power": {
+        "format": " ⏻ ",
+        "tooltip": false,
+        "on-click": "wlogout -b 5"
+    }
+}
