@@ -6,6 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 CONFIG_FILE="$SCRIPT_DIR/../basefiles.conf"
 
+# The conf sources use $(pwd), so resolve them from linux/ regardless of
+# where the caller runs the script from
+cd "$SCRIPT_DIR/.." || exit 1
 
 if [ ! -f "$CONFIG_FILE" ]; then
     error "Configuration file not found: $CONFIG_FILE"
