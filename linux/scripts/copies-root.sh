@@ -22,6 +22,10 @@ CONFIG_FILE="$SCRIPT_DIR/../copies-root.conf"
 
 . "$SCRIPT_DIR/utils.sh"
 
+# The conf sources use $(pwd), so resolve them from linux/ regardless of
+# where the caller runs the script from
+cd "$SCRIPT_DIR/.." || exit 1
+
 if [[ $EUID -ne 0 ]]; then
     error "This script must be run with sudo"
     error "Usage: sudo $0 [--create | --delete]"

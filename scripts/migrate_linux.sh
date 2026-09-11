@@ -42,14 +42,23 @@ done < <(find "$HOME" -maxdepth 3 -type l 2>/dev/null)
 info "Removed $removed links; recreating from symlinks/general.conf + linux.conf…"
 (cd "$REPO_DIR" && ./scripts/symlinks.sh --create)
 
-# The pipewire conf is machine-local and gitignored (like hypr/monitors.lua),
-# so it only exists in the old working tree and must be carried over by hand
-old_pw="$OLD_REPO/pipewire/pipewire-pulse.conf.d/custom-modules.conf"
-new_pw="$REPO_DIR/linux/pipewire/pipewire-pulse.conf.d/custom-modules.conf"
-if [ -f "$old_pw" ] && [ ! -f "$new_pw" ]; then
-    cp "$old_pw" "$new_pw"
-    info "Carried over machine-local pipewire config"
-fi
+# Gitignored working-tree files (matugen outputs, monitors.lua, the sddm
+# theme, pipewire conf) only exist in the old checkout: the import cannot
+# carry what history never had, so copy any that are missing
+info "Carrying over gitignored machine-local files…"
+carried=0
+while IFS= read -r f; do
+    case "$f" in
+    .claude/* | *__pycache__*) continue ;;
+    esac
+    if [ ! -e "$REPO_DIR/linux/$f" ]; then
+        mkdir -p "$REPO_DIR/linux/$(dirname "$f")"
+        cp -a "$OLD_REPO/$f" "$REPO_DIR/linux/$f"
+        info "Carried over: $f"
+        carried=$((carried + 1))
+    fi
+done < <(git -C "$OLD_REPO" ls-files --others --exclude-standard && git -C "$OLD_REPO" ls-files --others --ignored --exclude-standard)
+info "Carried over $carried files"
 
 info "Re-running the copy-based steps…"
 "$REPO_DIR/linux/scripts/copy-base-files.sh"
