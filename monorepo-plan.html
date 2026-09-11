@@ -218,11 +218,14 @@
     <li><span class="tag done">done</span> kitty and VS Code configs removed entirely; the terminal on both machines is wezterm, the editor is Neovim.</li>
   </ul>
   <div class="callout">
-    <p class="label">implementation status</p>
-    <p>Phase 0 is executed: both repos carry a pushed <code>pre-monorepo</code> tag. Phases 1&ndash;4 are
-    implemented as a stack of PRs, each based on the previous: #9 (kitty/vscode cleanup, the stack base)
-    &larr; #10 (phase 1) &larr; #11 (phase 2) &larr; #12 (phase 3) &larr; #13 (phase 4). Merge them
-    top-down; the machine migrations run at their phase&rsquo;s exit point as planned.</p>
+    <p class="label">implementation status: complete</p>
+    <p>The migration finished on 2026-09-10. Phases 1&ndash;4 landed as the PR stack
+    #9 &larr; #10 &larr; #11 &larr; #12 &larr; #13, followed by cutover fixes found on each machine:
+    #14/#15 (BSD find and version-flag portability, from the Mac migration), #16 (copy-script cwd
+    resolution and the gitignored-file carryover, from the Linux migration), and #17 (waybar bluetooth
+    template). Both machines run on the monorepo; hyprland-desktop-config is archived on GitHub with
+    its <code>pre-monorepo</code> tag as the permanent checkpoint, and the one-shot migration scripts
+    are deleted (phase 5).</p>
   </div>
 
   <h2>Inventory: what is macOS-specific</h2>
