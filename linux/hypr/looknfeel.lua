@@ -59,6 +59,9 @@ hl.config({
         disable_hyprland_logo = true,
         -- Switch to the workspace when a window requests attention (e.g. opening a link)
         focus_on_activate = true,
+        -- Adaptive-Sync only for fullscreen apps: games get tear-free frame
+        -- pacing while the desktop stays at a flicker-free fixed 240Hz
+        vrr = 2,
     },
 })
 
