@@ -1,41 +1,42 @@
 #!/bin/bash
 
+# Get the absolute path of the directory where the script is loaded
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+. "$SCRIPT_DIR/../../scripts/utils.sh"
+
+FONT_CASKS=(
+    font-hack-nerd-font
+    font-monaspace # https://github.com/githubnext/monaspace
+    font-meslo-lg-nerd-font
+    font-fira-code-nerd-font
+)
+
+# A failed cask is reported and skipped; install.sh sources this file, so an
+# exit here would abort the whole run
+install_font() {
+    local cask="$1"
+
+    if brew list --cask "$cask" &>/dev/null; then
+        warning "$cask already installed"
+    elif brew install --cask "$cask"; then
+        success "$cask installed"
+    else
+        error "$cask failed to install, continuing"
+        return 1
+    fi
+}
+
 install_fonts() {
     info "Installing fonts…"
 
-   if [[ -z `find ~/Library/Fonts -type f -name "HackNerd*"` ]]; then 
-        echo "💿 [Fonts] Installing HackNerd…"
-        brew install font-hack-nerd-font && echo "✅ [Fonts] HackNerd installed!" || exit 1
-    else 
-        echo "⏭️ [Fonts] HackNerd already installed!"
-    fi
-
-    # https://github.com/githubnext/monaspace
-    if [[ -z `find ~/Library/Fonts -type f -name "Monaspace*"` ]]; then
-        echo "💿 [Fonts] Installing Monaspace…"
-        brew install font-monaspace && echo "✅ [Fonts] Monaspace installed!" || exit 1
-    else 
-        echo "⏭️ [Fonts] Monaspace already installed!"
-    fi
-
-    # https://github.com/ryanoasis/nerd-fonts
-    if [[ -z `find ~/Library/Fonts -type f -name "MesloLG*` ]]; then
-        echo "💿 [Fonts] Installing MesloLG…"
-        brew install --cask font-meslo-lg-nerd-font && echo "✅ [Fonts] MesloLG installed!" || exit 1
-    else 
-        echo "⏭️ [Fonts] MesloLG already installed!"
-    fi
-
-    if [[ -z `find ~/Library/Fonts -type f -name "FiraCode*"` ]]; then
-        echo "💿 [Fonts] Installing FiraCode…"
-        brew install --cask font-fira-code-nerd-font && echo "✅ [Fonts] FiraCode installed!" || exit 1
-    else 
-        echo "⏭️ [Fonts] FiraCode already installed!"
-    fi
+    local cask
+    for cask in "${FONT_CASKS[@]}"; do
+        install_font "$cask"
+    done
 }
 
 # Only run if script is executed, not sourced
 if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
     install_fonts
 fi
-
