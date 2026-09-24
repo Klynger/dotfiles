@@ -14,6 +14,19 @@ install_zsh() {
     fi
 }
 
+install_oh_my_zsh() {
+    info "💿 Installing Oh My Zsh…"
+    if [ -d "$HOME/.oh-my-zsh" ]; then
+        warning "Oh My Zsh already installed"
+        return
+    fi
+
+    # Unattended: no shell switch, no zsh exec at the end, and an existing
+    # .zshrc is left alone (the installer writes its template otherwise)
+    RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+}
+
 install_powerlevel10k() {
     info "💿 Installing Powerlevel10k…"
     if brew list powerlevel10k &>/dev/null; then
@@ -73,7 +86,7 @@ install_zsh_syntax_highlighting() {
 }
 
 install_zsh_and_plugins() {
-   install_zsh
+    install_zsh
     install_oh_my_zsh
     install_powerlevel10k
     install_zsh_autosuggestions
