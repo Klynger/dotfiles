@@ -1,11 +1,5 @@
+# Sourced by the uwsm/Hyprland session, not by zsh, so only session-wide
+# environment belongs here. Interactive shell config lives in zsh/.zshrc.
 export EDITOR='nvim'
 export VISUAL=$EDITOR
-
-alias fzfn='f() { local files; files=$(fzf -m --preview="bat --color=always {}") && [ -n "$files" ] && nvim $files; }; f'
-
 export PATH="$HOME/.local/bin:$PATH"
-
-if [[ -o interactive ]]; then
-  fastfetch
-fi
-
