@@ -6,13 +6,28 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$SCRIPT_DIR/../../../scripts/utils.sh"
 
 install_xcode() {
-    info "Installing Apples's CLI tools (prerequisites for Git and Homebrew)…"
-    if xcode-select -p >/dev/null; then
-        warning "xcode is already installed"
-    else
-        xcode-select --install
-        sudo xcodebuild -license accept
+    info "Installing Apple's CLI tools (prerequisites for Git and Homebrew)…"
+    if xcode-select -p &>/dev/null; then
+        warning "Xcode CLI tools already installed"
+        return
     fi
+
+    # xcode-select --install only opens the GUI installer and returns right
+    # away; git and the Homebrew installer need the tools to be there
+    xcode-select --install
+    info "Finish the Command Line Tools dialog; waiting for the install to complete…"
+
+    local waited=0
+    until xcode-select -p &>/dev/null; do
+        sleep 5
+        waited=$((waited + 5))
+        if [ "$waited" -ge 1800 ]; then
+            error "Xcode CLI tools still missing after 30 minutes; aborting."
+            exit 1
+        fi
+    done
+
+    success "Xcode CLI tools installed"
 }
 
 install_homebrew() {
