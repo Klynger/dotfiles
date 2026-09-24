@@ -5,21 +5,26 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 
 . $SCRIPT_DIR/utils.sh
 
+# Failures are reported, not fatal: install.sh sources this file and the
+# requirements check after it catches anything still missing
 install_nvim() {
     info "💿 Installing NeoVim…"
 
-    if ! which nvim &>/dev/null; then
-        brew install neovim && echo "✅ NeoVim installed!" || exit 1
-    else
+    if hash nvim &>/dev/null; then
         warning "NeoVim already installed"
+    elif brew install neovim; then
+        success "NeoVim installed"
+    else
+        error "NeoVim failed to install, continuing"
     fi
 
-    info "💿 Installing shfmt…"
-    info "shfmt is used in the NeoVim config"
-    if ! which shfmt &>/dev/null; then
-        brew install shfmt && echo "✅ shfmt installed!" || exit 1
-    else
+    info "💿 Installing shfmt (used by the NeoVim config)…"
+    if hash shfmt &>/dev/null; then
         warning "shfmt already installed"
+    elif brew install shfmt; then
+        success "shfmt installed"
+    else
+        error "shfmt failed to install, continuing"
     fi
 }
 
