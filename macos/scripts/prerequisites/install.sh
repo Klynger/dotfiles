@@ -22,7 +22,24 @@ install_homebrew() {
         warning "Homebrew already installed"
     else
         sudo --validate
-        NONINSTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    # A fresh install is not on PATH yet in this shell, and the rest of the
+    # installers call brew directly
+    if ! hash brew &>/dev/null; then
+        local brew_bin
+        for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+            if [ -x "$brew_bin" ]; then
+                eval "$("$brew_bin" shellenv)"
+                break
+            fi
+        done
+    fi
+
+    if ! hash brew &>/dev/null; then
+        error "Homebrew is not available after installation; aborting."
+        exit 1
     fi
 }
 
