@@ -63,8 +63,9 @@ install_macos_prerequisites() {
     install_homebrew
 }
 
-# Only run if script is executed, not sourced
-if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
+# Only run if script is executed, not sourced. Compared as paths, not
+# basenames: the top-level install.sh shares this file's name
+if [ "$0" = "${BASH_SOURCE[0]}" ]; then
     install_xcode
     install_homebrew
 fi
