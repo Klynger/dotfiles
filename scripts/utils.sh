@@ -1,10 +1,20 @@
 #!/bin/bash
 
-default_color=$(tput sgr 0)
-red="$(tput setaf 1)"
-yellow="$(tput setaf 3)"
-green="$(tput setaf 2)"
-blue="$(tput setaf 4)"
+# Colors only when stdout is a terminal that tput knows; unattended runs
+# (piped output, no TERM) get plain text instead of tput errors
+if [ -t 1 ] && [ -n "$TERM" ] && tput sgr0 &>/dev/null; then
+    default_color=$(tput sgr0)
+    red="$(tput setaf 1)"
+    yellow="$(tput setaf 3)"
+    green="$(tput setaf 2)"
+    blue="$(tput setaf 4)"
+else
+    default_color=""
+    red=""
+    yellow=""
+    green=""
+    blue=""
+fi
 
 info() {
     printf "%s==> %s%s\n" "$blue" "$1" "$default_color"

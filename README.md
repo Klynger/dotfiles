@@ -9,6 +9,13 @@ Configuration that applies to both machines lives at the repository root (`nvim/
 `./install.sh` detects the OS and runs only what belongs there: shared brew-formula installers everywhere (CLI tools come from Homebrew on macOS and linuxbrew on Linux), casks and prerequisites only on macOS, desktop packages left to pacman on Linux. Symlinks follow the same split: `scripts/symlinks.sh` always applies `symlinks/general.conf` and adds the OS-specific conf when one exists.
 
 ```bash
+# Full setup, answering each prompt
+./install.sh
+
+# Unattended: take the default for every prompt, or pre-answer single ones
+./install.sh --yes
+DOTFILES_INSTALL_APPS=n DOTFILES_INSTALL_FONTS=n ./install.sh --yes
+
 # Symlinks only
 ./scripts/symlinks.sh --create
 ./scripts/symlinks.sh --delete
