@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Installs zsh, Oh My Zsh and the brew-provided theme and plugins that
+# zsh/.zshrc sources. Nothing here writes to .zshrc; that file is tracked.
 # Get the absolute path of the directory where the script is loaded
 SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 
@@ -34,11 +36,6 @@ install_powerlevel10k() {
     else
         brew install romkatv/powerlevel10k/powerlevel10k
     fi
-
-    if ! grep -q "powerlevel10k" "$HOME/.zshrc" 2>/dev/null; then
-        echo 'source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme' >>"$HOME/.zshrc"
-        info "Added Powerlevel10k to .zshrc"
-    fi
 }
 
 install_zsh_autosuggestions() {
@@ -47,32 +44,6 @@ install_zsh_autosuggestions() {
         warning "Zsh autosuggestions already installed"
     else
         brew install zsh-autosuggestions
-    fi
-
-    improve_autosuggestions_history
-}
-
-improve_autosuggestions_history() {
-    info "Improving history…"
-
-    if ! grep -q "HISTORY_SETUP" "$HOME/.zshrc" 2>/dev/null; then
-        echo '' >>"$HOME/.zshrc"
-        echo '# HISTORY_SETUP' >>"$HOME/.zshrc"
-        echo 'HISTFILE=$HOME/.zsh_history' >>"$HOME/.zshrc"
-        echo 'HISTSIZE=1000' >>"$HOME/.zshrc"
-        echo 'SAVEHIST=1000' >>"$HOME/.zshrc"
-        echo 'setopt share_history' >>"$HOME/.zshrc"
-        echo 'setopt hist_expire_dups_first' >>"$HOME/.zshrc"
-        echo 'setopt hist_ignore_dups' >>"$HOME/.zshrc"
-        echo 'setopt hist_verify' >>"$HOME/.zshrc"
-
-        echo "bindkey '^P' history-search-backward" >>"$HOME/.zshrc"
-        echo "bindkey '^N' history-search-forward" >>"$HOME/.zshrc"
-        echo "bindkey '^Y' end-of-line"
-        echo '# END_HISTORY_SETUP' >>"$HOME/.zshrc"
-        info "Added history config to .zshrc"
-    else
-        warning "Zsh history already set"
     fi
 }
 

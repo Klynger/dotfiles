@@ -33,6 +33,7 @@ that automate installation and symlink management. The primary platform is **mac
 │   ├── skills/             # Personal Claude Code skills (-> ~/.claude/skills)
 │   └── agents/             # Personal subagent definitions (-> ~/.claude/agents)
 ├── tmux/                   # tmux config (.tmux.conf)
+├── zsh/                    # Shared .zshrc (hand-written; ~/.p10k.zsh and ~/.zshrc.local stay untracked)
 ├── yazi/                   # Yazi file manager config (TOML)
 ├── vim/                    # Legacy .vimrc
 ├── macos/                  # macOS-only configuration
