@@ -59,11 +59,19 @@ install_aur_helper() {
         return
     fi
 
-    info "💿 Bootstrapping paru from the AUR…" >&2
+    # Arch-based distros like CachyOS ship paru in their own repos
+    if sudo pacman -S --needed --noconfirm paru &>/dev/null; then
+        printf "paru"
+        return
+    fi
+
+    # Built from source on purpose: the prebuilt paru-bin lags pacman's
+    # libalpm soname bumps and then fails to even start on a fresh system
+    info "💿 Building paru from the AUR…" >&2
     local build_dir
     build_dir="$(mktemp -d)"
-    if git clone -q https://aur.archlinux.org/paru-bin.git "$build_dir/paru-bin" &&
-        (cd "$build_dir/paru-bin" && makepkg -si --noconfirm) >&2; then
+    if git clone -q https://aur.archlinux.org/paru.git "$build_dir/paru" &&
+        (cd "$build_dir/paru" && makepkg -si --noconfirm) >&2; then
         rm -rf "$build_dir"
         printf "paru"
     else
