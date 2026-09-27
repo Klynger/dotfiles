@@ -32,6 +32,21 @@ warning() {
     printf "%s==> %s%s\n" "$yellow" "$1" "$default_color"
 }
 
+# brew_install <command to check> [formula]
+# A failed install is reported, not fatal: install.sh runs check_requirements
+# at the end, which catches anything still missing
+brew_install() {
+    local cmd="$1" formula="${2:-$1}"
+
+    if hash "$cmd" &>/dev/null; then
+        warning "$formula already installed"
+    elif brew install "$formula"; then
+        success "$formula installed"
+    else
+        error "$formula failed to install, continuing"
+    fi
+}
+
 # Prints macos, linux or unsupported. DOTFILES_OS overrides the detection,
 # which lets the smoke test exercise the other OS's code path.
 detect_os() {
