@@ -8,6 +8,14 @@ Configuration that applies to both machines lives at the repository root (`nvim/
 
 `./install.sh` detects the OS and runs only what belongs there: shared brew-formula installers everywhere (CLI tools come from Homebrew on macOS and linuxbrew on Linux), casks and prerequisites only on macOS, desktop packages left to pacman on Linux. Symlinks follow the same split: `scripts/symlinks.sh` always applies `symlinks/general.conf` and adds the OS-specific conf when one exists.
 
+On a brand-new Mac, `git` is only a stub until the Command Line Tools exist, and `install.sh` is what installs them. Either let the stub prompt you (run `git clone`, accept the dialog, clone again) or fetch a tarball first and let the script handle the tools unattended:
+
+```bash
+mkdir -p ~/dev && curl -fsSL https://github.com/Klynger/dotfiles/archive/refs/heads/main.tar.gz | tar xz -C ~/dev && mv ~/dev/dotfiles-main ~/dev/dotfiles && cd ~/dev/dotfiles && ./install.sh --yes
+```
+
+Afterwards replace the tarball with a real checkout (`rm -rf ~/dev/dotfiles && git clone git@github.com:Klynger/dotfiles.git ~/dev/dotfiles`); the symlinks point at the same path. This flow was verified on a vanilla macOS VM in September 2026.
+
 ```bash
 # Full setup, answering each prompt
 ./install.sh
