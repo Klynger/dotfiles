@@ -104,7 +104,8 @@ There is no test framework. Verify changes by sourcing configs or restarting the
 - **Idempotency**: Check if a tool is already installed before installing (use `hash cmd &>/dev/null` or `which cmd &>/dev/null`)
 - **Source guard**: Scripts that can be sourced should guard direct execution:
   ```bash
-  if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
+  # Compare paths, not basenames: two scripts can share a file name
+  if [ "$0" = "${BASH_SOURCE[0]}" ]; then
       main_function
   fi
   ```
