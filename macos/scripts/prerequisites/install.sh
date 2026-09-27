@@ -12,8 +12,26 @@ install_xcode() {
         return
     fi
 
-    # xcode-select --install only opens the GUI installer and returns right
-    # away; git and the Homebrew installer need the tools to be there
+    # softwareupdate can install the tools without the GUI dialog, which is
+    # the only way an unattended run gets past this step. The placeholder
+    # file makes softwareupdate list the Command Line Tools package.
+    local placeholder=/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    touch "$placeholder"
+    local label
+    label="$(softwareupdate --list 2>/dev/null | grep -E '^\*? *Label: Command Line Tools' | sed -E 's/^\*? *Label: //' | sort -V | tail -1)"
+    if [ -n "$label" ]; then
+        info "Installing \"$label\" via softwareupdate (no dialog)…"
+        sudo softwareupdate --install "$label" --verbose
+    fi
+    rm -f "$placeholder"
+
+    if xcode-select -p &>/dev/null; then
+        success "Xcode CLI tools installed"
+        return
+    fi
+
+    # Fallback: xcode-select --install only opens the GUI installer and
+    # returns right away; git and the Homebrew installer need the tools
     xcode-select --install
     info "Finish the Command Line Tools dialog; waiting for the install to complete…"
 

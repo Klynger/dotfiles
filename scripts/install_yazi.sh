@@ -25,11 +25,11 @@ install_yazi() {
         install_fzf
         brew install yazi ffmpeg sevenzip jq poppler fd ripgrep zoxide resvg imagemagick font-symbols-only-nerd-font
     fi
+
+    install_mpv
 }
 
 # Only run if script is executed, not sourced
 if [ "$(basename "$0")" = "$(basename "${BASH_SOURCE[0]}")" ]; then
-    install_fzf
-    install_mpv
     install_yazi
 fi

@@ -18,14 +18,20 @@ install_nvim() {
         error "NeoVim failed to install, continuing"
     fi
 
-    info "💿 Installing shfmt (used by the NeoVim config)…"
-    if hash shfmt &>/dev/null; then
-        warning "shfmt already installed"
-    elif brew install shfmt; then
-        success "shfmt installed"
-    else
-        error "shfmt failed to install, continuing"
-    fi
+    # Everything nvim/requirements.conf lists beyond nvim itself
+    local tool formula
+    for tool in shfmt tree-sitter:tree-sitter-cli node rg:ripgrep go; do
+        formula="${tool#*:}"
+        tool="${tool%%:*}"
+        info "💿 Installing $formula (used by the NeoVim config)…"
+        if hash "$tool" &>/dev/null; then
+            warning "$formula already installed"
+        elif brew install "$formula"; then
+            success "$formula installed"
+        else
+            error "$formula failed to install, continuing"
+        fi
+    done
 }
 
 # Only run if script is executed, not sourced

@@ -25,16 +25,28 @@ install_oh_my_zsh() {
 
     # Unattended: no shell switch, no zsh exec at the end, and an existing
     # .zshrc is left alone (the installer writes its template otherwise)
+    local had_zshrc=false
+    [ -e "$HOME/.zshrc" ] && had_zshrc=true
+
     RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+    # On a fresh machine there is no .zshrc to keep, so the installer writes
+    # its template; that would block the symlink to the tracked zsh/.zshrc
+    if [ "$had_zshrc" = false ] && [ -f "$HOME/.zshrc" ]; then
+        rm "$HOME/.zshrc"
+        info "Removed the Oh My Zsh template .zshrc; the tracked one gets linked later"
+    fi
 }
 
 install_powerlevel10k() {
     info "💿 Installing Powerlevel10k…"
+    # From homebrew-core: the romkatv tap needs `brew trust` on Homebrew 7,
+    # which an unattended run cannot give
     if brew list powerlevel10k &>/dev/null; then
         warning "Powerlevel10k already installed"
     else
-        brew install romkatv/powerlevel10k/powerlevel10k
+        brew install powerlevel10k
     fi
 }
 
