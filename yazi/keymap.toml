@@ -7,4 +7,7 @@
 # prepend_keymap / append_keymap per section to add or replace bindings.
 
 [mgr]
-prepend_keymap = []
+prepend_keymap = [
+	# By default l only enters directories; smart-enter also opens files
+	{ on = "l", run = "plugin smart-enter", desc = "Enter the directory, or open the file" },
+]
