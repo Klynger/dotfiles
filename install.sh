@@ -161,6 +161,25 @@ if [[ "$overwrite_dotfiles" == "y" ]]; then
 fi
 ./scripts/symlinks.sh --create
 
+# The Linux desktop needs its copy-based setup on top of the symlinks:
+# machine-specific hypr files, the bin/ helpers, and the sudo root copies
+if [ "$OS" = "linux" ]; then
+    printf "\n"
+    info "====================="
+    info "Linux desktop setup"
+    info "====================="
+    printf "\n"
+
+    ./linux/scripts/copy-base-files.sh || error "copy-base-files failed, continuing"
+    ./linux/scripts/install-binaries.sh || error "install-binaries failed, continuing"
+
+    if sudo -n true 2>/dev/null || [ "$NON_INTERACTIVE" = false ]; then
+        sudo ./linux/scripts/copies-root.sh --create || error "copies-root failed, continuing"
+    else
+        warning "Root copies need sudo; run later: sudo ./linux/scripts/copies-root.sh --create"
+    fi
+fi
+
 install_tmux_plugins
 
 success "Dotfiles set up successfully."
