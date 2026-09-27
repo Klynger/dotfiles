@@ -21,6 +21,10 @@ if [ "$OS" = "macos" ]; then
     . macos/scripts/install_wezterm.sh
 fi
 
+if [ "$OS" = "linux" ]; then
+    . linux/scripts/prerequisites/install.sh
+fi
+
 # Every prompt can be answered up front, which is what a fresh-machine test
 # or an unattended run needs:
 #   ./install.sh --yes        take the default for every prompt
@@ -33,7 +37,8 @@ for arg in "$@"; do
         -h | --help)
             echo "Usage: $0 [--yes]"
             echo "  DOTFILES_INSTALL_APPS, DOTFILES_OVERWRITE_DOTFILES, DOTFILES_INSTALL_FONTS,"
-            echo "  DOTFILES_IGNORE_REQUIREMENTS: y or n, pre-answer the matching prompt"
+            echo "  DOTFILES_INSTALL_DESKTOP, DOTFILES_IGNORE_REQUIREMENTS: y or n,"
+            echo "  pre-answer the matching prompt"
             exit 0
             ;;
         *)
@@ -69,6 +74,19 @@ ask overwrite_dotfiles DOTFILES_OVERWRITE_DOTFILES "Overwrite existing dotfiles?
 if [ "$OS" = "macos" ]; then
     ask install_fonts_opt DOTFILES_INSTALL_FONTS "Install fonts? [Y/n] " y
 fi
+if [ "$OS" = "linux" ]; then
+    ask install_desktop DOTFILES_INSTALL_DESKTOP "Install desktop packages (pacman + AUR)? [Y/n] " y
+fi
+
+if [[ "$OS" == "linux" && "$install_desktop" == "y" ]]; then
+    printf "\n"
+    info "====================="
+    info "Desktop packages"
+    info "====================="
+    printf "\n"
+
+    install_linux_desktop_packages
+fi
 
 if [[ "$install_apps" == "y" ]]; then
     printf "\n"
@@ -83,6 +101,9 @@ if [[ "$install_apps" == "y" ]]; then
     if [ "$OS" = "macos" ]; then
         install_macos_prerequisites
         install_wezterm
+    fi
+    if [ "$OS" = "linux" ]; then
+        install_linuxbrew
     fi
 
     install_fzf
