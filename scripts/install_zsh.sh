@@ -38,7 +38,10 @@ install_oh_my_zsh() {
     local had_zshrc=false
     [ -e "$HOME/.zshrc" ] && had_zshrc=true
 
-    if ! RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+    # ZSH is pinned because CachyOS's default zsh exports
+    # ZSH=/usr/share/oh-my-zsh (its packaged copy), and the installer
+    # refuses to install over a ZSH directory it did not create
+    if ! ZSH="$HOME/.oh-my-zsh" RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
         error "Oh My Zsh failed to install, continuing"
         return
