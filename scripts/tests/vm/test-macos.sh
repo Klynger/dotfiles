@@ -12,7 +12,8 @@
 #   --keep           Leave the VM running after the test for inspection
 #   --fresh-image    Re-download the macOS image (about 25 GB)
 #
-# Requires Apple Silicon, tart and sshpass (both from brew, see preflight).
+# Requires an Apple Silicon Mac with Homebrew; tart and sshpass are
+# installed by the preflight when missing.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -63,19 +64,46 @@ preflight() {
         exit 1
     fi
 
-    local missing=false
-    if ! command -v tart &>/dev/null; then
-        error "Missing: tart. Install with: brew install cirruslabs/cli/tart"
-        error "(Homebrew 7 asks for 'brew trust cirruslabs/cli' first)"
-        missing=true
-    fi
-    if ! command -v sshpass &>/dev/null; then
-        error "Missing: sshpass. Install with: brew install hudochenkov/sshpass/sshpass"
-        missing=true
-    fi
-    if [ "$missing" = true ]; then
+    if ! command -v brew &>/dev/null; then
+        error "Missing: brew. This test needs Homebrew on the host."
         exit 1
     fi
+
+    command -v tart &>/dev/null || install_tart
+    command -v sshpass &>/dev/null || install_sshpass
+}
+
+# The cirruslabs tap needs trust on Homebrew 7, and its formulas still use a
+# depends_on form Homebrew 7 rejects; patch the two files for the install
+# and restore the tap afterwards
+install_tart() {
+    info "Installing tart from the cirruslabs tap…"
+    brew tap cirruslabs/cli >/dev/null 2>&1
+    brew trust cirruslabs/cli >/dev/null 2>&1
+
+    if ! brew install cirruslabs/cli/tart >/dev/null 2>&1; then
+        local tap_dir
+        tap_dir="$(brew --repository cirruslabs/cli)"
+        warning "Plain install failed; patching the tap's depends_on lines and retrying…"
+        sed -i '' '/depends_on :macos => /d' "$tap_dir/tart.rb" "$tap_dir/softnet.rb"
+        brew install cirruslabs/cli/tart
+        local status=$?
+        git -C "$tap_dir" checkout -q -- tart.rb softnet.rb
+        if [ "$status" -ne 0 ]; then
+            error "tart failed to install; see https://github.com/cirruslabs/homebrew-cli"
+            exit 1
+        fi
+    fi
+    success "tart installed"
+}
+
+install_sshpass() {
+    info "Installing sshpass…"
+    if ! brew install hudochenkov/sshpass/sshpass >/dev/null 2>&1; then
+        error "sshpass failed to install: brew install hudochenkov/sshpass/sshpass"
+        exit 1
+    fi
+    success "sshpass installed"
 }
 
 prepare_image() {
