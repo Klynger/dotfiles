@@ -14,7 +14,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACMAN_PACKAGES=(
     base-devel git curl
     hyprland hypridle hyprlock uwsm
-    waybar rofi-wayland swaync swww wlogout sddm
+    waybar rofi-wayland swaync swww sddm
     wezterm nautilus btop gnome-calendar gnome-calculator
     playerctl wireplumber pavucontrol
     brightnessctl imagemagick libnotify gum glib2 xdg-utils
@@ -24,6 +24,7 @@ PACMAN_PACKAGES=(
 )
 
 AUR_PACKAGES=(
+    wlogout
     matugen-bin
     hyprshot
     bibata-cursor-theme-bin
