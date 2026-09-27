@@ -48,6 +48,12 @@ export TURBO_TELEMETRY_DISABLED=1
 # Fuzzy-pick files and open them in nvim
 alias fzfn='f() { local files; files=$(fzf -m --preview="bat --color=always {}") && [ -n "$files" ] && nvim $files; }; f'
 
+# zoxide builds its directory database from shell cds; yazi's zoxide
+# plugin reads the same database
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
 # Open yazi and cd into the directory it was left in
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
