@@ -6,7 +6,7 @@ This repository contains my dotfiles, which configure my development environment
 
 Configuration that applies to both machines lives at the repository root (`nvim/`, `tmux/`, `yazi/`, `vim/`, `ai/`). OS-specific configuration lives in a directory per OS: `macos/` and `linux/` (the imported hyprland-desktop-config, with its own docs in `linux/AGENTS.md`). Each OS directory is dead code on the other machine by design.
 
-`./install.sh` detects the OS and runs only what belongs there: shared brew-formula installers everywhere (CLI tools come from Homebrew on macOS and linuxbrew on Linux), casks and prerequisites only on macOS, desktop packages left to pacman on Linux. Symlinks follow the same split: `scripts/symlinks.sh` always applies `symlinks/general.conf` and adds the OS-specific conf when one exists.
+`./install.sh` detects the OS and runs only what belongs there: shared brew-formula installers everywhere (CLI tools come from Homebrew on macOS and linuxbrew on Linux), casks and prerequisites only on macOS, and the desktop layer via pacman and the AUR on Linux. The Linux side targets Arch or Arch-based distros only, and the installer refuses to run on anything without pacman. Symlinks follow the same split: `scripts/symlinks.sh` always applies `symlinks/general.conf` and adds the OS-specific conf when one exists.
 
 On a brand-new Mac, `git` is only a stub until the Command Line Tools exist, and `install.sh` is what installs them. Either let the stub prompt you (run `git clone`, accept the dialog, clone again) or fetch a tarball first and let the script handle the tools unattended:
 

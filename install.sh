@@ -15,6 +15,14 @@ if [ "$OS" = "unsupported" ]; then
     exit 1
 fi
 
+# The Linux side is an Arch installation, not a generic Linux one: the
+# desktop layer comes from pacman and the AUR, so anything without pacman
+# is out of scope
+if [ "$OS" = "linux" ] && ! command -v pacman &>/dev/null; then
+    error "This installer supports Arch or Arch-based distros only on Linux (pacman not found)."
+    exit 1
+fi
+
 if [ "$OS" = "macos" ]; then
     . macos/scripts/prerequisites/install.sh
     . macos/scripts/install_fonts.sh
@@ -81,7 +89,7 @@ fi
 if [[ "$OS" == "linux" && "$install_desktop" == "y" ]]; then
     printf "\n"
     info "====================="
-    info "Desktop packages"
+    info "Arch desktop packages"
     info "====================="
     printf "\n"
 
@@ -96,8 +104,8 @@ if [[ "$install_apps" == "y" ]]; then
     printf "\n"
 
     # CLI tools install through brew on both OSes (Homebrew on macOS,
-    # linuxbrew on Linux). Casks and desktop packages are per-OS: macOS
-    # handles them here, Linux leaves them to pacman.
+    # linuxbrew on Arch). Casks are macOS-only; the Arch desktop packages
+    # come from pacman and the AUR in the section above.
     if [ "$OS" = "macos" ]; then
         install_macos_prerequisites
         install_wezterm
@@ -161,12 +169,12 @@ if [[ "$overwrite_dotfiles" == "y" ]]; then
 fi
 ./scripts/symlinks.sh --create
 
-# The Linux desktop needs its copy-based setup on top of the symlinks:
+# The Arch desktop needs its copy-based setup on top of the symlinks:
 # machine-specific hypr files, the bin/ helpers, and the sudo root copies
 if [ "$OS" = "linux" ]; then
     printf "\n"
     info "====================="
-    info "Linux desktop setup"
+    info "Arch desktop setup"
     info "====================="
     printf "\n"
 
