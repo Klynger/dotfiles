@@ -8,22 +8,17 @@ TPM_DIR="$SCRIPT_DIR/../tmux/plugins/tpm"
 
 install_tmux() {
     info "💿 Installing Tmux…"
-
-    if hash tmux &>/dev/null; then
-        warning "Tmux already installed"
-    else
-        brew install tmux
-    fi
+    brew_install tmux
 
     # tmux/plugins is gitignored and symlinked to ~/.config/tmux/plugins, so
     # tpm is cloned into the repo copy and the symlink picks it up later
     if [ -d "$TPM_DIR" ]; then
         warning "tpm already installed"
+    elif git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"; then
+        success "tpm installed"
     else
-        info "💿 Installing tpm…"
-        git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
+        error "tpm failed to install, continuing"
     fi
-
 }
 
 # Needs ~/.tmux.conf in place, tpm reads the @plugin list from it, so this

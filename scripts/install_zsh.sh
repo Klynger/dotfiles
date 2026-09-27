@@ -9,10 +9,20 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 
 install_zsh() {
     info "💿 Installing Zsh…"
-    if hash zsh &>/dev/null; then
-        warning "Zsh already installed"
+    brew_install zsh
+}
+
+# For formulae that install no command (theme and plugins sourced by .zshrc);
+# failures are reported, not fatal, like brew_install
+install_zsh_extra() {
+    local formula="$1"
+
+    if brew list "$formula" &>/dev/null; then
+        warning "$formula already installed"
+    elif brew install "$formula"; then
+        success "$formula installed"
     else
-        brew install zsh
+        error "$formula failed to install, continuing"
     fi
 }
 
@@ -28,8 +38,14 @@ install_oh_my_zsh() {
     local had_zshrc=false
     [ -e "$HOME/.zshrc" ] && had_zshrc=true
 
-    RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    # ZSH is pinned because CachyOS's default zsh exports
+    # ZSH=/usr/share/oh-my-zsh (its packaged copy), and the installer
+    # refuses to install over a ZSH directory it did not create
+    if ! ZSH="$HOME/.oh-my-zsh" RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
+        error "Oh My Zsh failed to install, continuing"
+        return
+    fi
 
     # On a fresh machine there is no .zshrc to keep, so the installer writes
     # its template; that would block the symlink to the tracked zsh/.zshrc
@@ -39,41 +55,17 @@ install_oh_my_zsh() {
     fi
 }
 
-install_powerlevel10k() {
-    info "💿 Installing Powerlevel10k…"
-    # From homebrew-core: the romkatv tap needs `brew trust` on Homebrew 7,
-    # which an unattended run cannot give
-    if brew list powerlevel10k &>/dev/null; then
-        warning "Powerlevel10k already installed"
-    else
-        brew install powerlevel10k
-    fi
-}
-
-install_zsh_autosuggestions() {
-    info "💿 Installing Zsh autosuggestions…"
-    if brew list zsh-autosuggestions &>/dev/null; then
-        warning "Zsh autosuggestions already installed"
-    else
-        brew install zsh-autosuggestions
-    fi
-}
-
-install_zsh_syntax_highlighting() {
-    info "💿 Installing Zsh syntax highlighting…"
-    if brew list zsh-syntax-highlighting &>/dev/null; then
-        warning "Zsh syntax highlighting already installed"
-    else
-        brew install zsh-syntax-highlighting
-    fi
-}
-
 install_zsh_and_plugins() {
     install_zsh
     install_oh_my_zsh
-    install_powerlevel10k
-    install_zsh_autosuggestions
-    install_zsh_syntax_highlighting
+
+    info "💿 Installing the zsh theme and plugins…"
+    # powerlevel10k comes from homebrew-core: the romkatv tap needs
+    # `brew trust` on Homebrew 7, which an unattended run cannot give
+    local formula
+    for formula in powerlevel10k zsh-autosuggestions zsh-syntax-highlighting; do
+        install_zsh_extra "$formula"
+    done
 }
 
 # Only run if script is executed, not sourced

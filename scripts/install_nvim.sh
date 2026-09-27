@@ -10,13 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 install_nvim() {
     info "💿 Installing NeoVim…"
 
-    if hash nvim &>/dev/null; then
-        warning "NeoVim already installed"
-    elif brew install neovim; then
-        success "NeoVim installed"
-    else
-        error "NeoVim failed to install, continuing"
-    fi
+    brew_install nvim neovim
 
     # Everything nvim/requirements.conf lists beyond nvim itself
     local tool formula
@@ -24,13 +18,7 @@ install_nvim() {
         formula="${tool#*:}"
         tool="${tool%%:*}"
         info "💿 Installing $formula (used by the NeoVim config)…"
-        if hash "$tool" &>/dev/null; then
-            warning "$formula already installed"
-        elif brew install "$formula"; then
-            success "$formula installed"
-        else
-            error "$formula failed to install, continuing"
-        fi
+        brew_install "$tool" "$formula"
     done
 }
 

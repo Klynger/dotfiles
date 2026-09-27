@@ -1,32 +1,35 @@
 #!/bin/bash
 
 # Get the absolute path of the directory where the script is loaded
-SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 . $SCRIPT_DIR/utils.sh
 . $SCRIPT_DIR/install_fzf.sh
 
-install_mpv() {
-    info "Installing mpv…"
-
-    if hash mpv &>/dev/null; then
-        warning "mpv already installed"
-    else
-        brew install mpv
-    fi
-}
-
 install_yazi() {
-    info "💿 Installing yazi…"
+    info "💿 Installing yazi and its previewers…"
 
-    if hash yazi &>/dev/null; then
-        warning "yazi already installed"
-    else
-        install_fzf
-        brew install yazi ffmpeg sevenzip jq poppler fd ripgrep zoxide resvg imagemagick font-symbols-only-nerd-font
+    install_fzf
+
+    # Everything yazi/requirements.conf lists beyond fzf
+    local tool formula
+    for tool in yazi ffmpeg 7zz:sevenzip jq pdftoppm:poppler fd rg:ripgrep zoxide resvg magick:imagemagick mpv; do
+        formula="${tool#*:}"
+        tool="${tool%%:*}"
+        brew_install "$tool" "$formula"
+    done
+
+    # Fonts are casks, and casks only exist on macOS; Linux gets its symbols
+    # font from pacman (ttf-nerd-fonts-symbols)
+    if [ "$(detect_os)" = "macos" ]; then
+        if brew list --cask font-symbols-only-nerd-font &>/dev/null; then
+            warning "font-symbols-only-nerd-font already installed"
+        elif brew install font-symbols-only-nerd-font; then
+            success "font-symbols-only-nerd-font installed"
+        else
+            error "font-symbols-only-nerd-font failed to install, continuing"
+        fi
     fi
-
-    install_mpv
 }
 
 # Only run if script is executed, not sourced

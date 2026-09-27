@@ -7,25 +7,13 @@ SCRIPT_DIR="$(cd "$(dirname "$BASH_SOURCE[0]}")" && pwd)"
 
 install_fzf() {
     info "Installing fzf…"
-
-    if hash fzf &>/dev/null; then
-        warning "fzf already installed"
-    else
-        brew install fzf
-    fi
-
-    warning "Remember to check if you need to add something to .zshrc"
+    brew_install fzf
 }
 
 install_bat() {
     info "Installing bat…"
-
     # CLI tools come from brew on macOS and linuxbrew alike
-    if hash bat &>/dev/null; then
-        warning "bat already installed"
-    else
-        brew install bat
-    fi
+    brew_install bat
 }
 
 # Only run if script is executed, not sourced
