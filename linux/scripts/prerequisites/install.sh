@@ -67,18 +67,26 @@ install_aur_helper() {
     fi
 
     # Built from source on purpose: the prebuilt paru-bin lags pacman's
-    # libalpm soname bumps and then fails to even start on a fresh system
+    # libalpm soname bumps and then fails to even start on a fresh system.
+    # Retried because this single build gates every AUR package and one slow
+    # mirror during its dependency download otherwise sinks the whole layer.
     info "💿 Building paru from the AUR…" >&2
-    local build_dir
-    build_dir="$(mktemp -d)"
-    if git clone -q https://aur.archlinux.org/paru.git "$build_dir/paru" &&
-        (cd "$build_dir/paru" && makepkg -si --noconfirm) >&2; then
+    local attempt build_dir
+    for attempt in 1 2 3; do
+        build_dir="$(mktemp -d)"
+        if git clone -q https://aur.archlinux.org/paru.git "$build_dir/paru" &&
+            (cd "$build_dir/paru" && makepkg -si --noconfirm) >&2; then
+            rm -rf "$build_dir"
+            printf "paru"
+            return
+        fi
         rm -rf "$build_dir"
-        printf "paru"
-    else
-        rm -rf "$build_dir"
-        error "paru failed to build; AUR packages will be skipped" >&2
-    fi
+        if [ "$attempt" -lt 3 ]; then
+            warning "paru build attempt $attempt failed; retrying in 15s…" >&2
+            sleep 15
+        fi
+    done
+    error "paru failed to build after 3 attempts; AUR packages will be skipped" >&2
 }
 
 install_aur_packages() {
