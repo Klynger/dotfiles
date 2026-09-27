@@ -2,6 +2,15 @@
 --- WINDOW RULES    ---
 -----------------------
 
+-- With a single tiled window the 2px border makes the screen edge a dead
+-- strip (e.g. a browser scrollbar can't be hit by flicking the cursor to the
+-- edge), so drop border and rounding when one window is tiled
+hl.workspace_rule({
+    workspace = "w[tv1]",
+    border_size = 0,
+    no_rounding = true,
+})
+
 -- Global rules
 hl.window_rule({
     name = "suppress-maximize-events",
