@@ -16,6 +16,12 @@ mkdir -p ~/dev && curl -fsSL https://github.com/Klynger/dotfiles/archive/refs/he
 
 Afterwards replace the tarball with a real checkout (`rm -rf ~/dev/dotfiles && git clone git@github.com:Klynger/dotfiles.git ~/dev/dotfiles`); the symlinks point at the same path. This flow was verified on a vanilla macOS VM in September 2026.
 
+On a brand-new Arch (or Arch-based) machine, the same tarball command works as-is: `curl` ships with the base system and the installer pulls everything else, including `git`, the full Hyprland desktop from pacman and the AUR, linuxbrew for the CLI tools, and a seeded matugen theme so the first login is not half-broken. Verified end to end on a vanilla Arch VM in September 2026. Three things to know:
+
+- The AUR bootstrap installs `paru` from the distro repos when available (CachyOS ships it); on vanilla Arch it builds paru from source, which needs roughly 8 GB of RAM or swap for the final link.
+- sddm is installed but not enabled on purpose; finish with `sudo systemctl enable sddm` and a reboot.
+- The theme is seeded from a fallback color until `~/Pictures/Wallpapers/current` has images; run `change-wallpaper` after adding some.
+
 ```bash
 # Full setup, answering each prompt
 ./install.sh
