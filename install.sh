@@ -167,6 +167,18 @@ if [[ "$overwrite_dotfiles" == "y" ]]; then
     warning "Deleting existing dotfiles…"
     ./scripts/symlinks.sh --delete --include-files
 fi
+# Any GTK app creates real ~/.config/gtk-* dirs, and the symlink step
+# skips existing targets, so on a fresh desktop the theming would silently
+# not apply; move them aside instead of deleting them
+if [ "$OS" = "linux" ]; then
+    for gtk_dir in "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0"; do
+        if [ -d "$gtk_dir" ] && [ ! -L "$gtk_dir" ]; then
+            mv "$gtk_dir" "$gtk_dir.pre-dotfiles"
+            warning "Moved existing $(basename "$gtk_dir") aside to $(basename "$gtk_dir").pre-dotfiles"
+        fi
+    done
+fi
+
 ./scripts/symlinks.sh --create
 
 # The Arch desktop needs its copy-based setup on top of the symlinks:
