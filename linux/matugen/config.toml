@@ -21,7 +21,9 @@ output_path = '~/.config/gtk-4.0/colors.css'
 [templates.swaync]
 input_path = '~/.config/matugen/templates/swaync.css'
 output_path = '~/.config/swaync/matugen/matugen-swaync.css'
-post_hook = 'swaync-client -rs'
+# Guarded: with no swaync running (headless install, tty), swaync-client
+# waits for the service forever and hangs the whole matugen run
+post_hook = 'pgrep -x swaync >/dev/null && swaync-client -rs || true'
 
 # wezterm
 [templates.wezterm]
