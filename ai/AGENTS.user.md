@@ -20,6 +20,10 @@
 
 @rules/commit-messages.md
 
+## Replying to reviewers
+
+@rules/review-replies.md
+
 ## Pull request descriptions
 
 - Write PR descriptions as prose paragraphs centered on the why: motivation, context, constraints, tradeoffs, and anything a reviewer needs that the diff cannot show. Summarize the what in a sentence or two; the diff already shows the details.
