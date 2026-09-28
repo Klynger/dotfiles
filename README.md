@@ -37,9 +37,11 @@ DOTFILES_INSTALL_APPS=n DOTFILES_INSTALL_FONTS=n ./install.sh --yes
 # Sanity-check both OS code paths against a throwaway $HOME
 ./scripts/tests/smoke_test.sh
 
-# Full-fidelity test: boot a fresh Arch VM, run the first-run flow in it,
-# assert the result (requires qemu-base + cloud-image-utils + KVM)
+# Full-fidelity tests: boot a fresh VM, run the first-run flow in it, assert
+# the result. Arch needs qemu-base + cloud-image-utils + KVM; macOS needs an
+# Apple Silicon Mac with tart and sshpass from brew
 ./scripts/tests/vm/test-arch.sh [--ref <branch>] [--keep]
+./scripts/tests/vm/test-macos.sh [--ref <branch>] [--keep]
 ```
 
 ## Requirements
