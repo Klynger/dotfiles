@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Mutes or unmutes every output device together, so the mute key silences
+# everything no matter which sink each app is routed to. All sinks end up in
+# the same state (the opposite of the default sink's current one), which
+# also re-syncs any sink that was toggled on its own. The virtmic null sink
+# is the microphone chain, not a listening device, so it stays untouched.
+
+set -euo pipefail
+
+if wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED; then
+    state=0
+else
+    state=1
+fi
+
+pw-dump |
+    jq -r '.[]
+        | select(.info.props["media.class"] == "Audio/Sink")
+        | select((.info.props["node.name"] // "") != "virtmic")
+        | .id' |
+    while read -r id; do
+        wpctl set-mute "$id" "$state"
+    done

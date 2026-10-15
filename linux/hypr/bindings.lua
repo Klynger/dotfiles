@@ -62,8 +62,10 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_
     { repeating = true, locked = true, description = "Volume up" })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
     { repeating = true, locked = true, description = "Volume down" })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-    { repeating = true, locked = true, description = "Toggle mute" })
+-- Mutes every output device, not just the default sink, so apps routed to
+-- another device (a headset, the monitor) go silent too
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("toggle-mute-all"),
+    { repeating = true, locked = true, description = "Toggle mute everywhere" })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
     { repeating = true, locked = true, description = "Toggle mic mute" })
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),
