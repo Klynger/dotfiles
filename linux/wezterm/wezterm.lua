@@ -28,8 +28,9 @@ end
 config.color_scheme = color_scheme()
 
 -- Glass: translucent enough for Hyprland's blur to read through, matching
--- the shell's panels
-config.window_background_opacity = 0.78
+-- the shell's panels. Light mode keeps more opacity because dark text over
+-- a colorful wallpaper bleed loses contrast much faster than light text
+config.window_background_opacity = config.color_scheme == "Tokyo Night Day" and 0.93 or 0.78
 config.default_prog = {
 	"zsh",
 	"-lc",
