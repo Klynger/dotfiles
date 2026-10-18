@@ -183,7 +183,7 @@ run_assertions() {
         for f in ~/.zshrc ~/.config/nvim ~/.config/hypr ~/.config/waybar \
             ~/.tmux.conf ~/.config/hypr/monitors.lua ~/.config/hypr/colors.lua \
             ~/.config/waybar/matugen/colors.css \
-            /usr/share/sddm/themes/material-you/Main.qml; do
+            /usr/share/sddm/themes/glass/Main.qml; do
             [ -e "$f" ] || echo "$f"
         done
         [ "$(ls ~/.local/bin | wc -l)" -ge 10 ] || echo "~/.local/bin has too few helpers"

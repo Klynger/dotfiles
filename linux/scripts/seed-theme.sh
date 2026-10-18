@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Seeds the matugen-generated theme files on a machine that has never run
-# matugen (hypr colors.lua, waybar/gtk/rofi css, the sddm Main.qml, ...).
-# They are all gitignored, and without them the first Hyprland session loads
-# half-broken: looknfeel.lua requires colors.lua and waybar imports its css.
+# matugen (hypr colors.lua, waybar/gtk/rofi css, ...). They are all
+# gitignored, and without them the first Hyprland session loads half-broken:
+# looknfeel.lua requires colors.lua and waybar imports its css.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 . "$SCRIPT_DIR/utils.sh"
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers/current"
-SDDM_THEME_DIR="$SCRIPT_DIR/../sddm/material-you"
+SDDM_THEME_DIR="$SCRIPT_DIR/../sddm/glass"
 # Used when no wallpaper exists yet; change-wallpaper regenerates everything
 # from a real image later
 SEED_COLOR="#7aa2f7"
@@ -26,8 +26,8 @@ seed_theme() {
         return 1
     fi
 
-    # Post-hooks (hyprctl reload, swaync-client, the sudo sddm copy) fail
-    # outside a live session; that is fine, the generated files are the point
+    # Post-hooks (hyprctl reload, swaync-client) fail outside a live
+    # session; that is fine, the generated files are the point
     mkdir -p "$WALLPAPER_DIR"
     local wallpaper
     wallpaper="$(find "$WALLPAPER_DIR" -type f 2>/dev/null | head -1)"
