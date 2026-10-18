@@ -13,17 +13,27 @@ Singleton {
     // "ethernet", "wifi" or "" while disconnected
     property string type: ""
     property string name: ""
+    property bool wifiEnabled: false
+
+    function setWifi(on: bool): void {
+        wifiEnabled = on;
+        Quickshell.execDetached(["nmcli", "radio", "wifi", on ? "on" : "off"]);
+    }
 
     Process {
         id: query
 
-        command: ["nmcli", "-t", "-f", "NAME,TYPE,DEVICE", "connection", "show", "--active"]
+        command: ["sh", "-c", "nmcli -t -f NAME,TYPE,DEVICE connection show --active; printf 'RADIO:%s\\n' \"$(nmcli radio wifi)\""]
 
         stdout: StdioCollector {
             onStreamFinished: {
                 root.type = "";
                 root.name = "";
                 for (const line of text.trim().split("\n")) {
+                    if (line.startsWith("RADIO:")) {
+                        root.wifiEnabled = line.slice(6).trim() === "enabled";
+                        continue;
+                    }
                     const parts = line.split(":");
                     if (parts.length < 3)
                         continue;
