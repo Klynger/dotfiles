@@ -25,6 +25,7 @@ ShellRoot {
     Picker {}
     Lock {}
     CalendarPopover {}
+    CalendarWindow {}
 
     // Proves `qs ipc` end to end: qs ipc call shell ping
     IpcHandler {
@@ -70,6 +71,10 @@ ShellRoot {
 
         function toggleCalendar(): void {
             Panels.toggleCalendar();
+        }
+
+        function toggleCalendarWindow(): void {
+            Panels.toggleCalendarWindow();
         }
     }
 
