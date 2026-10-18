@@ -10,6 +10,8 @@ Singleton {
     readonly property var focused: Hyprland.focusedWorkspace
 
     function focus(id: int): void {
-        Hyprland.dispatch("workspace " + id);
+        // This Hyprland build (Lua config DSL) evaluates IPC dispatch strings
+        // as Lua, so plain hyprlang like "workspace 3" is a syntax error here
+        Hyprland.dispatch("hl.dsp.focus({ workspace = " + id + " })");
     }
 }

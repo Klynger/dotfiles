@@ -1,0 +1,20 @@
+import QtQuick
+import Quickshell
+import qs.components
+
+// A bar button that only shells out, bridging to the parts of the old stack
+// that later phases will absorb (swaync, wlogout, bluetui).
+Text {
+    id: root
+
+    required property var command
+
+    color: Theme.fg
+    font.family: Theme.font
+    font.pixelSize: Theme.fontSize
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: Quickshell.execDetached(root.command)
+    }
+}
