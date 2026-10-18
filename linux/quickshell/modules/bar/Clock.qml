@@ -1,16 +1,15 @@
 import QtQuick
-import Quickshell
 import qs.components
 import qs.services
 
 Text {
     text: Time.pretty
-    color: Theme.fg
+    color: Panels.calendarOpen ? Theme.accent : Theme.fg
     font.family: Theme.font
     font.pixelSize: Theme.fontSize
 
     MouseArea {
         anchors.fill: parent
-        onClicked: Quickshell.execDetached(["gtk-launch", "org.gnome.Calendar"])
+        onClicked: Panels.toggleCalendar()
     }
 }

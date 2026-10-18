@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import qs.components
+import qs.modules.calendar
 import qs.services
 
 // The dashboard (phase 5, replacing quick-panel): the media card with
@@ -171,86 +172,15 @@ PanelWindow {
             }
         }
 
-        // Month calendar; clicking it opens the calendar app, like the old
-        // quick-panel launch button did
+        // Month calendar (shared with the clock popover); the full app
+        // is one click below, like the old quick-panel launch button
         ColumnLayout {
-            id: calendar
-
-            readonly property date now: panel.visible ? new Date() : new Date()
-            readonly property int year: now.getFullYear()
-            readonly property int month: now.getMonth()
-            readonly property int today: now.getDate()
-            readonly property int firstDay: new Date(year, month, 1).getDay()
-            readonly property int daysInMonth: new Date(year, month + 1, 0).getDate()
-
             spacing: 8
             Layout.fillWidth: true
 
-            Text {
-                text: Qt.formatDate(calendar.now, "MMMM yyyy")
-                color: Theme.fg
-                font.family: Theme.font
-                font.pixelSize: Theme.fontSize
-                font.bold: true
-                Layout.alignment: Qt.AlignHCenter
-            }
-
-            GridLayout {
-                columns: 7
-                columnSpacing: 0
-                rowSpacing: 2
+            MonthView {
                 Layout.fillWidth: true
-
-                Repeater {
-                    model: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-
-                    Text {
-                        required property string modelData
-
-                        text: modelData
-                        color: Theme.muted
-                        font.family: Theme.font
-                        font.pixelSize: Theme.fontSize - 3
-                        horizontalAlignment: Text.AlignHCenter
-                        Layout.fillWidth: true
-                    }
-                }
-
-                Repeater {
-                    model: calendar.firstDay + calendar.daysInMonth
-
-                    Item {
-                        id: cell
-
-                        required property int index
-
-                        readonly property int day: index - calendar.firstDay + 1
-                        readonly property bool isToday: day === calendar.today
-
-                        implicitHeight: 26
-                        Layout.fillWidth: true
-
-                        Rectangle {
-                            visible: cell.isToday
-                            anchors.centerIn: parent
-                            width: 24
-                            height: 24
-                            radius: 12
-                            color: Theme.accent
-                        }
-
-                        Text {
-                            anchors.centerIn: parent
-                            visible: cell.day > 0
-                            text: cell.day
-                            color: cell.isToday ? Theme.bg : Theme.fg
-                            font.family: Theme.font
-                            font.pixelSize: Theme.fontSize - 2
-                        }
-                    }
-                }
             }
-
             Text {
                 text: "Open Calendar"
                 color: Theme.accent
