@@ -11,6 +11,10 @@ import Quickshell.Services.Notifications
 Singleton {
     id: root
 
+    // How long a popup stays, in ms, when the app does not ask for a
+    // specific expiry itself. Critical notifications never auto-expire.
+    property int popupTimeout: 6000
+
     property bool dnd: false
     property bool centerOpen: false
 

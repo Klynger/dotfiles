@@ -18,9 +18,10 @@ Rectangle {
     radius: 6
     implicitHeight: content.implicitHeight + 20
 
-    // Popups fold away on their own; critical ones stay until acted on
+    // Popups fold away on their own, honoring the app's requested expiry
+    // when it set one; critical ones stay until acted on
     Timer {
-        interval: 6000
+        interval: card.notif.expireTimeout > 0 ? card.notif.expireTimeout : Notifs.popupTimeout
         running: card.popup && card.notif.urgency !== NotificationUrgency.Critical
         onTriggered: Notifs.removePopup(card.notif)
     }
