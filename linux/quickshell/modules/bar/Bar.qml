@@ -21,7 +21,7 @@ PanelWindow {
         anchors.verticalCenter: parent.verticalCenter
     }
 
-    Clock {
+    NowPlaying {
         anchors.centerIn: parent
     }
 
@@ -32,9 +32,11 @@ PanelWindow {
         spacing: 18
 
         Volume {}
-        NetworkStatus {}
+        Stats {}
         Tray {}
         ExecButton { text: "󰂯"; command: ["launch-tui", "bluetui"] }
+        NetworkStatus {}
+        Clock {}
         ExecButton { text: "󰂜"; command: ["swaync-client", "-t", "-sw"] }
         ExecButton { text: "⏻"; command: ["wlogout", "-b", "5"] }
     }
