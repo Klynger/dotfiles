@@ -1,11 +1,25 @@
 #!/bin/bash
 
-current=$(gsettings get org.gnome.desktop.interface color-scheme)
+# Flips light/dark everywhere at once: the GTK color scheme, the
+# matugen-generated palettes (gtk css, wezterm, btop, hyprlock, sddm) and
+# the shell's own theme.
 
+set -euo pipefail
+
+current=$(gsettings get org.gnome.desktop.interface color-scheme)
 if [[ "$current" == "'prefer-dark'" ]]; then
-  gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
-  notify-send "Light mode enabled"
+    mode="light"
 else
-  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-  notify-send "Dark mode enabled"
+    mode="dark"
 fi
+
+gsettings set org.gnome.desktop.interface color-scheme "prefer-$mode"
+
+wallpaper=$(cat "$HOME/.cache/last_wallpaper" 2>/dev/null || true)
+if [[ -n "$wallpaper" && -f "$wallpaper" ]]; then
+    matugen image "$wallpaper" -m "$mode" -c "$HOME/.config/matugen/config.toml" --source-color-index 0
+fi
+
+qs ipc call theme setMode "$mode" 2>/dev/null || true
+
+notify-send "${mode^} mode enabled"
