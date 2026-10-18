@@ -6,7 +6,7 @@ import qs.components
 import qs.modules.calendar
 import qs.services
 
-// The dashboard (phase 5, replacing quick-panel): the media card with
+// The dashboard: the media card with
 // playback controls and a month calendar that opens the calendar app.
 PanelWindow {
     id: panel
@@ -173,7 +173,7 @@ PanelWindow {
         }
 
         // Month calendar (shared with the clock popover); the full app
-        // is one click below, like the old quick-panel launch button
+        // is one click below
         ColumnLayout {
             spacing: 8
             Layout.fillWidth: true

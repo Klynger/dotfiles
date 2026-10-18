@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Flips light/dark everywhere at once: the GTK color scheme, the
-# matugen-generated palettes (gtk css, btop, hyprlock, ...) and
-# the shell's own theme.
+# Flips light/dark everywhere at once: the GTK color scheme and theme
+# variant, the static GTK palette, the shell's own theme and wezterm.
 
 set -euo pipefail
 
@@ -15,10 +14,16 @@ fi
 
 gsettings set org.gnome.desktop.interface color-scheme "prefer-$mode"
 
-wallpaper=$(cat "$HOME/.cache/last_wallpaper" 2>/dev/null || true)
-if [[ -n "$wallpaper" && -f "$wallpaper" ]]; then
-    matugen image "$wallpaper" -m "$mode" -c "$HOME/.config/matugen/config.toml" --source-color-index 0
+# Clearing first forces GTK to re-read the theme css
+gsettings set org.gnome.desktop.interface gtk-theme ""
+if [[ "$mode" == "dark" ]]; then
+    gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark
+else
+    gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3
 fi
+
+cp "$HOME/.config/gtk-3.0/colors-$mode.css" "$HOME/.config/gtk-3.0/colors.css"
+cp "$HOME/.config/gtk-3.0/colors-$mode.css" "$HOME/.config/gtk-4.0/colors.css"
 
 qs ipc call theme setMode "$mode" 2>/dev/null || true
 

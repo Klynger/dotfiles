@@ -3,7 +3,7 @@ import Quickshell
 import qs.components
 
 // A bar button that only shells out, bridging to the parts of the old stack
-// that later phases will absorb (swaync, wlogout, bluetui).
+// the shell has not absorbed (bluetui).
 Text {
     id: root
 

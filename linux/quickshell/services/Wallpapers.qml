@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Io
 
 // The wallpaper collection in ~/Pictures/Wallpapers/current. Applying goes
-// through change-wallpaper, which also regenerates the matugen theme.
+// through change-wallpaper.
 Singleton {
     id: root
 

@@ -180,9 +180,9 @@ run_assertions() {
     # File-level checks inside the VM; each missing path comes back as a line
     local missing
     missing=$(ssh_vm '
-        for f in ~/.zshrc ~/.config/nvim ~/.config/hypr ~/.config/waybar \
-            ~/.tmux.conf ~/.config/hypr/monitors.lua ~/.config/hypr/colors.lua \
-            ~/.config/waybar/matugen/colors.css \
+        for f in ~/.zshrc ~/.config/nvim ~/.config/hypr ~/.config/quickshell \
+            ~/.tmux.conf ~/.config/hypr/monitors.lua \
+            ~/.config/gtk-3.0/colors.css ~/.config/gtk-4.0/colors.css \
             /usr/share/sddm/themes/glass/Main.qml; do
             [ -e "$f" ] || echo "$f"
         done

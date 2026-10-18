@@ -2,7 +2,7 @@ import QtQuick
 import qs.components
 import qs.services
 
-// The bar bell, mirroring the old waybar/swaync states: left click opens the
+// The bar bell: left click opens the
 // center, right click toggles do-not-disturb.
 Text {
     text: {

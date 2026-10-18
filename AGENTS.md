@@ -15,7 +15,7 @@ that automate installation and symlink management. The primary platform is **mac
 ├── symlinks/               # Declarative symlink mappings (source:target)
 │   ├── general.conf        # Symlinks shared by every OS
 │   ├── macos.conf          # macOS-only symlinks (~/.wezterm.lua)
-│   └── linux.conf          # Linux-only symlinks (hypr, waybar, ... under linux/)
+│   └── linux.conf          # Linux-only symlinks (hypr, quickshell, ... under linux/)
 ├── scripts/                # OS-agnostic bash machinery and shared installers
 │   ├── utils.sh            # Logging helpers + detect_os
 │   ├── symlinks.sh         # Creates/deletes symlinks from symlinks/general.conf, plus macos.conf on macOS

@@ -7,7 +7,7 @@ import qs.services
 
 // The controls drawer (phase 3): network and bluetooth toggles, DND, the
 // connected mute-everything, output devices with default selection, the
-// per-app mixer, bluetooth devices, and the power row that replaces wlogout.
+// per-app mixer, bluetooth devices, and the power row.
 PanelWindow {
     id: panel
 
@@ -197,7 +197,7 @@ PanelWindow {
             color: Theme.surface
         }
 
-        // The wlogout replacement, same five actions in the same order
+        // Lock, suspend, logout, reboot, shutdown
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
             spacing: 34

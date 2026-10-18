@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Changes the wallpaper using swww, regenerates theme colors with matugen.
+# Changes the wallpaper using awww.
 # Usage: change-wallpaper [/path/to/wallpaper]
 # If no argument is given, picks a random wallpaper.
 
@@ -46,13 +46,3 @@ mkdir -p "$(dirname "$LAST_WALLPAPER_FILE")"
 echo "$WALLPAPER" > "$LAST_WALLPAPER_FILE"
 
 awww img "$WALLPAPER" --transition-fps 240 --transition-type random --transition-duration 2
-
-# Regenerate theme colors from wallpaper and reload apps, in whichever mode
-# the session is in; matugen post_hooks handle btop, gtk, swaync, wezterm,
-# rofi and hyprland
-MODE="dark"
-[[ "$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)" == "'prefer-light'" ]] && MODE="light"
-matugen image "$WALLPAPER" -m "$MODE" -c "$HOME/.config/matugen/config.toml" --source-color-index 0
-
-# Reload waybar CSS
-pkill -SIGUSR2 waybar || true

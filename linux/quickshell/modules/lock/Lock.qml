@@ -5,7 +5,7 @@ import Quickshell.Wayland
 import qs.components
 import qs.services
 
-// The lock screen (phase 6): ext-session-lock, so the compositor guarantees
+// The lock screen: ext-session-lock, so the compositor guarantees
 // nothing else shows while locked. Authentication goes through PAM, and
 // PAM's own messages (faillock warnings included) are shown verbatim, since
 // wrong attempts count toward the system lockout.

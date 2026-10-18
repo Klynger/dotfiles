@@ -9,12 +9,12 @@ local mainMod = "SUPER"
 
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(programs.terminal), { description = "Terminal" })
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { description = "Close window" })
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("qs ipc call panels toggleControls || wlogout -b 5"),
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("qs ipc call panels toggleControls"),
     { description = "Controls / power menu" })
 hl.bind(mainMod .. " + SHIFT + p", hl.dsp.exec_cmd("qs ipc call lock lock || hyprlock"), { description = "Lock screen" })
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager), { description = "File manager" })
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.float(), { description = "Toggle floating" })
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call panels toggleLauncher || " .. programs.menu),
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call panels toggleLauncher"),
     { description = "App launcher" })
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo(), { description = "Pseudo tiling" })
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"), { description = "Toggle split" })
@@ -83,14 +83,11 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true, description = "Previous track" })
 
 -- Wallpaper picker
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("qs ipc call panels toggleWallpapers || pick-wallpaper"),
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("qs ipc call panels toggleWallpapers"),
     { description = "Wallpaper picker" })
 
--- Lock screen wallpaper picker
-hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("pick-lock-wallpaper"), { description = "Lock wallpaper picker" })
-
--- Dashboard (the quick-panel successor)
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("qs ipc call panels toggleDashboard || quick-panel"),
+-- Dashboard
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("qs ipc call panels toggleDashboard"),
     { description = "Dashboard" })
 
 -- Bluetooth manager

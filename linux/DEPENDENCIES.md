@@ -11,13 +11,8 @@ External packages required by this configuration.
 | sddm | Display/login manager |
 | hypridle | Idle/sleep daemon |
 | hyprshot | Screenshots |
-| waybar | Status bar |
-| quickshell | Desktop shell; phased replacement for waybar, swaync, rofi and wlogout (see quickshell-plan.html) |
-| rofi | App launcher / menus |
-| wlogout | Power/logout menu |
-| swaync | Notification daemon |
+| quickshell | Desktop shell: bar, notifications, launcher, controls, dashboard, lock |
 | swww | Wallpaper daemon |
-| matugen | Material You color generation |
 | uwsm | Systemd user session manager |
 
 ## Terminal & Apps
@@ -44,13 +39,15 @@ External packages required by this configuration.
 | Package | Purpose |
 |---------|---------|
 | brightnessctl | Screen brightness |
-| imagemagick (magick) | Thumbnail generation for wallpaper picker |
+| imagemagick (magick) | sddm background seeding (seed-theme.sh) |
 | notify-send (libnotify) | Desktop notifications |
 | curl | HTTP requests (webapp icon downloads) |
 | gum | Interactive shell prompts (webapp-install) |
+| fzf (via linuxbrew) | Keybindings cheatsheet search (show-keybindings) |
 | gsettings (glib2) | GNOME/GTK settings |
 | xdg-utils | xdg-settings, xdg-terminal-exec |
 | gtk-launch (gtk3) | Launch .desktop apps |
+| gtk4 | GTK4 runtime for libadwaita apps |
 | update-desktop-database (desktop-file-utils) | .desktop file cache |
 
 ## Network
@@ -61,20 +58,12 @@ External packages required by this configuration.
 | bluetui | TUI Bluetooth manager |
 | rfkill (util-linux) | WiFi/Bluetooth toggle |
 
-## Python (quick-panel)
-
-| Package | Purpose |
-|---------|---------|
-| python-gobject (PyGObject) | GTK4 bindings |
-| gtk4 | UI toolkit |
-| gtk4-layer-shell | Layer shell protocol for GTK4 |
-
 ## Fonts
 
 | Package | Purpose |
 |---------|---------|
 | adwaita-fonts | Adwaita Mono, the desktop UI font (sddm, hyprlock, plain-text surfaces) |
-| AdwaitaMono Nerd Font (`getnf -i AdwaitaMono`) | The same font patched with glyph icons, for the bar, rofi, swaync, GTK and wezterm |
+| AdwaitaMono Nerd Font (`getnf -i AdwaitaMono`) | The same font patched with glyph icons, for the shell, GTK and wezterm |
 | noto-fonts | General text fallback |
 
 ## Theming

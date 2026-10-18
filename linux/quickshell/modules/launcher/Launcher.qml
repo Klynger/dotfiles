@@ -6,7 +6,7 @@ import Quickshell.Widgets
 import qs.components
 import qs.services
 
-// The app launcher (phase 4, replacing rofi): type to filter, arrows to
+// The app launcher: type to filter, arrows to
 // move, enter to launch, escape to close. An arithmetic query shows its
 // result as the first row; enter copies it to the clipboard.
 PanelWindow {
@@ -107,7 +107,7 @@ PanelWindow {
                     Keys.onEnterPressed: panel.activate()
                     Keys.onEscapePressed: Panels.launcherOpen = false
 
-                    // ctrl+n / ctrl+p move like rofi (and nvim) did
+                    // ctrl+n / ctrl+p move like in nvim
                     Keys.onPressed: event => {
                         if (!(event.modifiers & Qt.ControlModifier))
                             return;

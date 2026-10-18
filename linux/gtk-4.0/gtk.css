@@ -1,4 +1,4 @@
-/* Load Matugen colors */
+/* Static Tokyo Night palette; colors.css is a copy of gtk-3.0/colors-<mode>.css, kept in sync by toggle-theme-mode */
 @import "colors.css";
 
 /* Window */
