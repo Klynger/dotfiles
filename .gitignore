@@ -4,3 +4,4 @@ tmux/plugins
 tmux-client-*.log
 .DS_Store
 ai/skills/synced/
+linux/wezterm/force-mode

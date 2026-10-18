@@ -13,17 +13,37 @@ config.window_decorations = "NONE"
 -- Curated Tokyo Night schemes (built into wezterm) instead of the
 -- matugen-generated one: generated ANSI colors had poor contrast in light
 -- mode. toggle-theme-mode touches this file so the scheme follows the mode.
+--
+-- A force-mode file next to this config, containing "dark" or "light",
+-- pins wezterm to that mode regardless of the system theme. nvim follows
+-- whatever wezterm shows, not the system.
+local force_mode_file = wezterm.config_dir .. "/force-mode"
+
 local function color_scheme()
-	local f = io.popen("gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")
+	local f = io.open(force_mode_file)
 	if f then
-		local out = f:read("*a") or ""
+		local mode = (f:read("*l") or ""):gsub("%s+", "")
 		f:close()
+		if mode == "dark" then
+			return "Tokyo Night"
+		end
+		if mode == "light" then
+			return "Tokyo Night Day"
+		end
+	end
+
+	local p = io.popen("gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")
+	if p then
+		local out = p:read("*a") or ""
+		p:close()
 		if out:find("light") then
 			return "Tokyo Night Day"
 		end
 	end
 	return "Tokyo Night"
 end
+
+wezterm.add_to_config_reload_watch_list(force_mode_file)
 
 config.color_scheme = color_scheme()
 
