@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import qs.modules.bar
+import qs.modules.controls
 import qs.modules.notifications
 import qs.services
 
@@ -10,6 +11,7 @@ ShellRoot {
     Bar {}
     Popups {}
     Center {}
+    Drawer {}
 
     // Proves `qs ipc` end to end: qs ipc call shell ping
     IpcHandler {
@@ -30,6 +32,24 @@ ShellRoot {
 
         function toggleDnd(): void {
             Notifs.toggleDnd();
+        }
+    }
+
+    // For keybinds: qs ipc call panels toggleControls
+    IpcHandler {
+        target: "panels"
+
+        function toggleControls(): void {
+            Panels.toggleControls();
+        }
+    }
+
+    // The mute key: qs ipc call audio muteAll
+    IpcHandler {
+        target: "audio"
+
+        function muteAll(): void {
+            Audio.muteAll();
         }
     }
 }

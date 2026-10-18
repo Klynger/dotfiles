@@ -9,7 +9,8 @@ local mainMod = "SUPER"
 
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(programs.terminal), { description = "Terminal" })
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { description = "Close window" })
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("wlogout -b 5"), { description = "Power menu" })
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("qs ipc call panels toggleControls || wlogout -b 5"),
+    { description = "Controls / power menu" })
 hl.bind(mainMod .. " + SHIFT + p", hl.dsp.exec_cmd("hyprlock"), { description = "Lock screen" })
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager), { description = "File manager" })
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.float(), { description = "Toggle floating" })
@@ -63,8 +64,9 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
     { repeating = true, locked = true, description = "Volume down" })
 -- Mutes every output device, not just the default sink, so apps routed to
--- another device (a headset, the monitor) go silent too
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("toggle-mute-all"),
+-- another device (a headset, the monitor) go silent too. The shell owns the
+-- state so its widgets react instantly; the script stays as the fallback
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("qs ipc call audio muteAll || toggle-mute-all"),
     { repeating = true, locked = true, description = "Toggle mute everywhere" })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
     { repeating = true, locked = true, description = "Toggle mic mute" })

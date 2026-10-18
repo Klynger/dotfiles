@@ -32,10 +32,10 @@ PanelWindow {
         Volume {}
         Stats {}
         Tray {}
-        ExecButton { text: "󰂯"; command: ["launch-tui", "bluetui"] }
+        BtIndicator {}
         NetworkStatus {}
         Clock {}
         NotifButton {}
-        ExecButton { text: "⏻"; command: ["wlogout", "-b", "5"] }
+        ControlsButton {}
     }
 }
