@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Io
+import qs.components
 import qs.modules.bar
 import qs.modules.controls
 import qs.modules.dashboard
@@ -72,6 +73,15 @@ ShellRoot {
 
         function muteAll(): void {
             Audio.muteAll();
+        }
+    }
+
+    // Light/dark, driven by toggle-theme-mode: qs ipc call theme setMode light
+    IpcHandler {
+        target: "theme"
+
+        function setMode(mode: string): void {
+            Theme.setMode(mode);
         }
     }
 

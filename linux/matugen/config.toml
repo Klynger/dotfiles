@@ -25,13 +25,6 @@ output_path = '~/.config/swaync/matugen/matugen-swaync.css'
 # waits for the service forever and hangs the whole matugen run
 post_hook = 'pgrep -x swaync >/dev/null && swaync-client -rs || true'
 
-# wezterm
-[templates.wezterm]
-input_path = '~/.config/matugen/templates/wezterm.toml'
-output_path = '~/.config/wezterm/colors/matugen-theme.toml'
-post_hook = 'touch ~/.config/wezterm/wezterm.lua'
-
-# hyprland
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.lua'
 output_path = '~/.config/hypr/colors.lua'

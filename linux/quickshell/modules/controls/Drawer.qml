@@ -75,6 +75,12 @@ PanelWindow {
                 active: Audio.muted
                 onToggled: Audio.muteAll()
             }
+
+            ToggleChip {
+                label: Theme.light ? "󰖨 Light" : "󰖔 Dark"
+                active: Theme.light
+                onToggled: Quickshell.execDetached(["toggle-theme-mode"])
+            }
         }
 
         Text {
