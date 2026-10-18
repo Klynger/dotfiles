@@ -36,12 +36,13 @@ hl.config({
             color = "rgba(1a1a1aee)",
         },
 
+        -- Deep blur for the shell's glass surfaces
         blur = {
             enabled = true,
-            size = 4,
-            passes = 1,
+            size = 7,
+            passes = 3,
 
-            vibrancy = 0.3,
+            vibrancy = 0.4,
         },
     },
 

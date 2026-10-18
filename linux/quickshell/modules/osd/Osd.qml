@@ -59,12 +59,9 @@ PanelWindow {
         }
     }
 
-    Rectangle {
+    Panel {
         anchors.fill: parent
-        radius: 8
-        color: Theme.bg
-        border.color: Theme.surface
-        border.width: 1
+        radius: height / 2
 
         Row {
             anchors.centerIn: parent

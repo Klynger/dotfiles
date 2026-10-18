@@ -18,8 +18,18 @@ PanelWindow {
         bottom: true
     }
 
+    margins {
+        top: 8
+        right: 8
+        bottom: 8
+    }
+
     implicitWidth: 420
-    color: Theme.bg
+    color: "transparent"
+
+    Panel {
+        anchors.fill: parent
+    }
 
     HyprlandFocusGrab {
         windows: [panel]

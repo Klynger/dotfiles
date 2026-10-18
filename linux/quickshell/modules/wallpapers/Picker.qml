@@ -1,12 +1,13 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Widgets
 import qs.components
 import qs.services
 
-// The wallpaper picker (phase 5, replacing the rofi-based pick-wallpaper):
-// a grid of the collection; clicking one applies it and regenerates the
-// theme through change-wallpaper.
+// The wallpaper picker: a glass grid where stepping through tiles previews
+// the wallpaper live behind the panel; enter (or click) keeps it and
+// re-themes through change-wallpaper, escape puts the old one back.
 PanelWindow {
     id: panel
 
@@ -19,20 +20,37 @@ PanelWindow {
     focusable: true
     color: "transparent"
 
+    property bool applied: false
+    property bool suppressPreview: false
+
     onVisibleChanged: {
         if (visible) {
+            applied = false;
             Wallpapers.refresh();
             grid.forceActiveFocus();
+        } else if (!applied) {
+            Wallpapers.revert();
         }
     }
-
 
     function applySelected() {
         const path = Wallpapers.files[grid.currentIndex];
         if (!path)
             return;
+        applied = true;
         Wallpapers.apply(path);
         Panels.wallpapersOpen = false;
+    }
+
+    Timer {
+        id: previewTimer
+
+        interval: 250
+        onTriggered: {
+            const path = Wallpapers.files[grid.currentIndex];
+            if (path && panel.visible)
+                Wallpapers.preview(path);
+        }
     }
 
     HyprlandFocusGrab {
@@ -41,19 +59,15 @@ PanelWindow {
         onCleared: Panels.wallpapersOpen = false
     }
 
-    Rectangle {
+    Panel {
         anchors.fill: parent
-        color: Theme.bg
-        radius: 8
-        border.color: Theme.surface
-        border.width: 1
 
         GridView {
             id: grid
 
             anchors {
                 fill: parent
-                margins: 12
+                margins: 14
             }
             clip: true
             cellWidth: 304
@@ -62,14 +76,22 @@ PanelWindow {
             focus: true
 
             // The model arrives async and resets the selection; land on the
-            // first tile whenever that happens
+            // first tile whenever that happens, without previewing it
             onCountChanged: {
-                if (count > 0 && currentIndex < 0)
+                if (count > 0 && currentIndex < 0) {
+                    panel.suppressPreview = true;
                     currentIndex = 0;
+                    panel.suppressPreview = false;
+                }
+            }
+
+            onCurrentIndexChanged: {
+                if (panel.visible && !panel.suppressPreview && currentIndex >= 0)
+                    previewTimer.restart();
             }
 
             // Arrows move natively; ctrl+hjkl matches the vim muscle memory,
-            // enter applies, escape closes
+            // enter applies, escape closes and reverts
             Keys.onEscapePressed: Panels.wallpapersOpen = false
             Keys.onReturnPressed: panel.applySelected()
             Keys.onEnterPressed: panel.applySelected()
@@ -96,32 +118,47 @@ PanelWindow {
                 required property string modelData
                 required property int index
 
+                readonly property bool current: index === grid.currentIndex
+
                 width: grid.cellWidth
                 height: grid.cellHeight
 
-                Image {
-                    id: thumb
-
+                ClippingRectangle {
                     anchors {
                         fill: parent
-                        margins: 6
+                        margins: 7
                     }
-                    source: "file://" + cell.modelData
-                    sourceSize.width: 292
-                    fillMode: Image.PreserveAspectCrop
-                    asynchronous: true
+                    radius: Theme.radiusSmall
+                    color: Theme.surface
+                    scale: cell.current ? 1.04 : 0.97
+
+                    Behavior on scale {
+                        NumberAnimation {
+                            duration: 160
+                            easing.type: Easing.OutBack
+                        }
+                    }
+
+                    Image {
+                        anchors.fill: parent
+                        source: "file://" + cell.modelData
+                        sourceSize.width: 292
+                        fillMode: Image.PreserveAspectCrop
+                        asynchronous: true
+                    }
                 }
 
                 Rectangle {
                     anchors {
                         fill: parent
-                        margins: 3
+                        margins: 7
                     }
-                    visible: cell.index === grid.currentIndex
+                    visible: cell.current
+                    scale: 1.04
                     color: "transparent"
                     border.color: Theme.accent
-                    border.width: 3
-                    radius: 4
+                    border.width: 2
+                    radius: Theme.radiusSmall
                 }
 
                 MouseArea {
