@@ -83,7 +83,7 @@ Rectangle {
                 id: clock
                 text: Qt.formatTime(new Date(), "hh:mm")
                 color: root.primaryColor
-                font.family: "Noto Sans"
+                font.family: "Adwaita Mono"
                 font.weight: Font.Bold
                 font.pixelSize: root.height * 0.18
 
@@ -106,7 +106,7 @@ Rectangle {
                 id: dayLabel
                 text: Qt.formatDate(new Date(), "dddd")
                 color: root.onSurface
-                font.family: "Noto Sans"
+                font.family: "Adwaita Mono"
                 font.weight: Font.Medium
                 font.pixelSize: root.height * 0.035
 
@@ -129,7 +129,7 @@ Rectangle {
                 id: dateLabel
                 text: Qt.formatDate(new Date(), "MMMM d, yyyy")
                 color: root.onSurfaceVariant
-                font.family: "Noto Sans"
+                font.family: "Adwaita Mono"
                 font.weight: Font.Normal
                 font.pixelSize: root.height * 0.025
 
@@ -190,7 +190,7 @@ Rectangle {
                         anchors.centerIn: parent
                         text: root.currentUser.charAt(0).toUpperCase()
                         color: root.primaryColor
-                        font.family: "Noto Sans"
+                        font.family: "Adwaita Mono"
                         font.weight: Font.Medium
                         font.pixelSize: parent.height * 0.45
                         visible: avatarImage.status !== Image.Ready
@@ -211,7 +211,7 @@ Rectangle {
             Text {
                 text: root.currentUser
                 color: root.onSurface
-                font.family: "Noto Sans"
+                font.family: "Adwaita Mono"
                 font.weight: Font.Medium
                 font.pixelSize: root.height * 0.028
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -240,7 +240,7 @@ Rectangle {
                     anchors.rightMargin: inputContainer.height * 0.45
                     verticalAlignment: TextInput.AlignVCenter
                     echoMode: TextInput.Password
-                    font.family: "Noto Sans"
+                    font.family: "Adwaita Mono"
                     font.pixelSize: root.height * 0.018
                     font.letterSpacing: 2
                     passwordCharacter: "\u2022"
@@ -272,7 +272,7 @@ Rectangle {
                 id: errorMessage
                 text: ""
                 color: root.errorColor
-                font.family: "Noto Sans"
+                font.family: "Adwaita Mono"
                 font.pixelSize: root.height * 0.016
                 anchors.horizontalCenter: parent.horizontalCenter
             }

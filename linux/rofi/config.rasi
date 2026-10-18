@@ -1,7 +1,7 @@
 configuration {
     show-icons:     true;
     icon-theme:     "Papirus-Dark";
-    font:           "JetBrainsMono Nerd Font Propo 12";
+    font:           "AdwaitaMono Nerd Font Propo 12";
     drun-display-format: "{name}";
 
     /* Navigation */

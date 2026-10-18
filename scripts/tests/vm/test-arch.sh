@@ -187,6 +187,7 @@ run_assertions() {
             [ -e "$f" ] || echo "$f"
         done
         [ "$(ls ~/.local/bin | wc -l)" -ge 10 ] || echo "~/.local/bin has too few helpers"
+        fc-list 2>/dev/null | grep -qi "AdwaitaMono Nerd Font" || echo "AdwaitaMono Nerd Font missing"
         export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
         for t in nvim tmux fzf yazi zsh; do
             command -v "$t" >/dev/null || echo "brew tool missing: $t"

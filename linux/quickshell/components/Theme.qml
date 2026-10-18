@@ -13,7 +13,7 @@ Singleton {
     readonly property color muted: "#565f89"
     readonly property color accent: "#7aa2f7"
 
-    readonly property string font: "JetBrainsMono Nerd Font Propo"
+    readonly property string font: "AdwaitaMono Nerd Font Propo"
     readonly property int fontSize: 13
 
     readonly property int barHeight: 30
