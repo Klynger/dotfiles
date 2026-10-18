@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Io
 import qs.components
 import qs.modules.bar
+import qs.modules.calendar
 import qs.modules.controls
 import qs.modules.dashboard
 import qs.modules.launcher
@@ -23,6 +24,7 @@ ShellRoot {
     Osd {}
     Picker {}
     Lock {}
+    CalendarPopover {}
 
     // Proves `qs ipc` end to end: qs ipc call shell ping
     IpcHandler {
@@ -64,6 +66,10 @@ ShellRoot {
 
         function toggleWallpapers(): void {
             Panels.toggleWallpapers();
+        }
+
+        function toggleCalendar(): void {
+            Panels.toggleCalendar();
         }
     }
 
