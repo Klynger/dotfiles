@@ -19,7 +19,7 @@ PACMAN_PACKAGES=(
     playerctl wireplumber pavucontrol
     brightnessctl imagemagick libnotify gum glib2 xdg-utils
     gtk3 gtk4 gtk4-layer-shell desktop-file-utils python-gobject
-    noto-fonts ttf-nerd-fonts-symbols
+    noto-fonts ttf-nerd-fonts-symbols adwaita-fonts
     mpv papers adw-gtk-theme impala bluetui
 )
 
@@ -135,10 +135,30 @@ install_linuxbrew() {
     fi
 }
 
+# The desktop UI font: Adwaita Mono everywhere (adwaita-fonts above covers
+# the plain family for sddm and hyprlock); the Nerd Font patched build is
+# for the surfaces that render glyph icons (bar, rofi, swaync, gtk, wezterm)
+install_nerd_fonts() {
+    if fc-list | grep -qi "AdwaitaMono Nerd Font"; then
+        warning "AdwaitaMono Nerd Font already installed"
+        return
+    fi
+    if ! hash getnf &>/dev/null; then
+        error "getnf unavailable; skipped the AdwaitaMono Nerd Font install"
+        return
+    fi
+    if getnf -i AdwaitaMono; then
+        success "AdwaitaMono Nerd Font installed"
+    else
+        error "AdwaitaMono Nerd Font failed to install, continuing"
+    fi
+}
+
 install_linux_desktop_packages() {
     sudo --validate
     install_pacman_packages
     install_aur_packages
+    install_nerd_fonts
 }
 
 # Only run if script is executed, not sourced. Compared as paths, not

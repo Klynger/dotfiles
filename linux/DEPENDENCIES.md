@@ -73,7 +73,9 @@ External packages required by this configuration.
 
 | Package | Purpose |
 |---------|---------|
-| noto-fonts | Noto Sans — Material You UI font (lock screen, labels) |
+| adwaita-fonts | Adwaita Mono, the desktop UI font (sddm, hyprlock, plain-text surfaces) |
+| AdwaitaMono Nerd Font (`getnf -i AdwaitaMono`) | The same font patched with glyph icons, for the bar, rofi, swaync, GTK and wezterm |
+| noto-fonts | General text fallback |
 
 ## Theming
 
