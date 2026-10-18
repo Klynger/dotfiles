@@ -2,8 +2,11 @@ import Quickshell
 import Quickshell.Io
 import qs.modules.bar
 import qs.modules.controls
+import qs.modules.dashboard
 import qs.modules.launcher
 import qs.modules.notifications
+import qs.modules.osd
+import qs.modules.wallpapers
 import qs.services
 
 // Root of the shell (see quickshell-plan.html). Modules compose services and
@@ -14,6 +17,9 @@ ShellRoot {
     Center {}
     Drawer {}
     Launcher {}
+    Dashboard {}
+    Osd {}
+    Picker {}
 
     // Proves `qs ipc` end to end: qs ipc call shell ping
     IpcHandler {
@@ -47,6 +53,14 @@ ShellRoot {
 
         function toggleLauncher(): void {
             Panels.toggleLauncher();
+        }
+
+        function toggleDashboard(): void {
+            Panels.toggleDashboard();
+        }
+
+        function toggleWallpapers(): void {
+            Panels.toggleWallpapers();
         }
     }
 

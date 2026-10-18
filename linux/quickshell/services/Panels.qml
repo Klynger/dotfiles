@@ -8,6 +8,8 @@ Singleton {
 
     property bool controlsOpen: false
     property bool launcherOpen: false
+    property bool dashboardOpen: false
+    property bool wallpapersOpen: false
 
     function toggleControls(): void {
         root.controlsOpen = !root.controlsOpen;
@@ -15,5 +17,13 @@ Singleton {
 
     function toggleLauncher(): void {
         root.launcherOpen = !root.launcherOpen;
+    }
+
+    function toggleDashboard(): void {
+        root.dashboardOpen = !root.dashboardOpen;
+    }
+
+    function toggleWallpapers(): void {
+        root.wallpapersOpen = !root.wallpapersOpen;
     }
 }

@@ -83,13 +83,15 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true, description = "Previous track" })
 
 -- Wallpaper picker
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("pick-wallpaper"), { description = "Wallpaper picker" })
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("qs ipc call panels toggleWallpapers || pick-wallpaper"),
+    { description = "Wallpaper picker" })
 
 -- Lock screen wallpaper picker
 hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("pick-lock-wallpaper"), { description = "Lock wallpaper picker" })
 
--- QuickPanel
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("quick-panel"), { description = "Quick panel" })
+-- Dashboard (the quick-panel successor)
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("qs ipc call panels toggleDashboard || quick-panel"),
+    { description = "Dashboard" })
 
 -- Bluetooth manager
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("launch-tui bluetui"), { description = "Bluetooth manager" })
