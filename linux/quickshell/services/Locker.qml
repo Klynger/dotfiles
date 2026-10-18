@@ -24,15 +24,15 @@ Singleton {
     Process {
         id: resolver
 
+        // First existing file wins: the chosen lock wallpaper can go stale
+        // when the collection changes (it did), so each path is verified
         command: ["sh", "-c",
-            "sed -n 's/^\\$lock_wallpaper = //p' \"$HOME/.cache/hyprlock-wallpaper.conf\" 2>/dev/null | head -1; " +
-            "cat \"$HOME/.cache/last_wallpaper\" 2>/dev/null"]
+            "lock=$(sed -n 's/^\\$lock_wallpaper = //p' \"$HOME/.cache/hyprlock-wallpaper.conf\" 2>/dev/null | head -1); " +
+            "last=$(cat \"$HOME/.cache/last_wallpaper\" 2>/dev/null); " +
+            "for f in \"$lock\" \"$last\"; do [ -n \"$f\" ] && [ -f \"$f\" ] && { printf '%s\\n' \"$f\"; break; }; done"]
 
         stdout: StdioCollector {
-            onStreamFinished: {
-                const lines = text.trim().split("\n").filter(l => l !== "");
-                root.wallpaper = lines[0] ?? "";
-            }
+            onStreamFinished: root.wallpaper = text.trim().split("\n")[0] ?? ""
         }
     }
 }
