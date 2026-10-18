@@ -110,6 +110,19 @@ PanelWindow {
                     Keys.onReturnPressed: panel.activate()
                     Keys.onEnterPressed: panel.activate()
                     Keys.onEscapePressed: Panels.launcherOpen = false
+
+                    // ctrl+n / ctrl+p move like rofi (and nvim) did
+                    Keys.onPressed: event => {
+                        if (!(event.modifiers & Qt.ControlModifier))
+                            return;
+                        if (event.key === Qt.Key_N) {
+                            panel.selected = Math.min(panel.selected + 1, panel.rows.length - 1);
+                            event.accepted = true;
+                        } else if (event.key === Qt.Key_P) {
+                            panel.selected = Math.max(panel.selected - 1, 0);
+                            event.accepted = true;
+                        }
+                    }
                 }
             }
 
