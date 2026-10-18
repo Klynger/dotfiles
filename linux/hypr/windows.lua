@@ -80,6 +80,16 @@ hl.window_rule({
     float = true,
 })
 
+-- yazi as the file manager (SUPER+E and the Files launcher entry), in its
+-- own floating terminal
+hl.window_rule({
+    name = "float-files",
+    match = { class = "^(com\\.klynger\\.yazi)$" },
+
+    float = true,
+    size = { 1500, 880 },
+})
+
 -- Workspace 4 (Media/Entertainment)
 hl.window_rule({
     name = "force-tile-youtube-music",

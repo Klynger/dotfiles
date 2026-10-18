@@ -25,7 +25,8 @@ External packages required by this configuration.
 | Package | Purpose |
 |---------|---------|
 | wezterm | Terminal emulator |
-| nautilus | File manager |
+| thunar | File manager (GUI) |
+| gvfs | Trash, mounts and MTP for thunar |
 | google-chrome | Browser |
 | btop | System monitor |
 | gnome-calculator | Calculator |

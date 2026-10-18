@@ -5,6 +5,6 @@
 return {
     terminal = "wezterm",
     browser = "launch-browser",
-    fileManager = "nautilus",
+    fileManager = "thunar",
     menu = "rofi -show drun",
 }
