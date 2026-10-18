@@ -72,6 +72,14 @@ hl.window_rule({
     float = true,
 })
 
+-- The shell's own calendar window
+hl.window_rule({
+    name = "float-shell-calendar",
+    match = { class = "^(org\\.quickshell)$", title = "^(Calendar)$" },
+
+    float = true,
+})
+
 -- Workspace 4 (Media/Entertainment)
 hl.window_rule({
     name = "force-tile-youtube-music",

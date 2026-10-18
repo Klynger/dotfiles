@@ -60,7 +60,7 @@ PanelWindow {
         }
 
         Text {
-            text: "Open Calendar app"
+            text: "Open full calendar"
             color: Theme.accent
             font.family: Theme.font
             font.pixelSize: Theme.fontSize - 1
@@ -72,7 +72,7 @@ PanelWindow {
 
                 onClicked: {
                     Panels.calendarOpen = false;
-                    Quickshell.execDetached(["gtk-launch", "org.gnome.Calendar"]);
+                    Panels.calendarWindowOpen = true;
                 }
             }
         }

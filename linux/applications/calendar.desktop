@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Calendar
+Comment=The shell's calendar
+Icon=office-calendar
+Exec=qs ipc call panels toggleCalendarWindow
+Terminal=false
+Categories=Utility;Calendar;

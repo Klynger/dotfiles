@@ -11,6 +11,10 @@ ColumnLayout {
     // Months away from today; 0 is now
     property int offset: 0
 
+    // Row height of the day cells; the popover stays compact, the window
+    // stretches
+    property int cellHeight: 26
+
     readonly property date today: new Date()
     readonly property date shown: new Date(today.getFullYear(), today.getMonth() + offset, 1)
     readonly property int year: shown.getFullYear()
@@ -99,7 +103,7 @@ ColumnLayout {
                 readonly property int day: index - root.firstDay + 1
                 readonly property bool isToday: root.currentMonth && day === root.today.getDate()
 
-                implicitHeight: 26
+                implicitHeight: root.cellHeight
                 Layout.fillWidth: true
 
                 Rectangle {

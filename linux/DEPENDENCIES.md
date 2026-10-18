@@ -28,7 +28,6 @@ External packages required by this configuration.
 | nautilus | File manager |
 | google-chrome | Browser |
 | btop | System monitor |
-| gnome-calendar | Calendar (launched from QuickPanel) |
 | gnome-calculator | Calculator |
 
 ## Media & Audio
