@@ -35,7 +35,7 @@ PanelWindow {
         ExecButton { text: "󰂯"; command: ["launch-tui", "bluetui"] }
         NetworkStatus {}
         Clock {}
-        ExecButton { text: "󰂜"; command: ["swaync-client", "-t", "-sw"] }
+        NotifButton {}
         ExecButton { text: "⏻"; command: ["wlogout", "-b", "5"] }
     }
 }
