@@ -47,6 +47,7 @@ PanelWindow {
         BtIndicator {}
         NetworkStatus {}
         Clock {}
+        ThemeSwitch {}
         NotifButton {}
         ControlsButton {}
     }
