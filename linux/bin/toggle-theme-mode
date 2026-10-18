@@ -22,4 +22,8 @@ fi
 
 qs ipc call theme setMode "$mode" 2>/dev/null || true
 
+# wezterm re-reads its config on file change and picks the scheme from the
+# color scheme setting flipped above
+touch "$HOME/.config/wezterm/wezterm.lua" 2>/dev/null || true
+
 notify-send "${mode^} mode enabled"

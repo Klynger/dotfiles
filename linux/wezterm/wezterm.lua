@@ -10,7 +10,22 @@ config.font_size = 9
 config.enable_tab_bar = false
 config.window_decorations = "NONE"
 
-config.color_scheme = 'matugen-theme'
+-- Curated Tokyo Night schemes (built into wezterm) instead of the
+-- matugen-generated one: generated ANSI colors had poor contrast in light
+-- mode. toggle-theme-mode touches this file so the scheme follows the mode.
+local function color_scheme()
+	local f = io.popen("gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null")
+	if f then
+		local out = f:read("*a") or ""
+		f:close()
+		if out:find("light") then
+			return "Tokyo Night Day"
+		end
+	end
+	return "Tokyo Night"
+end
+
+config.color_scheme = color_scheme()
 
 -- Glass: translucent enough for Hyprland's blur to read through, matching
 -- the shell's panels
