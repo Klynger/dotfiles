@@ -15,7 +15,7 @@ PACMAN_PACKAGES=(
     base-devel git curl
     hyprland hypridle hyprlock uwsm
     waybar rofi-wayland swaync swww sddm quickshell
-    wezterm btop gnome-calculator
+    wezterm thunar gvfs btop gnome-calculator
     playerctl wireplumber pavucontrol
     brightnessctl imagemagick libnotify gum glib2 xdg-utils
     gtk3 gtk4 gtk4-layer-shell desktop-file-utils python-gobject
