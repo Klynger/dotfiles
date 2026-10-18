@@ -12,6 +12,7 @@ External packages required by this configuration.
 | hypridle | Idle/sleep daemon |
 | hyprshot | Screenshots |
 | waybar | Status bar |
+| quickshell | Desktop shell; phased replacement for waybar, swaync, rofi and wlogout (see quickshell-plan.html) |
 | rofi | App launcher / menus |
 | wlogout | Power/logout menu |
 | swaync | Notification daemon |

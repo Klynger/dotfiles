@@ -15,4 +15,5 @@
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("playerctld daemon")
+    hl.exec_cmd("qs")
 end)
