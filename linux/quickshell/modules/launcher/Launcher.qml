@@ -69,12 +69,8 @@ PanelWindow {
         onCleared: Panels.launcherOpen = false
     }
 
-    Rectangle {
+    Panel {
         anchors.fill: parent
-        color: Theme.bg
-        radius: 8
-        border.color: Theme.surface
-        border.width: 1
 
         ColumnLayout {
             anchors {

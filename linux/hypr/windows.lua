@@ -129,10 +129,13 @@ hl.window_rule({
 --- LAYER RULES     ---
 -----------------------
 
+-- The glass skin: Hyprland blurs what is behind the shell's translucent
+-- surfaces; ignore_alpha keeps fully transparent window regions unblurred
 hl.layer_rule({
     name = "quickshell",
     match = { namespace = "quickshell" },
-    blur = false,
+    blur = true,
+    ignore_alpha = 0.28,
 })
 
 hl.layer_rule({

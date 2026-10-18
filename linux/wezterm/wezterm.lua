@@ -12,7 +12,9 @@ config.window_decorations = "NONE"
 
 config.color_scheme = 'matugen-theme'
 
-config.window_background_opacity = 0.9
+-- Glass: translucent enough for Hyprland's blur to read through, matching
+-- the shell's panels
+config.window_background_opacity = 0.78
 config.default_prog = {
 	"zsh",
 	"-lc",

@@ -14,8 +14,12 @@ Rectangle {
     required property var notif
     property bool popup: false
 
-    color: Theme.surface
-    radius: 6
+    // Popups float straight over the desktop, so they are glass panels;
+    // inside the center they are cards on an already-glass surface
+    color: popup ? Theme.panel : Theme.surface
+    border.color: popup ? Theme.panelBorder : "transparent"
+    border.width: popup ? 1 : 0
+    radius: Theme.radiusSmall
     implicitHeight: content.implicitHeight + 20
 
     // Popups fold away on their own, honoring the app's requested expiry

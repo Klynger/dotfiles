@@ -10,6 +10,29 @@ Singleton {
 
     property var files: []
 
+    // The wallpaper on screen before previewing started, to revert to
+    property string current: ""
+
+    Process {
+        id: currentReader
+
+        command: ["sh", "-c", "cat \"$HOME/.cache/last_wallpaper\" 2>/dev/null"]
+
+        stdout: StdioCollector {
+            onStreamFinished: root.current = text.trim()
+        }
+    }
+
+    // A fast, theme-less wallpaper swap for live previews
+    function preview(path: string): void {
+        Quickshell.execDetached(["awww", "img", path, "--transition-type", "fade", "--transition-duration", "0.4"]);
+    }
+
+    function revert(): void {
+        if (current !== "")
+            preview(current);
+    }
+
     Process {
         id: lister
 
@@ -24,6 +47,7 @@ Singleton {
 
     function refresh(): void {
         lister.running = true;
+        currentReader.running = true;
     }
 
     function apply(path: string): void {
