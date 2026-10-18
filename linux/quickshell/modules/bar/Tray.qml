@@ -5,7 +5,7 @@ import Quickshell.Widgets
 import qs.components
 
 // System tray icons: left click activates the app, right click opens its
-// own menu. Waybar never had a tray, so this is new ground.
+// own menu.
 Row {
     spacing: 10
 

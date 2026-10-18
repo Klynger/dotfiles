@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Services.Notifications
 
 // The notification server: the shell owns org.freedesktop.Notifications
-// (replacing swaync), so popups, the bar bell and the center all read one
+// so popups, the bar bell and the center all read one
 // state. Everything is tracked into history; popups are the recent subset
 // still on screen, and do-not-disturb only silences popups, never history.
 Singleton {

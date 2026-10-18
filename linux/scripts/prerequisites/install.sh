@@ -14,18 +14,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PACMAN_PACKAGES=(
     base-devel git curl
     hyprland hypridle hyprlock uwsm
-    waybar rofi-wayland swaync swww sddm quickshell
+    swww sddm quickshell
     wezterm thunar gvfs btop gnome-calculator
     playerctl wireplumber pavucontrol
     brightnessctl imagemagick libnotify gum glib2 xdg-utils
-    gtk3 gtk4 gtk4-layer-shell desktop-file-utils python-gobject
+    gtk3 gtk4 desktop-file-utils
     noto-fonts ttf-nerd-fonts-symbols adwaita-fonts
     mpv papers adw-gtk-theme impala bluetui
 )
 
 AUR_PACKAGES=(
-    wlogout
-    matugen-bin
     hyprshot
     bibata-cursor-theme-bin
     google-chrome
@@ -137,7 +135,7 @@ install_linuxbrew() {
 
 # The desktop UI font: Adwaita Mono everywhere (adwaita-fonts above covers
 # the plain family for sddm and hyprlock); the Nerd Font patched build is
-# for the surfaces that render glyph icons (bar, rofi, swaync, gtk, wezterm)
+# for the surfaces that render glyph icons (the shell, gtk, wezterm)
 install_nerd_fonts() {
     if fc-list | grep -qi "AdwaitaMono Nerd Font"; then
         warning "AdwaitaMono Nerd Font already installed"

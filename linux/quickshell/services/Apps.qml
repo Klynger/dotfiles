@@ -4,7 +4,7 @@ import Quickshell
 
 // Desktop applications with the fuzzy search the launcher uses. Scoring
 // prefers name prefixes, then word prefixes, substrings, keyword matches
-// and finally scattered subsequences, which is close enough to rofi that
+// and finally scattered subsequences, which is close enough that
 // muscle memory keeps working.
 Singleton {
     id: root

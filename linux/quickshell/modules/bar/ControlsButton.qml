@@ -2,8 +2,7 @@ import QtQuick
 import qs.components
 import qs.services
 
-// Opens the controls drawer, which carries the power row that used to be
-// wlogout's job.
+// Opens the controls drawer, which carries the power row.
 Text {
     text: "⏻"
     color: Panels.controlsOpen ? Theme.accent : Theme.fg

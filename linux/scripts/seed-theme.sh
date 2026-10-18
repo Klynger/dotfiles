@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# Seeds the matugen-generated theme files on a machine that has never run
-# matugen (hypr colors.lua, waybar/gtk/rofi css, ...). They are all
-# gitignored, and without them the first Hyprland session loads half-broken:
-# looknfeel.lua requires colors.lua and waybar imports its css.
+# Seeds the per-machine theme files the repo gitignores: the GTK colors.css
+# copies (mode-dependent, later rewritten by toggle-theme-mode), the
+# hyprlock wallpaper conf and the sddm background. Without them a fresh
+# machine's first session loads with unthemed GTK apps and a bare lock
+# screen.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -11,38 +12,40 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers/current"
 SDDM_THEME_DIR="$SCRIPT_DIR/../sddm/glass"
-# Used when no wallpaper exists yet; change-wallpaper regenerates everything
-# from a real image later
-SEED_COLOR="#7aa2f7"
+GTK3_DIR="$SCRIPT_DIR/../gtk-3.0"
+GTK4_DIR="$SCRIPT_DIR/../gtk-4.0"
+LOCK_WALLPAPER_CONF="$HOME/.cache/hyprlock-wallpaper.conf"
 
 seed_theme() {
-    if [ -e "$HOME/.config/hypr/colors.lua" ]; then
-        warning "Theme files already generated"
-        return
+    # GTK palette: default to dark, toggle-theme-mode swaps it afterwards
+    if [ ! -e "$GTK3_DIR/colors.css" ]; then
+        cp "$GTK3_DIR/colors-dark.css" "$GTK3_DIR/colors.css"
+        info "Seeded the GTK3 colors"
+    fi
+    if [ ! -e "$GTK4_DIR/colors.css" ]; then
+        cp "$GTK3_DIR/colors-dark.css" "$GTK4_DIR/colors.css"
+        info "Seeded the GTK4 colors"
     fi
 
-    if ! hash matugen &>/dev/null; then
-        error "matugen is not installed; run change-wallpaper once it is"
-        return 1
-    fi
-
-    # Post-hooks (hyprctl reload, swaync-client) fail outside a live
-    # session; that is fine, the generated files are the point
     mkdir -p "$WALLPAPER_DIR"
     local wallpaper
     wallpaper="$(find "$WALLPAPER_DIR" -type f 2>/dev/null | head -1)"
-    if [ -n "$wallpaper" ]; then
-        info "Generating theme from $(basename "$wallpaper")…"
-        matugen image "$wallpaper" -c "$HOME/.config/matugen/config.toml" --source-color-index 0
-    else
-        info "No wallpaper in $WALLPAPER_DIR yet; seeding theme from $SEED_COLOR"
-        matugen color hex "$SEED_COLOR" -c "$HOME/.config/matugen/config.toml"
+    if [ -z "$wallpaper" ]; then
+        warning "No wallpaper in $WALLPAPER_DIR yet; skipped the lock and sddm backgrounds"
+        return
     fi
 
-    # The sddm background is normally written by pick-lock-wallpaper
-    if [ -n "$wallpaper" ] && [ ! -e "$SDDM_THEME_DIR/background.jpg" ] && hash magick &>/dev/null; then
+    # The hyprlock fallback sources this conf unconditionally
+    if [ ! -e "$LOCK_WALLPAPER_CONF" ]; then
+        mkdir -p "$(dirname "$LOCK_WALLPAPER_CONF")"
+        echo "\$lock_wallpaper = $wallpaper" >"$LOCK_WALLPAPER_CONF"
+        info "Seeded the hyprlock wallpaper"
+    fi
+
+    # Copied to /usr/share with the rest of the sddm theme by copies-root.sh
+    if [ ! -e "$SDDM_THEME_DIR/background.jpg" ] && hash magick &>/dev/null; then
         magick "$wallpaper" "$SDDM_THEME_DIR/background.jpg"
-        info "Seeded the sddm lock background from the wallpaper"
+        info "Seeded the sddm background from the wallpaper"
     fi
 }
 

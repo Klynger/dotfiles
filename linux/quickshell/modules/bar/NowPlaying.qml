@@ -4,7 +4,7 @@ import Quickshell
 import qs.components
 import qs.services
 
-// The center of the bar, like the old waybar media module: album art and
+// The center of the bar: album art and
 // track when something plays, the focused window title otherwise. Click
 // opens the quick panel, middle click toggles playback, right click skips.
 Item {

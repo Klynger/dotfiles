@@ -90,6 +90,15 @@ hl.window_rule({
     size = { 1500, 880 },
 })
 
+-- The keybindings cheatsheet (show-keybindings), in its own floating terminal
+hl.window_rule({
+    name = "float-keys",
+    match = { class = "^(com\\.klynger\\.keys)$" },
+
+    float = true,
+    size = { 1000, 700 },
+})
+
 -- Workspace 4 (Media/Entertainment)
 hl.window_rule({
     name = "force-tile-youtube-music",
@@ -154,16 +163,4 @@ hl.layer_rule({
     match = { namespace = "quickshell" },
     blur = true,
     ignore_alpha = 0.28,
-})
-
-hl.layer_rule({
-    name = "rofi",
-    match = { namespace = "rofi" },
-    blur = true,
-})
-
-hl.layer_rule({
-    name = "wlogout",
-    match = { namespace = "wlogout" },
-    blur = true,
 })

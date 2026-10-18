@@ -10,9 +10,9 @@ config.font_size = 9
 config.enable_tab_bar = false
 config.window_decorations = "NONE"
 
--- Curated Tokyo Night schemes (built into wezterm) instead of the
--- matugen-generated one: generated ANSI colors had poor contrast in light
--- mode. toggle-theme-mode touches this file so the scheme follows the mode.
+-- Curated Tokyo Night schemes (built into wezterm); generated ANSI palettes
+-- had poor contrast in light mode. toggle-theme-mode touches this file so
+-- the scheme follows the mode.
 --
 -- A force-mode file next to this config, containing "dark" or "light",
 -- pins wezterm to that mode regardless of the system theme. nvim follows

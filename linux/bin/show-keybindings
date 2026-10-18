@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Display Hyprland keybindings in a searchable rofi menu.
-# Reads live keybindings from Hyprland via hyprctl and formats them.
-# Based on omarchy's omarchy-menu-keybindings.
+# Display Hyprland keybindings in a searchable fzf list inside a floating
+# terminal. Reads live keybindings from Hyprland via hyprctl and formats
+# them. Based on omarchy's omarchy-menu-keybindings.
 
 set -euo pipefail
 
@@ -127,9 +127,8 @@ output_keybindings() {
 if [[ "${1:-}" == "--print" || "${1:-}" == "-p" ]]; then
     output_keybindings
 else
-    output_keybindings |
-        rofi -dmenu \
-            -p "Keybindings" \
-            -i \
-            -theme "$HOME/.config/rofi/themes/keybindings.rasi"
+    # The window rule for com.klynger.keys floats and sizes the terminal
+    self="$(readlink -f "${BASH_SOURCE[0]}")"
+    exec wezterm start --class com.klynger.keys -e \
+        bash -c "'$self' --print | fzf --reverse --info=hidden --prompt 'Keybindings> '"
 fi

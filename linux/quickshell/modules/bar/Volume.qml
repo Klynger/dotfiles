@@ -3,7 +3,7 @@ import Quickshell
 import qs.components
 import qs.services
 
-// Mirrors the waybar pulseaudio module: click opens pavucontrol, middle
+// Click opens pavucontrol, middle
 // click mutes the sink, scrolling nudges the volume by 1%.
 Text {
     text: {
