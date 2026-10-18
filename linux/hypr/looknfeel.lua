@@ -62,6 +62,9 @@ hl.config({
         -- Adaptive-Sync only for fullscreen apps: games get tear-free frame
         -- pacing while the desktop stays at a flicker-free fixed 240Hz
         vrr = 2,
+        -- If the lock-screen client ever dies while locked, allow a fresh
+        -- locker (hyprlock from a TTY) to take over instead of a dead end
+        allow_session_lock_restore = true,
     },
 })
 
