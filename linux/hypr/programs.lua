@@ -5,6 +5,6 @@
 return {
     terminal = "wezterm",
     browser = "launch-browser",
-    fileManager = "nautilus",
+    fileManager = "wezterm start --class com.klynger.yazi -e yazi",
     menu = "rofi -show drun",
 }

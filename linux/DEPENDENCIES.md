@@ -25,7 +25,6 @@ External packages required by this configuration.
 | Package | Purpose |
 |---------|---------|
 | wezterm | Terminal emulator |
-| nautilus | File manager |
 | google-chrome | Browser |
 | btop | System monitor |
 | gnome-calculator | Calculator |

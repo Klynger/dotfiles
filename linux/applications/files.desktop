@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Files
+Comment=Browse files with yazi
+Icon=system-file-manager
+Exec=wezterm start --class com.klynger.yazi -e yazi
+Terminal=false
+Categories=System;FileTools;FileManager;
+MimeType=inode/directory;
