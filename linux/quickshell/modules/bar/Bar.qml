@@ -3,11 +3,9 @@ import QtQuick.Layouts
 import Quickshell
 import qs.components
 
-// Still anchored to the bottom edge, out of waybar's way, until the cutover
-// flips it to the top.
 PanelWindow {
     anchors {
-        bottom: true
+        top: true
         left: true
         right: true
     }

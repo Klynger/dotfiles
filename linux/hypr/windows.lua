@@ -130,8 +130,8 @@ hl.window_rule({
 -----------------------
 
 hl.layer_rule({
-    name = "waybar",
-    match = { namespace = "waybar" },
+    name = "quickshell",
+    match = { namespace = "quickshell" },
     blur = false,
 })
 
