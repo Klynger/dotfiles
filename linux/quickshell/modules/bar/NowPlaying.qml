@@ -51,7 +51,7 @@ Item {
             else if (event.button === Qt.RightButton)
                 Media.next();
             else
-                Quickshell.execDetached(["quick-panel"]);
+                Panels.toggleDashboard();
         }
     }
 }

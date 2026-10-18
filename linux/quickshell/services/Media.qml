@@ -21,7 +21,9 @@ Singleton {
     readonly property bool playing: active?.isPlaying ?? false
     readonly property string title: active?.trackTitle ?? ""
     readonly property string artist: active?.trackArtist ?? ""
+    readonly property string album: active?.trackAlbum ?? ""
     readonly property string artUrl: active?.trackArtUrl ?? ""
+    readonly property string playerName: active?.identity ?? ""
 
     function togglePlaying(): void {
         active?.togglePlaying();
@@ -29,5 +31,9 @@ Singleton {
 
     function next(): void {
         active?.next();
+    }
+
+    function previous(): void {
+        active?.previous();
     }
 }
