@@ -1,11 +1,10 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import qs.components
-import qs.services
 
-// Phase 0 scaffold bar: anchored to the bottom edge, out of waybar's way
-// while the two run side by side. It only lists workspaces, to prove the
-// window, the service wiring and hot reload; the real bar is phase 1.
+// Still anchored to the bottom edge, out of waybar's way, until the cutover
+// flips it to the top.
 PanelWindow {
     anchors {
         bottom: true
@@ -16,36 +15,27 @@ PanelWindow {
     implicitHeight: Theme.barHeight
     color: Theme.bg
 
-    Row {
+    WorkspacePills {
+        anchors.left: parent.left
+        anchors.leftMargin: 12
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
+    Clock {
         anchors.centerIn: parent
-        spacing: 6
+    }
 
-        Repeater {
-            model: Workspaces.all
+    RowLayout {
+        anchors.right: parent.right
+        anchors.rightMargin: 12
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: 18
 
-            Rectangle {
-                id: pill
-
-                required property var modelData
-
-                width: 22
-                height: 22
-                radius: 4
-                color: modelData.focused ? Theme.accent : Theme.surface
-
-                Text {
-                    anchors.centerIn: parent
-                    text: pill.modelData.id
-                    color: pill.modelData.focused ? Theme.bg : Theme.fg
-                    font.family: Theme.font
-                    font.pixelSize: Theme.fontSize
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: Workspaces.focus(pill.modelData.id)
-                }
-            }
-        }
+        Volume {}
+        NetworkStatus {}
+        Tray {}
+        ExecButton { text: "󰂯"; command: ["launch-tui", "bluetui"] }
+        ExecButton { text: "󰂜"; command: ["swaync-client", "-t", "-sw"] }
+        ExecButton { text: "⏻"; command: ["wlogout", "-b", "5"] }
     }
 }
