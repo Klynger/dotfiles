@@ -14,7 +14,8 @@ hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("qs ipc call panels toggleControls ||
 hl.bind(mainMod .. " + SHIFT + p", hl.dsp.exec_cmd("hyprlock"), { description = "Lock screen" })
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager), { description = "File manager" })
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.float(), { description = "Toggle floating" })
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(programs.menu), { description = "App launcher" })
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call panels toggleLauncher || " .. programs.menu),
+    { description = "App launcher" })
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo(), { description = "Pseudo tiling" })
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"), { description = "Toggle split" })
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen(), { description = "Fullscreen" })
