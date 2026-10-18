@@ -192,7 +192,7 @@ if [ "$OS" = "linux" ]; then
 
     ./linux/scripts/copy-base-files.sh || error "copy-base-files failed, continuing"
     ./linux/scripts/install-binaries.sh || error "install-binaries failed, continuing"
-    # Before the root copies: the sddm theme's Main.qml is a matugen output
+    # Before the root copies: seed-theme writes the sddm background
     ./linux/scripts/seed-theme.sh || error "seed-theme failed, continuing"
 
     if sudo -n true 2>/dev/null || [ "$NON_INTERACTIVE" = false ]; then

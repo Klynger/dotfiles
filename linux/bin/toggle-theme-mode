@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Flips light/dark everywhere at once: the GTK color scheme, the
-# matugen-generated palettes (gtk css, wezterm, btop, hyprlock, sddm) and
+# matugen-generated palettes (gtk css, btop, hyprlock, ...) and
 # the shell's own theme.
 
 set -euo pipefail

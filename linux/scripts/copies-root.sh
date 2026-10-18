@@ -106,10 +106,16 @@ configure_sddm_theme() {
 
     cat > "$conf_file" <<'CONF'
 [Theme]
-Current=material-you
+Current=glass
 CONF
 
-    success "SDDM theme set to material-you in $conf_file"
+    success "SDDM theme set to glass in $conf_file"
+
+    # Leftover from before the theme was renamed
+    if [[ -d /usr/share/sddm/themes/material-you ]]; then
+        rm -r /usr/share/sddm/themes/material-you
+        info "Removed the old material-you theme"
+    fi
 }
 
 case "${1:-}" in
