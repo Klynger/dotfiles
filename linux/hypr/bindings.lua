@@ -11,7 +11,7 @@ hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(programs.terminal), { descriptio
 hl.bind(mainMod .. " + Q", hl.dsp.window.close(), { description = "Close window" })
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("qs ipc call panels toggleControls || wlogout -b 5"),
     { description = "Controls / power menu" })
-hl.bind(mainMod .. " + SHIFT + p", hl.dsp.exec_cmd("hyprlock"), { description = "Lock screen" })
+hl.bind(mainMod .. " + SHIFT + p", hl.dsp.exec_cmd("qs ipc call lock lock || hyprlock"), { description = "Lock screen" })
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager), { description = "File manager" })
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.float(), { description = "Toggle floating" })
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call panels toggleLauncher || " .. programs.menu),

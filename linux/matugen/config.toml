@@ -46,7 +46,10 @@ output_path = '~/.config/waybar/matugen/colors.css'
 [templates.sddm]
 input_path = '~/.config/matugen/templates/sddm-main.qml'
 output_path = '~/.config/hypr/../sddm/material-you/Main.qml'
-post_hook = 'sudo cp ~/.config/hypr/../sddm/material-you/Main.qml /usr/share/sddm/themes/material-you/Main.qml'
+# Interactive shells may prompt for the password; without a tty only cached
+# sudo is tried, because a failed non-interactive sudo still counts toward
+# the faillock account lockout
+post_hook = 'if [ -t 0 ]; then sudo cp ~/.config/hypr/../sddm/material-you/Main.qml /usr/share/sddm/themes/material-you/Main.qml; else sudo -n cp ~/.config/hypr/../sddm/material-you/Main.qml /usr/share/sddm/themes/material-you/Main.qml 2>/dev/null || true; fi'
 
 # wlogout
 [templates.wlogout]

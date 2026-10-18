@@ -4,6 +4,7 @@ import qs.modules.bar
 import qs.modules.controls
 import qs.modules.dashboard
 import qs.modules.launcher
+import qs.modules.lock
 import qs.modules.notifications
 import qs.modules.osd
 import qs.modules.wallpapers
@@ -20,6 +21,7 @@ ShellRoot {
     Dashboard {}
     Osd {}
     Picker {}
+    Lock {}
 
     // Proves `qs ipc` end to end: qs ipc call shell ping
     IpcHandler {
@@ -70,6 +72,20 @@ ShellRoot {
 
         function muteAll(): void {
             Audio.muteAll();
+        }
+    }
+
+    // The lock screen. unlock is the trial-period escape hatch, reachable
+    // only with a shell as this user (same exposure as pkill hyprlock was)
+    IpcHandler {
+        target: "lock"
+
+        function lock(): void {
+            Locker.lock();
+        }
+
+        function unlock(): void {
+            Locker.unlock();
         }
     }
 }
