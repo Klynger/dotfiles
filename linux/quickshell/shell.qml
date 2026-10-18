@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Io
 import qs.modules.bar
 import qs.modules.controls
+import qs.modules.launcher
 import qs.modules.notifications
 import qs.services
 
@@ -12,6 +13,7 @@ ShellRoot {
     Popups {}
     Center {}
     Drawer {}
+    Launcher {}
 
     // Proves `qs ipc` end to end: qs ipc call shell ping
     IpcHandler {
@@ -35,12 +37,16 @@ ShellRoot {
         }
     }
 
-    // For keybinds: qs ipc call panels toggleControls
+    // For keybinds: qs ipc call panels toggleControls / toggleLauncher
     IpcHandler {
         target: "panels"
 
         function toggleControls(): void {
             Panels.toggleControls();
+        }
+
+        function toggleLauncher(): void {
+            Panels.toggleLauncher();
         }
     }
 
