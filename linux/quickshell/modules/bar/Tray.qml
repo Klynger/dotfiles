@@ -9,6 +9,10 @@ import qs.components
 Row {
     spacing: 10
 
+    // An empty item still claims a slot in the parent layout, leaving double
+    // spacing where the icons were; collapse instead
+    visible: SystemTray.items.values.length > 0
+
     Repeater {
         model: SystemTray.items
 
