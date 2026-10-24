@@ -45,6 +45,9 @@ Singleton {
     readonly property string font: "AdwaitaMono Nerd Font Propo"
     readonly property int fontSize: 13
 
+    // Bar icon glyphs render larger than the shell's text
+    readonly property int barIconSize: 16
+
     readonly property int radius: 12
     readonly property int radiusSmall: 7
 

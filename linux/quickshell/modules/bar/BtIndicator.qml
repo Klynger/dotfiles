@@ -9,7 +9,7 @@ Text {
     text: Bluez.enabled ? (Bluez.connected.length > 0 ? "󰂱" : "󰂯") : "󰂲"
     color: Bluez.enabled ? Theme.fg : Theme.muted
     font.family: Theme.font
-    font.pixelSize: Theme.fontSize
+    font.pixelSize: Theme.barIconSize
 
     MouseArea {
         anchors.fill: parent

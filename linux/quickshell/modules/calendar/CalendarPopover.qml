@@ -25,7 +25,12 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     implicitWidth: 340
     implicitHeight: content.implicitHeight + 28
+    focusable: true
     color: "transparent"
+
+    EscapeCloser {
+        onDismissed: Panels.calendarOpen = false
+    }
 
     onVisibleChanged: {
         if (visible)

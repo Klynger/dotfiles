@@ -19,13 +19,23 @@ RowLayout {
     Text {
         visible: root.showDefault
         text: root.isDefault ? "●" : "○"
-        color: root.isDefault ? Theme.accent : Theme.muted
+        color: root.isDefault || defaultMouse.containsMouse ? Theme.accent : Theme.muted
         font.family: Theme.font
-        font.pixelSize: Theme.fontSize - 2
+        font.pixelSize: Theme.fontSize
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 120
+            }
+        }
 
         MouseArea {
+            id: defaultMouse
+
             anchors.fill: parent
             anchors.margins: -6
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
             onClicked: root.makeDefault()
         }
     }
@@ -50,13 +60,23 @@ RowLayout {
 
     Text {
         text: (root.node.audio?.muted ?? false) ? "󰝟" : "󰕾"
-        color: (root.node.audio?.muted ?? false) ? Theme.muted : Theme.fg
+        color: muteMouse.containsMouse ? Theme.accent : ((root.node.audio?.muted ?? false) ? Theme.muted : Theme.fg)
         font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.pixelSize: Theme.fontSize + 2
+
+        Behavior on color {
+            ColorAnimation {
+                duration: 120
+            }
+        }
 
         MouseArea {
+            id: muteMouse
+
             anchors.fill: parent
             anchors.margins: -6
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
             onClicked: {
                 if (root.node.audio)
                     root.node.audio.muted = !root.node.audio.muted;

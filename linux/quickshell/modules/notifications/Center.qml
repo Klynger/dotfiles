@@ -25,10 +25,15 @@ PanelWindow {
     }
 
     implicitWidth: 420
+    focusable: true
     color: "transparent"
 
     Panel {
         anchors.fill: parent
+    }
+
+    EscapeCloser {
+        onDismissed: Notifs.centerOpen = false
     }
 
     HyprlandFocusGrab {
