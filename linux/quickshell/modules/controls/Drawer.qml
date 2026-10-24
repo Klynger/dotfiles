@@ -210,7 +210,7 @@ PanelWindow {
         // Lock, suspend, logout, reboot, shutdown
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            spacing: 34
+            spacing: 10
 
             Repeater {
                 model: [
@@ -221,13 +221,15 @@ PanelWindow {
                     { icon: "⏻", run: ["hyprshutdown", "-t", "Shutting down...", "-p", "systemctl poweroff"] }
                 ]
 
-                Text {
+                Rectangle {
+                    id: powerButton
+
                     required property var modelData
 
-                    text: modelData.icon
-                    color: powerMouse.containsMouse ? Theme.accent : Theme.fg
-                    font.family: Theme.font
-                    font.pixelSize: Theme.fontSize + 6
+                    radius: Theme.radiusSmall
+                    color: powerMouse.containsMouse ? Theme.surface : "transparent"
+                    implicitWidth: powerIcon.implicitWidth + 36
+                    implicitHeight: powerIcon.implicitHeight + 18
 
                     Behavior on color {
                         ColorAnimation {
@@ -235,17 +237,32 @@ PanelWindow {
                         }
                     }
 
+                    Text {
+                        id: powerIcon
+
+                        anchors.centerIn: parent
+                        text: powerButton.modelData.icon
+                        color: powerMouse.containsMouse ? Theme.accent : Theme.fg
+                        font.family: Theme.font
+                        font.pixelSize: Theme.fontSize + 6
+
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 120
+                            }
+                        }
+                    }
+
                     MouseArea {
                         id: powerMouse
 
                         anchors.fill: parent
-                        anchors.margins: -8
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
 
                         onClicked: {
                             Panels.controlsOpen = false;
-                            Quickshell.execDetached(parent.modelData.run);
+                            Quickshell.execDetached(powerButton.modelData.run);
                         }
                     }
                 }
