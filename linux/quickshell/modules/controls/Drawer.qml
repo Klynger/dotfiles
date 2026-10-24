@@ -26,10 +26,15 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     implicitWidth: 460
     implicitHeight: content.implicitHeight + 28
+    focusable: true
     color: "transparent"
 
     Panel {
         anchors.fill: parent
+    }
+
+    EscapeCloser {
+        onDismissed: Panels.controlsOpen = false
     }
 
     HyprlandFocusGrab {
