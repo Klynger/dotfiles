@@ -167,11 +167,17 @@ PanelWindow {
 
                 Rectangle {
                     radius: 4
-                    color: Theme.bg
-                    border.color: Theme.muted
+                    color: btMouse.containsMouse ? Theme.surface : Theme.bg
+                    border.color: btMouse.containsMouse ? Theme.accent : Theme.muted
                     border.width: 1
                     implicitWidth: btAction.implicitWidth + 16
                     implicitHeight: btAction.implicitHeight + 6
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 120
+                        }
+                    }
 
                     Text {
                         id: btAction
@@ -184,7 +190,11 @@ PanelWindow {
                     }
 
                     MouseArea {
+                        id: btMouse
+
                         anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
                         onClicked: btRow.modelData.connected ? btRow.modelData.disconnect() : btRow.modelData.connect()
                     }
                 }
@@ -215,13 +225,23 @@ PanelWindow {
                     required property var modelData
 
                     text: modelData.icon
-                    color: Theme.fg
+                    color: powerMouse.containsMouse ? Theme.accent : Theme.fg
                     font.family: Theme.font
                     font.pixelSize: Theme.fontSize + 6
 
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 120
+                        }
+                    }
+
                     MouseArea {
+                        id: powerMouse
+
                         anchors.fill: parent
                         anchors.margins: -8
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
 
                         onClicked: {
                             Panels.controlsOpen = false;

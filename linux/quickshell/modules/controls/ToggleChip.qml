@@ -10,9 +10,17 @@ Rectangle {
     signal toggled()
 
     radius: 6
-    color: active ? Theme.accent : Theme.bg
+    color: root.active
+        ? (mouse.containsMouse ? Qt.lighter(Theme.accent, 1.15) : Theme.accent)
+        : (mouse.containsMouse ? Theme.surface : Theme.bg)
     implicitHeight: 30
     implicitWidth: text.implicitWidth + 24
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 120
+        }
+    }
 
     Text {
         id: text
@@ -25,7 +33,11 @@ Rectangle {
     }
 
     MouseArea {
+        id: mouse
+
         anchors.fill: parent
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
         onClicked: root.toggled()
     }
 }
