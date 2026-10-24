@@ -12,7 +12,7 @@ Text {
     }
     color: Notifs.dnd ? Theme.muted : Theme.fg
     font.family: Theme.font
-    font.pixelSize: Theme.fontSize
+    font.pixelSize: Theme.barIconSize
 
     MouseArea {
         anchors.fill: parent

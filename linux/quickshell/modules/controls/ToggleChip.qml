@@ -9,12 +9,12 @@ Rectangle {
 
     signal toggled()
 
-    radius: 6
+    radius: Theme.radiusSmall
     color: root.active
         ? (mouse.containsMouse ? Qt.lighter(Theme.accent, 1.15) : Theme.accent)
         : (mouse.containsMouse ? Theme.surface : Theme.bg)
-    implicitHeight: 30
-    implicitWidth: text.implicitWidth + 24
+    implicitHeight: 36
+    implicitWidth: text.implicitWidth + 32
 
     Behavior on color {
         ColorAnimation {

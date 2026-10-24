@@ -8,9 +8,9 @@ import qs.services
 Rectangle {
     id: root
 
-    width: 36
-    height: 18
-    radius: 9
+    width: 40
+    height: 20
+    radius: 10
     color: Theme.light ? Theme.accent : Theme.surface
     border.color: Theme.panelBorder
     border.width: 1
@@ -18,9 +18,9 @@ Rectangle {
     Rectangle {
         id: knob
 
-        width: 14
-        height: 14
-        radius: 7
+        width: 16
+        height: 16
+        radius: 8
         y: 2
         x: Theme.light ? root.width - width - 2 : 2
         color: Theme.light ? "#f5f6fa" : Theme.muted
@@ -37,7 +37,7 @@ Rectangle {
             text: Theme.light ? "󰖨" : "󰖔"
             color: Theme.light ? Theme.accent : Theme.bg
             font.family: Theme.font
-            font.pixelSize: 9
+            font.pixelSize: 10
         }
     }
 

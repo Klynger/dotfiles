@@ -166,12 +166,12 @@ PanelWindow {
                 }
 
                 Rectangle {
-                    radius: 4
+                    radius: 5
                     color: btMouse.containsMouse ? Theme.surface : Theme.bg
                     border.color: btMouse.containsMouse ? Theme.accent : Theme.muted
                     border.width: 1
-                    implicitWidth: btAction.implicitWidth + 16
-                    implicitHeight: btAction.implicitHeight + 6
+                    implicitWidth: btAction.implicitWidth + 24
+                    implicitHeight: btAction.implicitHeight + 12
 
                     Behavior on color {
                         ColorAnimation {

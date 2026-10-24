@@ -21,7 +21,7 @@ Row {
 
             required property var modelData
 
-            implicitSize: 18
+            implicitSize: 20
             source: modelData.icon
 
             QsMenuAnchor {

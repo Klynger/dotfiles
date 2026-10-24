@@ -21,7 +21,7 @@ RowLayout {
         text: root.isDefault ? "●" : "○"
         color: root.isDefault || defaultMouse.containsMouse ? Theme.accent : Theme.muted
         font.family: Theme.font
-        font.pixelSize: Theme.fontSize - 2
+        font.pixelSize: Theme.fontSize
 
         Behavior on color {
             ColorAnimation {
@@ -62,7 +62,7 @@ RowLayout {
         text: (root.node.audio?.muted ?? false) ? "󰝟" : "󰕾"
         color: muteMouse.containsMouse ? Theme.accent : ((root.node.audio?.muted ?? false) ? Theme.muted : Theme.fg)
         font.family: Theme.font
-        font.pixelSize: Theme.fontSize
+        font.pixelSize: Theme.fontSize + 2
 
         Behavior on color {
             ColorAnimation {
