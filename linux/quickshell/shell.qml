@@ -78,12 +78,20 @@ ShellRoot {
         }
     }
 
-    // The mute key: qs ipc call audio muteAll
+    // The volume keys: qs ipc call audio muteAll / volumeUp / volumeDown
     IpcHandler {
         target: "audio"
 
         function muteAll(): void {
             Audio.muteAll();
+        }
+
+        function volumeUp(): void {
+            Audio.changeVolumeAll(0.05);
+        }
+
+        function volumeDown(): void {
+            Audio.changeVolumeAll(-0.05);
         }
     }
 

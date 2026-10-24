@@ -63,6 +63,17 @@ Singleton {
         }
     }
 
+    // The volume keys, same philosophy as muteAll: nudge every output
+    // device, so the keys work no matter which device the sound is
+    // actually routed to. Each device keeps its own level, shifted
+    // together.
+    function changeVolumeAll(delta: real): void {
+        for (const n of sinks) {
+            if (n.name !== "virtmic" && n.audio)
+                n.audio.volume = Math.max(0, Math.min(1, n.audio.volume + delta));
+        }
+    }
+
     // A human name for a mixer row's stream; || because the fields can be
     // empty strings, not just missing
     function appName(node: PwNode): string {

@@ -60,9 +60,11 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, descrip
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window (drag)" })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+-- Volume moves every output device (like the mute key), so the keys work
+-- no matter which device the sound is routed to
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("qs ipc call audio volumeUp || wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
     { repeating = true, locked = true, description = "Volume up" })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("qs ipc call audio volumeDown || wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
     { repeating = true, locked = true, description = "Volume down" })
 -- Mutes every output device, not just the default sink, so apps routed to
 -- another device (a headset, the monitor) go silent too. The shell owns the
