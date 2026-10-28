@@ -6,26 +6,16 @@ import Quickshell.Widgets
 import qs.components
 import qs.services
 
-// The wallpaper picker: a glass sheet that slides up from the bottom edge,
-// leaving the rest of the screen to the live preview. Two rows of tiles
-// scroll sideways like a filmstrip; hovering or stepping onto a tile
-// previews it behind the shell, enter (or click) keeps it and re-themes
-// through change-wallpaper, escape puts the old one back.
+// The wallpaper picker: a centered glass sheet that rises into place, its
+// tiles cascading in. Rows scroll vertically; hovering or stepping onto a
+// tile previews it live behind the panel, enter (or click) keeps it and
+// re-themes through change-wallpaper, escape puts the old one back.
 PanelWindow {
     id: panel
 
     visible: Panels.wallpapersOpen
 
-    // Bottom-anchored only, so the sheet centers itself: four tiles wide,
-    // two rows tall, the rest of the screen left to the live preview
-    anchors {
-        bottom: true
-    }
-
-    margins {
-        bottom: 8
-    }
-
+    // Unanchored: centered on the output. Four tiles wide, three rows tall
     exclusionMode: ExclusionMode.Ignore
     implicitWidth: 1244
     implicitHeight: content.implicitHeight + 28
@@ -84,8 +74,8 @@ PanelWindow {
         onCleared: Panels.wallpapersOpen = false
     }
 
-    // The sheet rises from the bottom edge on every open. Sized by hand
-    // instead of anchored, so the slide can drive y.
+    // The sheet rises into place on every open. Sized by hand instead of
+    // anchored, so the slide can drive y.
     Item {
         id: sheet
 
@@ -154,11 +144,11 @@ PanelWindow {
                 id: grid
 
                 Layout.fillWidth: true
-                Layout.preferredHeight: 360
+                Layout.preferredHeight: 540
                 clip: true
 
-                // Rows of four scrolling vertically, two rows on screen:
-                // stepping below the bottom row slides the strip up
+                // Rows of four scrolling vertically, three rows on screen:
+                // stepping below the bottom row slides the grid up
                 cellWidth: 304
                 cellHeight: 180
                 model: Wallpapers.files
