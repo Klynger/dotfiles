@@ -3,6 +3,7 @@
 ## Writing style
 
 - Never use the em dash character (—) in any text you produce: chat responses, code, comments, commit messages, PR titles and bodies, docs, and UI copy. Rewrite with a comma, colon, parentheses, or separate sentences instead.
+- Never use a semicolon (;) in prose: chat responses, comments, commit messages, PR titles and bodies, docs, UI copy, and messages drafted for others. Split into separate sentences instead. Code syntax is exempt.
 
 ## Module member ordering
 
