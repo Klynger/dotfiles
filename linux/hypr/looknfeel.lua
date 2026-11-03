@@ -55,6 +55,14 @@ hl.config({
         preserve_split = true,
     },
 
+    render = {
+        -- 0.57 turned auto HDR on by default: entering fullscreen with an
+        -- HDR-capable surface (Chromium offers one) switches the monitor
+        -- into HDR mode, and that modeset blanks the screen for seconds
+        -- while the link re-handshakes. Keep the monitor in SDR instead.
+        cm_auto_hdr = 0,
+    },
+
     misc = {
         force_default_wallpaper = 0,
         disable_hyprland_logo = true,
