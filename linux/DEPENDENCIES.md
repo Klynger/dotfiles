@@ -72,7 +72,7 @@ External packages required by this configuration.
 |---------|---------|
 | bibata-modern-ice-cursor | Cursor theme |
 | papirus-icon-theme | Icon theme (Papirus-Dark / Papirus-Light, flipped by toggle-theme-mode) |
-| papirus-folders (AUR) | Recolors Papirus folders to yellow (`papirus-folders -C yellow --theme Papirus-Dark`), reapplied by its pacman hook on theme updates |
+| scripts/mustard-folders.sh (this repo) | Recolors the Papirus folder icons to mustard via user-local overrides, run it once per machine and again after Papirus updates |
 
 ## Optional (detected dynamically)
 
