@@ -219,11 +219,11 @@ PanelWindow {
 
             Repeater {
                 model: [
-                    { icon: "󰌾", run: ["hyprlock"] },
-                    { icon: "󰍃", run: ["hyprshutdown"] },
-                    { icon: "󰒲", run: ["systemctl", "suspend"] },
-                    { icon: "󰜉", run: ["hyprshutdown", "-t", "Rebooting...", "-p", "systemctl reboot"] },
-                    { icon: "⏻", run: ["hyprshutdown", "-t", "Shutting down...", "-p", "systemctl poweroff"] }
+                    { icon: "󰌾", label: "Lock", run: ["hyprlock"] },
+                    { icon: "󰍃", label: "Logout", run: ["hyprshutdown"] },
+                    { icon: "󰒲", label: "Suspend", run: ["systemctl", "suspend"] },
+                    { icon: "󰜉", label: "Reboot", run: ["hyprshutdown", "-t", "Rebooting...", "-p", "systemctl reboot"] },
+                    { icon: "⏻", label: "Shutdown", run: ["hyprshutdown", "-t", "Shutting down...", "-p", "systemctl poweroff"] }
                 ]
 
                 Rectangle {
@@ -269,6 +269,11 @@ PanelWindow {
                             Panels.controlsOpen = false;
                             Quickshell.execDetached(powerButton.modelData.run);
                         }
+                    }
+
+                    Tooltip {
+                        label: powerButton.modelData.label
+                        hovered: powerMouse.containsMouse
                     }
                 }
             }
