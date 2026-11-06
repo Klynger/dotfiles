@@ -40,7 +40,7 @@ Singleton {
 
     readonly property color fg: light ? "#343b59" : "#c0caf5"
     readonly property color muted: light ? "#6c7398" : "#787fa5"
-    readonly property color accent: light ? "#2e7de9" : "#7aa2f7"
+    readonly property color accent: light ? "#8c6c3e" : "#e0af68"
 
     readonly property string font: "AdwaitaMono Nerd Font Propo"
     readonly property int fontSize: 13
