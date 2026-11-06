@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Switches the desktop between color themes. A theme is a directory of
+# per-app color fragments, looked up in the repo's themes/ first and then
+# in ~/.config/themes/ for local untracked ones. Everything that shows
+# color reads through the ~/.config/current-theme symlink, so switching
+# repoints it and reloads the readers.
+
+set -euo pipefail
+
+script_path="$(readlink -f "${BASH_SOURCE[0]}")"
+repo_root="$(cd "$(dirname "$script_path")/../.." && pwd)"
+repo_themes="$repo_root/themes"
+local_themes="$HOME/.config/themes"
+
+list_themes() {
+    echo "usage: switch-theme <name>"
+    echo
+    echo "Available themes:"
+    for dir in "$repo_themes"/*/ "$local_themes"/*/; do
+        [ -d "$dir" ] && echo "  $(basename "$dir")"
+    done
+}
+
+if [ $# -ne 1 ]; then
+    list_themes
+    exit 1
+fi
+
+name="$1"
+if [ -d "$repo_themes/$name" ]; then
+    theme_dir="$repo_themes/$name"
+elif [ -d "$local_themes/$name" ]; then
+    theme_dir="$local_themes/$name"
+else
+    echo "No theme named '$name'" >&2
+    list_themes >&2
+    exit 1
+fi
+
+ln -sfn "$theme_dir" "$HOME/.config/current-theme"
+
+# Fastfetch cannot source other files, so its config is a symlink into
+# the current theme
+ln -sfn "$HOME/.config/current-theme/fastfetch.jsonc" "$HOME/.config/fastfetch/config.jsonc"
+
+# Papirus folder color, from the theme's declaration
+FOLDER_COLOR=""
+. "$theme_dir/theme.conf"
+if [ -n "$FOLDER_COLOR" ]; then
+    "$repo_root/linux/scripts/papirus-folder-overrides.sh" "$FOLDER_COLOR"
+fi
+
+# GTK reads static copies, refresh them for the active mode
+mode="light"
+if gsettings get org.gnome.desktop.interface color-scheme | grep -q dark; then
+    mode="dark"
+fi
+cp "$theme_dir/gtk-$mode.css" "$HOME/.config/gtk-3.0/colors.css"
+cp "$theme_dir/gtk-$mode.css" "$HOME/.config/gtk-4.0/colors.css"
+
+# Reload the readers: the shell restarts, tmux re-sources, wezterm
+# re-reads its config on touch, hyprlock picks the theme up at lock time
+qs kill 2>/dev/null || true
+(setsid qs >/dev/null 2>&1 &)
+tmux source-file ~/.tmux.conf 2>/dev/null || true
+touch "$HOME/.config/wezterm/wezterm.lua" 2>/dev/null || true
+
+notify-send "Theme: $name" 2>/dev/null || true
+echo "Switched to $name"

@@ -47,12 +47,14 @@ wezterm.add_to_config_reload_watch_list(force_mode_file)
 
 config.color_scheme = color_scheme()
 
--- Warm ground under the Tokyo Night ANSI palette: dark honey instead of
--- the scheme's cold navy, matching the shell's Theme.qml tokens
-if config.color_scheme == "Tokyo Night Day" then
-	config.colors = { background = "#ede4d3", foreground = "#463a28" }
-else
-	config.colors = { background = "#211a12", foreground = "#e8d5b0" }
+-- The current theme (switch-theme repoints ~/.config/current-theme) may
+-- put its own ground under the scheme's ANSI palette
+local theme_ok, theme_colors = pcall(dofile, wezterm.home_dir .. "/.config/current-theme/wezterm.lua")
+if theme_ok and theme_colors then
+	local ground = config.color_scheme == "Tokyo Night Day" and theme_colors.light or theme_colors.dark
+	if ground and ground.background then
+		config.colors = { background = ground.background, foreground = ground.foreground }
+	end
 end
 
 -- Glass: translucent enough for Hyprland's blur to read through, matching

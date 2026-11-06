@@ -1,0 +1,20 @@
+{
+    "light": {
+        "bg": "#e1e2e7",
+        "panel": "#c4e6e7ed",
+        "surface": "#66aab0c4",
+        "panelBorder": "#33343b59",
+        "fg": "#343b59",
+        "muted": "#6c7398",
+        "accent": "#2e7de9"
+    },
+    "dark": {
+        "bg": "#1a1b26",
+        "panel": "#a916161e",
+        "surface": "#73222638",
+        "panelBorder": "#26c0caf5",
+        "fg": "#c0caf5",
+        "muted": "#787fa5",
+        "accent": "#7aa2f7"
+    }
+}

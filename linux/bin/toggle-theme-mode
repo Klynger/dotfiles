@@ -24,8 +24,8 @@ else
     gsettings set org.gnome.desktop.interface icon-theme Papirus-Light
 fi
 
-cp "$HOME/.config/gtk-3.0/colors-$mode.css" "$HOME/.config/gtk-3.0/colors.css"
-cp "$HOME/.config/gtk-3.0/colors-$mode.css" "$HOME/.config/gtk-4.0/colors.css"
+cp "$HOME/.config/current-theme/gtk-$mode.css" "$HOME/.config/gtk-3.0/colors.css"
+cp "$HOME/.config/current-theme/gtk-$mode.css" "$HOME/.config/gtk-4.0/colors.css"
 
 qs ipc call theme setMode "$mode" 2>/dev/null || true
 
