@@ -55,6 +55,10 @@ config.default_prog = {
 	"zsh",
 	"-lc",
 	[[
+    # tmux comes from linuxbrew, whose PATH is set up in the interactive
+    # .zshrc; this login shell is non-interactive, so add it by hand or
+    # tmux is never found and the terminal opens plain zsh
+    export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
     if command -v tmux >/dev/null 2>&1 && [ -z "$TMUX" ]; then
       exec tmux
     else
