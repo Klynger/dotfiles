@@ -31,11 +31,11 @@ Singleton {
     }
 
     // The palette comes from the current theme (~/.config/current-theme,
-    // repointed by switch-theme); the inline honey values keep the shell
-    // alive when the symlink is missing or broken
+    // repointed by switch-theme); the inline tokyo-night values keep the
+    // shell alive when the symlink is missing or broken
     readonly property var fallbackPalette: ({
-        light: { bg: "#ede4d3", panel: "#c4f0e8d7", surface: "#66c0ab89", panelBorder: "#334a3d28", fg: "#463a28", muted: "#8a7a5e", accent: "#8c6c3e" },
-        dark: { bg: "#1e1915", panel: "#a91b1612", surface: "#73332a1f", panelBorder: "#26e8d5b0", fg: "#e8d5b0", muted: "#a08d72", accent: "#e0af68" }
+        light: { bg: "#e1e2e7", panel: "#c4e6e7ed", surface: "#66aab0c4", panelBorder: "#33343b59", fg: "#343b59", muted: "#6c7398", accent: "#2e7de9" },
+        dark: { bg: "#1a1b26", panel: "#a916161e", surface: "#73222638", panelBorder: "#26c0caf5", fg: "#c0caf5", muted: "#787fa5", accent: "#7aa2f7" }
     })
 
     FileView {
