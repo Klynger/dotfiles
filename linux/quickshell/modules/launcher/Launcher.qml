@@ -56,10 +56,12 @@ PanelWindow {
         const row = rows[selected];
         if (!row)
             return;
-        if (row.calc)
+        if (row.calc) {
             Quickshell.execDetached(["wl-copy", calcResult]);
-        else
+        } else {
+            Apps.record(row.entry);
             row.entry.execute();
+        }
         Panels.launcherOpen = false;
     }
 
