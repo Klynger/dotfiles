@@ -18,8 +18,10 @@ gsettings set org.gnome.desktop.interface color-scheme "prefer-$mode"
 gsettings set org.gnome.desktop.interface gtk-theme ""
 if [[ "$mode" == "dark" ]]; then
     gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark
+    gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark
 else
     gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3
+    gsettings set org.gnome.desktop.interface icon-theme Papirus-Light
 fi
 
 cp "$HOME/.config/gtk-3.0/colors-$mode.css" "$HOME/.config/gtk-3.0/colors.css"

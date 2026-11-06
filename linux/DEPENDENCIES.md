@@ -71,6 +71,8 @@ External packages required by this configuration.
 | Package | Purpose |
 |---------|---------|
 | bibata-modern-ice-cursor | Cursor theme |
+| papirus-icon-theme | Icon theme (Papirus-Dark / Papirus-Light, flipped by toggle-theme-mode) |
+| papirus-folders (AUR) | Recolors Papirus folders to yellow (`papirus-folders -C yellow --theme Papirus-Dark`), reapplied by its pacman hook on theme updates |
 
 ## Optional (detected dynamically)
 
