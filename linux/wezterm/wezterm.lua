@@ -47,6 +47,16 @@ wezterm.add_to_config_reload_watch_list(force_mode_file)
 
 config.color_scheme = color_scheme()
 
+-- The current theme (switch-theme repoints ~/.config/current-theme) may
+-- put its own ground under the scheme's ANSI palette
+local theme_ok, theme_colors = pcall(dofile, wezterm.home_dir .. "/.config/current-theme/wezterm.lua")
+if theme_ok and theme_colors then
+	local ground = config.color_scheme == "Tokyo Night Day" and theme_colors.light or theme_colors.dark
+	if ground and ground.background then
+		config.colors = { background = ground.background, foreground = ground.foreground }
+	end
+end
+
 -- Glass: translucent enough for Hyprland's blur to read through, matching
 -- the shell's panels. Light mode keeps more opacity because dark text over
 -- a colorful wallpaper bleed loses contrast much faster than light text

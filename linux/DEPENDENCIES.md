@@ -71,6 +71,8 @@ External packages required by this configuration.
 | Package | Purpose |
 |---------|---------|
 | bibata-modern-ice-cursor | Cursor theme |
+| papirus-icon-theme | Icon theme (Papirus-Dark / Papirus-Light, flipped by toggle-theme-mode) |
+| scripts/papirus-folder-overrides.sh (this repo) | Writes the theme's Papirus folder color as user-local overrides, run by switch-theme and again after Papirus updates |
 
 ## Optional (detected dynamically)
 

@@ -70,7 +70,7 @@ Lua API stubs for the LSP are wired via `.luarc.json` (stubs live in `/usr/share
 
 ### Theming
 
-The theme is static Tokyo Night. The shell's tokens live in `quickshell/components/Theme.qml`; GTK palettes in `gtk-3.0/colors-dark.css`/`colors-light.css` (copied over the gitignored `colors.css` by `toggle-theme-mode`); hyprlock and sddm colors are inline in their configs. Light/dark is driven by the GTK color-scheme gsetting, flipped by `toggle-theme-mode` (bound to the bar's switch); wezterm and nvim follow it on their own.
+Color themes live in `themes/<name>/` at the repo root (honey, tokyo-night), each a directory of per-app fragments: `palette.json` (shell tokens, read by `quickshell/components/Theme.qml`), `gtk-dark.css`/`gtk-light.css` (copied over the gitignored `colors.css` by `toggle-theme-mode`), `hyprlock-colors.conf`, `tmux.conf`, `wezterm.lua`, `fastfetch.jsonc` and `theme.conf` (Papirus folder color). Everything reads through the `~/.config/current-theme` symlink, repointed by `bin/switch-theme` (which also reloads the readers). Local untracked themes go in `~/.config/themes/`. Light/dark is an independent axis: the GTK color-scheme gsetting, flipped by `toggle-theme-mode` (bound to the bar's switch); wezterm and nvim follow it on their own. sddm colors stay inline in its config.
 
 ### bin/ scripts
 

@@ -30,17 +30,44 @@ Singleton {
         }
     }
 
+    // The palette comes from the current theme (~/.config/current-theme,
+    // repointed by switch-theme); the inline tokyo-night values keep the
+    // shell alive when the symlink is missing or broken
+    readonly property var fallbackPalette: ({
+        light: { bg: "#e1e2e7", panel: "#c4e6e7ed", surface: "#66aab0c4", panelBorder: "#33343b59", fg: "#343b59", muted: "#6c7398", accent: "#2e7de9" },
+        dark: { bg: "#1a1b26", panel: "#a916161e", surface: "#73222638", panelBorder: "#26c0caf5", fg: "#c0caf5", muted: "#787fa5", accent: "#7aa2f7" }
+    })
+
+    FileView {
+        id: paletteFile
+
+        path: Quickshell.env("HOME") + "/.config/current-theme/palette.json"
+        blockLoading: true
+        watchChanges: true
+        onFileChanged: reload()
+        printErrors: false
+    }
+
+    readonly property var palette: {
+        try {
+            const p = JSON.parse(paletteFile.text());
+            return light ? p.light : p.dark;
+        } catch (e) {
+            return light ? fallbackPalette.light : fallbackPalette.dark;
+        }
+    }
+
     // Solid base: the lock screen and anything needing full contrast
-    readonly property color bg: light ? "#e1e2e7" : "#1a1b26"
+    readonly property color bg: palette.bg
 
     // Glass: panel is the window surface, surface the cards on top of it
-    readonly property color panel: light ? "#c4e6e7ed" : "#a916161e"
-    readonly property color surface: light ? "#66aab0c4" : "#73222638"
-    readonly property color panelBorder: light ? "#33343b59" : "#26c0caf5"
+    readonly property color panel: palette.panel
+    readonly property color surface: palette.surface
+    readonly property color panelBorder: palette.panelBorder
 
-    readonly property color fg: light ? "#343b59" : "#c0caf5"
-    readonly property color muted: light ? "#6c7398" : "#787fa5"
-    readonly property color accent: light ? "#2e7de9" : "#7aa2f7"
+    readonly property color fg: palette.fg
+    readonly property color muted: palette.muted
+    readonly property color accent: palette.accent
 
     readonly property string font: "AdwaitaMono Nerd Font Propo"
     readonly property int fontSize: 13

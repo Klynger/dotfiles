@@ -8,3 +8,6 @@ systemd/user/timers.target.wants/
 # Machine-specific
 hypr/autostart.lua
 pipewire/pipewire-pulse.conf.d/custom-modules.conf
+
+# Theme-dependent symlink created by switch-theme
+fastfetch/config.jsonc
