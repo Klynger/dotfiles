@@ -47,6 +47,14 @@ wezterm.add_to_config_reload_watch_list(force_mode_file)
 
 config.color_scheme = color_scheme()
 
+-- Warm ground under the Tokyo Night ANSI palette: dark honey instead of
+-- the scheme's cold navy, matching the shell's Theme.qml tokens
+if config.color_scheme == "Tokyo Night Day" then
+	config.colors = { background = "#ede4d3", foreground = "#463a28" }
+else
+	config.colors = { background = "#211a12", foreground = "#e8d5b0" }
+end
+
 -- Glass: translucent enough for Hyprland's blur to read through, matching
 -- the shell's panels. Light mode keeps more opacity because dark text over
 -- a colorful wallpaper bleed loses contrast much faster than light text

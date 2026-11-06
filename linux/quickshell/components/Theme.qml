@@ -31,15 +31,15 @@ Singleton {
     }
 
     // Solid base: the lock screen and anything needing full contrast
-    readonly property color bg: light ? "#e1e2e7" : "#1a1b26"
+    readonly property color bg: light ? "#ede4d3" : "#1e1915"
 
     // Glass: panel is the window surface, surface the cards on top of it
-    readonly property color panel: light ? "#c4e6e7ed" : "#a916161e"
-    readonly property color surface: light ? "#66aab0c4" : "#73222638"
-    readonly property color panelBorder: light ? "#33343b59" : "#26c0caf5"
+    readonly property color panel: light ? "#c4f0e8d7" : "#a91b1612"
+    readonly property color surface: light ? "#66c0ab89" : "#73332a1f"
+    readonly property color panelBorder: light ? "#334a3d28" : "#26e8d5b0"
 
-    readonly property color fg: light ? "#343b59" : "#c0caf5"
-    readonly property color muted: light ? "#6c7398" : "#787fa5"
+    readonly property color fg: light ? "#463a28" : "#e8d5b0"
+    readonly property color muted: light ? "#8a7a5e" : "#a08d72"
     readonly property color accent: light ? "#8c6c3e" : "#e0af68"
 
     readonly property string font: "AdwaitaMono Nerd Font Propo"
