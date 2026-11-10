@@ -16,7 +16,7 @@ PACMAN_PACKAGES=(
     hyprland hypridle hyprlock uwsm
     swww sddm quickshell
     wezterm thunar gvfs btop gnome-calculator
-    tumbler ffmpegthumbnailer webp-pixbuf-loader
+    tumbler ffmpegthumbnailer webp-pixbuf-loader # Thumbnails in thunar
     playerctl wireplumber pavucontrol
     brightnessctl imagemagick libnotify gum glib2 xdg-utils
     gtk3 gtk4 desktop-file-utils
