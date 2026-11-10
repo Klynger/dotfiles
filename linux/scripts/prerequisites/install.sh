@@ -9,26 +9,28 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 . "$SCRIPT_DIR/../utils.sh"
 
-# Official repos (extra unless noted)
+# Official repos (extra unless noted). Each package's purpose is documented
+# in linux/DEPENDENCIES.md. base-devel, git and curl also cover the paru and
+# linuxbrew bootstraps
 PACMAN_PACKAGES=(
-    base-devel git curl # Also cover the paru and linuxbrew bootstraps
-    hyprland hypridle hyprlock uwsm # Compositor, idle daemon, lock, session
-    swww sddm quickshell # Wallpaper, login manager, desktop shell
-    wezterm thunar gvfs btop gnome-calculator # Terminal and desktop apps
-    tumbler ffmpegthumbnailer webp-pixbuf-loader # Thumbnails in thunar
-    playerctl wireplumber pavucontrol # Media and audio control
-    brightnessctl imagemagick libnotify gum glib2 xdg-utils # bin/ script helpers
-    gtk3 gtk4 desktop-file-utils # GTK runtime and .desktop cache
-    noto-fonts ttf-nerd-fonts-symbols adwaita-fonts # Desktop UI and fallback fonts
-    mpv papers adw-gtk-theme impala bluetui # Media viewers, GTK theme, network TUIs
+    base-devel git curl
+    hyprland hypridle hyprlock uwsm
+    swww sddm quickshell
+    wezterm thunar gvfs btop gnome-calculator
+    tumbler ffmpegthumbnailer webp-pixbuf-loader
+    playerctl wireplumber pavucontrol
+    brightnessctl imagemagick libnotify gum glib2 xdg-utils
+    gtk3 gtk4 desktop-file-utils
+    noto-fonts ttf-nerd-fonts-symbols adwaita-fonts
+    mpv papers adw-gtk-theme impala bluetui
 )
 
 AUR_PACKAGES=(
-    hyprshot # Screenshots
-    bibata-cursor-theme-bin # Cursor theme
-    google-chrome # Browser
-    getnf # Nerd Font installer
-    xdg-terminal-exec # Terminal for .desktop apps
+    hyprshot
+    bibata-cursor-theme-bin
+    google-chrome
+    getnf
+    xdg-terminal-exec
 )
 
 install_pacman_packages() {
