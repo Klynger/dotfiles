@@ -22,6 +22,9 @@ External packages required by this configuration.
 | wezterm | Terminal emulator |
 | thunar | File manager (GUI) |
 | gvfs | Trash, mounts and MTP for thunar |
+| tumbler | Thumbnails in thunar (photos, videos, PDFs) |
+| ffmpegthumbnailer | Video thumbnail backend for tumbler |
+| webp-pixbuf-loader | .webp thumbnail support for tumbler |
 | google-chrome | Browser |
 | btop | System monitor |
 | gnome-calculator | Calculator |

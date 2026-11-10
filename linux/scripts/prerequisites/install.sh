@@ -9,13 +9,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 . "$SCRIPT_DIR/../utils.sh"
 
-# Official repos (extra unless noted); base-devel, git and curl also cover
-# the paru and linuxbrew bootstraps
+# Official repos (extra unless noted). Each package's purpose is documented
+# in linux/DEPENDENCIES.md. base-devel, git and curl also cover the paru and
+# linuxbrew bootstraps
 PACMAN_PACKAGES=(
     base-devel git curl
     hyprland hypridle hyprlock uwsm
     swww sddm quickshell
     wezterm thunar gvfs btop gnome-calculator
+    tumbler ffmpegthumbnailer webp-pixbuf-loader
     playerctl wireplumber pavucontrol
     brightnessctl imagemagick libnotify gum glib2 xdg-utils
     gtk3 gtk4 desktop-file-utils
