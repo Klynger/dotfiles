@@ -16,6 +16,5 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("playerctld daemon")
     hl.exec_cmd("qs")
 
-    -- Steam in the tray, ready before the first game launch
-    hl.exec_cmd("steam -silent")
+    hl.exec_cmd("steam")
 end)
